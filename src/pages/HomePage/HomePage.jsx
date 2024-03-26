@@ -6,9 +6,8 @@ import {
   WrapperProducts,
   WrapperTypeProduct,
 } from "./style";
-import slider1 from "../../assets/images/slider1.webp";
-import slider2 from "../../assets/images/slider2.webp";
-import slider3 from "../../assets/images/slider3.webp";
+import hinh1 from "../../assets/images/hinh1.webp";
+import hinh2 from "../../assets/images/hinh2.webp";
 import CardComponent from "../../components/CardComponent/CardComponent";
 import { useQuery } from "@tanstack/react-query";
 import * as ProductService from "../../services/ProductService";
@@ -17,6 +16,7 @@ import { useState } from "react";
 import Loading from "../../components/LoadingComponent/Loading";
 import { useDebounce } from "../../hooks/useDebounce";
 import { useEffect } from "react";
+import NavMenu from "../../components/NavMenu/NavMenu";
 
 const HomePage = () => {
   const searchProduct = useSelector((state) => state?.product?.search);
@@ -56,13 +56,7 @@ const HomePage = () => {
 
   return (
     <Loading isLoading={isLoading || loading}>
-      <div style={{ width: "1270px", margin: "0 auto" }}>
-        <WrapperTypeProduct>
-          {typeProducts.map((item) => {
-            return <TypeProduct name={item} key={item} />;
-          })}
-        </WrapperTypeProduct>
-      </div>
+      <NavMenu />
       <div
         className="body"
         style={{ width: "100%", backgroundColor: "#efefef" }}
@@ -71,7 +65,7 @@ const HomePage = () => {
           id="container"
           style={{ height: "1000px", width: "1270px", margin: "0 auto" }}
         >
-          <SliderComponent arrImages={[slider1, slider2, slider3]} />
+          <SliderComponent arrImages={[hinh1, hinh2]} />
           <WrapperProducts>
             {products?.data?.map((product) => {
               return (

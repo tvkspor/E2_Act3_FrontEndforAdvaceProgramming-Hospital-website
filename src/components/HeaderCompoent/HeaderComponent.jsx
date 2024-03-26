@@ -6,12 +6,14 @@ import {
   WrapperHeaderAccout,
   WrapperTextHeader,
   WrapperTextHeaderSmall,
+  ImgContainer,
 } from "./style";
 import {
   UserOutlined,
   CaretDownOutlined,
   ShoppingCartOutlined,
 } from "@ant-design/icons";
+import flogo from "../../assets/images/flogo.png";
 import ButttonInputSearch from "../ButtonInputSearch/ButttonInputSearch";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -99,7 +101,7 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
         heiht: "100%",
         width: "100%",
         display: "flex",
-        background: "#9255FD",
+        background: "#3a97f4",
         justifyContent: "center",
       }}
     >
@@ -109,7 +111,16 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
             isHiddenSearch && isHiddenSearch ? "space-between" : "unset",
         }}
       >
-        <Col span={5}>
+        <Col>
+          <img
+            src={flogo}
+            style={{
+              width: "30px",
+              height: "30px",
+            }}
+          />
+        </Col>
+        <Col span={4}>
           <WrapperTextHeader to="/">Bệnh viện Thủ Đức</WrapperTextHeader>
         </Col>
         {!isHiddenSearch && (
@@ -118,9 +129,9 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
               size="large"
               bordered={false}
               textbutton="Tìm kiếm"
-              placeholder="input search text"
+              placeholder="Nhập từ khóa muốn tìm kiếm"
               onChange={onSearch}
-              backgroundcolorbutton="#5a20c1"
+              backgroundcolorbutton="#3a97f4"
             />
           </Col>
         )}
