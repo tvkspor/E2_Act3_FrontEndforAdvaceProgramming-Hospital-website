@@ -14,6 +14,7 @@ import SignUpPage from "../pages/SignUpPage/SignUpPage";
 import TypeProductPage from "../pages/TypeProductPage/TypeProductPage";
 import ForgottenPassWordPage from "../pages/ForgottenPassWord/ForgottenPassWordPage";
 
+
 export const routes = [
   {
     path: "/",
@@ -90,4 +91,5 @@ export const routes = [
     page: ForgottenPassWordPage,
     isShowHeader: false,
   },
+
 ];

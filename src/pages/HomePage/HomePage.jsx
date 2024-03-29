@@ -17,6 +17,7 @@ import Loading from "../../components/LoadingComponent/Loading";
 import { useDebounce } from "../../hooks/useDebounce";
 import { useEffect } from "react";
 import NavMenu from "../../components/NavMenu/NavMenu";
+import Home from "../../components/Home/Home";
 
 const HomePage = () => {
   const searchProduct = useSelector((state) => state?.product?.search);
@@ -56,7 +57,8 @@ const HomePage = () => {
 
   return (
     <Loading isLoading={isLoading || loading}>
-      <NavMenu />
+      <NavMenu/>
+      <Home />
       <div
         className="body"
         style={{ width: "100%", backgroundColor: "#efefef" }}

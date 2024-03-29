@@ -6,7 +6,7 @@ import {
   WrapperContainerRight,
   WrapperTextLight,
 } from "./style";
-import imageLogo from "../../assets/images/flogo.png";
+import imageLogo from "../../assets/images/logo.jpg";
 import { Image } from "antd";
 import { EyeFilled, EyeInvisibleFilled } from "@ant-design/icons";
 import { useState } from "react";
@@ -88,7 +88,7 @@ const SignInPage = () => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "rgba(0, 0, 0, 0.53)",
+        background: "linear-gradient(to right, #e2e2e2, #c9d6ff)", // Màu nền
         height: "100vh",
       }}
     >
@@ -96,41 +96,52 @@ const SignInPage = () => {
         style={{
           width: "800px",
           height: "445px",
-          borderRadius: "6px",
+          borderRadius: "30px",
           background: "#fff",
           display: "flex",
+          boxShadow: "0 5px 15px rgba(0, 0, 0, 0.35)", // Đổ bóng
         }}
       >
-        <WrapperContainerLeft>
-          <h1>Xin chào</h1>
-          <p>Đăng nhập và tạo tài khoản</p>
+        <WrapperContainerLeft
+          style={{
+            flex: "1", // Phần tử chiếm một phần tử
+            padding: "30px", // Padding bên trong
+          }}
+        >
+          <h1 style={{ fontSize: "32px", marginBottom: "10px", color: "#16A085", fontWeight: "bold" }}>Xin chào</h1>
+          <p style={{ fontSize: "14px", marginBottom: "20px", color: "#666" }}>
+            Đăng nhập hoặc tạo tài khoản mới
+          </p>
           <InputForm
-            style={{ marginBottom: "10px" }}
-            placeholder="abc@gmail.com"
+            style={{ marginBottom: "20px" }}
+            placeholder="Nhập email của bạn"
             value={email}
             onChange={handleOnchangeEmail}
           />
-          <div style={{ position: "relative" }}>
-            <span
-              onClick={() => setIsShowPassword(!isShowPassword)}
-              style={{
-                zIndex: 10,
-                position: "absolute",
-                top: "4px",
-                right: "8px",
-              }}
-            >
-              {isShowPassword ? <EyeFilled /> : <EyeInvisibleFilled />}
-            </span>
+          <div style={{ position: "relative", marginBottom: "20px" }}>
             <InputForm
-              placeholder="password"
+              placeholder="Nhập mật khẩu"
               type={isShowPassword ? "text" : "password"}
               value={password}
               onChange={handleOnchangePassword}
             />
+            <span
+              onClick={() => setIsShowPassword(!isShowPassword)}
+              style={{
+                position: "absolute",
+                top: "50%",
+                right: "10px",
+                transform: "translateY(-50%)",
+                cursor: "pointer",
+              }}
+            >
+              {isShowPassword ? <EyeFilled /> : <EyeInvisibleFilled />}
+            </span>
           </div>
           {data?.status === "ERR" && (
-            <span style={{ color: "red" }}>{data?.message}</span>
+            <span style={{ color: "red", marginBottom: "20px" }}>
+              {data?.message}
+            </span>
           )}
           <Loading isLoading={isLoading}>
             <ButtonComponent
@@ -138,12 +149,12 @@ const SignInPage = () => {
               onClick={handleSignIn}
               size={40}
               styleButton={{
-                background: "rgb(255, 57, 69)",
+                background: "#16A085",
                 height: "48px",
                 width: "100%",
                 border: "none",
                 borderRadius: "4px",
-                margin: "26px 0 10px",
+                marginBottom: "20px",
               }}
               textbutton={"Đăng nhập"}
               styleTextButton={{
@@ -151,34 +162,58 @@ const SignInPage = () => {
                 fontSize: "15px",
                 fontWeight: "700",
               }}
+              onMouseEnter={(e) => { e.target.style.opacity = "0.8"; }}
+              onMouseLeave={(e) => { e.target.style.opacity = "1"; }}
             ></ButtonComponent>
           </Loading>
           <p>
-            <WrapperTextLight onClick={handleForgotPassw}>
+            <WrapperTextLight
+              style={{ fontSize: "14px", color: "#666", cursor: "pointer" }}
+              onClick={handleForgotPassw}
+              onMouseEnter={(e) => { e.target.style.textDecoration = "underline"; }}
+              onMouseLeave={(e) => { e.target.style.textDecoration = "none"; }}
+            >
               Quên mật khẩu?
             </WrapperTextLight>
           </p>
-          <p>
+          <p style={{ fontSize: "14px", color: "#666" }}>
             Chưa có tài khoản?{" "}
-            <WrapperTextLight onClick={handleNavigateSignUp}>
-              {" "}
+            <WrapperTextLight
+              style={{ color: "#16A085", cursor: "pointer" }}
+              onClick={handleNavigateSignUp}
+              onMouseEnter={(e) => { e.target.style.textDecoration = "underline"; }}
+              onMouseLeave={(e) => { e.target.style.textDecoration = "none"; }}
+            >
               Tạo tài khoản
             </WrapperTextLight>
           </p>
         </WrapperContainerLeft>
-        <WrapperContainerRight>
+        <WrapperContainerRight
+          style={{
+            flex: "1", // Phần tử chiếm một phần tử
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "30px", // Padding bên trong
+          }}
+        >
           <Image
             src={imageLogo}
             preview={false}
             alt="iamge-logo"
-            height="203px"
-            width="203px"
+            height="280px"
+            width="280px"
+            style={{ marginBottom: "20px" }}
           />
-          <h4>Chăm sóc sức khỏe cùng chúng tôi</h4>
+          <h4 style={{ fontSize: "24px", color: "#16A085", fontWeight: "bold" }}>
+            YOUR HEALTH, OUR MISSION
+          </h4>
         </WrapperContainerRight>
       </div>
     </div>
   );
+  
 };
 
 export default SignInPage;
