@@ -13,6 +13,8 @@ import SignInPage from "../pages/SignInPage/SignInPage";
 import SignUpPage from "../pages/SignUpPage/SignUpPage";
 import TypeProductPage from "../pages/TypeProductPage/TypeProductPage";
 import ForgottenPassWordPage from "../pages/ForgottenPassWord/ForgottenPassWordPage";
+import KhoaPage from "../pages/KhoaPage/KhoaPage";
+import BookingPage from "../pages/BookingPage/BookingPage";
 
 
 export const routes = [
@@ -92,4 +94,15 @@ export const routes = [
     isShowHeader: false,
   },
 
+  {
+    path: "/khoa",
+    page: KhoaPage,
+    isShowHeader: true,
+  },
+
+  {
+    path: "/booking",
+    page: BookingPage,
+    isShowHeader: true,
+  },
 ];

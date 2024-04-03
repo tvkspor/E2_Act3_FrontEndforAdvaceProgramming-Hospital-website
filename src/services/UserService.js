@@ -77,3 +77,9 @@ export const deleteManyUser = async (data, access_token) => {
     })
     return res.data
 }
+
+
+export const Booking  = async (data) => {
+    const res = await axios.post(`${process.env.REACT_APP_API_URL}/user/booking`, data)
+    return res.data
+}
