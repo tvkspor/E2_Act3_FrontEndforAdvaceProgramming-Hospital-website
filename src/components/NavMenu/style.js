@@ -73,6 +73,7 @@ export const WrapperNav = styled.div`
 .nav-header {
 
   justify-content: space-between; /* Đảm bảo các phần con được căn giữa và căn đều */
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
 }
 
 .logo {

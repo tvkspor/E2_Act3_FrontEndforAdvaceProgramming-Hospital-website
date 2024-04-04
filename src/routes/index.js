@@ -15,6 +15,8 @@ import TypeProductPage from "../pages/TypeProductPage/TypeProductPage";
 import ForgottenPassWordPage from "../pages/ForgottenPassWord/ForgottenPassWordPage";
 import KhoaPage from "../pages/KhoaPage/KhoaPage";
 import BookingPage from "../pages/BookingPage/BookingPage";
+import DoctorPage from "../pages/DoctorPage/DoctorPage";
+import MedicalEquipment from "../pages/medicalequipment/medicalequipment";
 
 
 export const routes = [
@@ -103,6 +105,18 @@ export const routes = [
   {
     path: "/booking",
     page: BookingPage,
+    isShowHeader: true,
+  },
+
+  {
+    path: "/doctor",
+    page: DoctorPage,
+    isShowHeader: true,
+  },
+
+  {
+    path: "/medicalequipment",
+    page: MedicalEquipment,
     isShowHeader: true,
   },
 ];

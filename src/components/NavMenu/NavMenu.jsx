@@ -99,6 +99,12 @@ const Navbar = () => {
     else if(type === "booking") {
       navigate("/booking");
     }
+    else if(type === "/") {
+      navigate("/");
+    }
+    else if(type === "doctor") {
+      navigate("/doctor");
+    }
     else if (type === "my-order") {
       navigate("/my-order", {
         state: {
@@ -144,7 +150,7 @@ const Navbar = () => {
     <WrapperNav>
       <Layout>
         <Layout.Header className="nav-header">
-          <div className="logo" style={{cursor: "pointer", fontWeight: "bold", fontSize: "16px"}}>
+          <div className="logo" style={{cursor: "pointer", fontWeight: "bold", fontSize: "16px"}} onClick={() => handleClickNavigate("/")}>
             <img src={logo} alt="Logo" style={{width: "50px", height: "50px"}}/>
             Hospital
           </div>
@@ -225,9 +231,9 @@ const Navbar = () => {
             </div>
           ) : (
             <Menu mode="horizontal" className="rightMenu">
-              <Menu.Item key="home">Trang chủ</Menu.Item>
+              <Menu.Item key="home" onClick={() => handleClickNavigate("/")}>Trang chủ</Menu.Item>
               <Menu.Item key="specialist" onClick={() => handleClickNavigate("khoa")}>Chuyên Khoa</Menu.Item>
-              <Menu.Item key="expert">Chuyên gia</Menu.Item>
+              <Menu.Item key="expert" onClick={() => handleClickNavigate("doctor")}>Chuyên gia</Menu.Item>
               <Menu.Item key="news">Tin tức</Menu.Item>
               <Menu.Item key="book">Đặt khám</Menu.Item>
               <Menu.Item key="bill">Hoá đơn</Menu.Item>

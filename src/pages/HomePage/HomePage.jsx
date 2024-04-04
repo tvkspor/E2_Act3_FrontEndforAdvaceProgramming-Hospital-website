@@ -57,7 +57,7 @@ const HomePage = () => {
 
   return (
     <Loading isLoading={isLoading || loading}>
-      <NavMenu/>
+
       <Home />
       <div
         className="body"
