@@ -1,6 +1,5 @@
 // import React from "react";
 import styled from "styled-components";
-// import BG from '../../assets/images/background.jpg'
 
 export const PageTitle = styled.div`
   position: relative;
@@ -47,19 +46,42 @@ export const PageTitleh1 = styled.h1`
     margin: 0 0px;
     word-break: break-word;
 `;
-export const PageTitleul = styled.ul`
-    font-size: 15px;
-    line-height: initial;
-    margin: 5px -15px 10px;
-    list-style: none;
+export const BodyPage = styled.body`
+    position: relative;
+    background-repeat: no-repeat;
+    background-position: left top;
+    padding: 120px 0;
+    background-color: #fafafa;
+    margin: auto;
+`;
+export const SearchKhoa = styled.div`
+    box-sizing: border-box;
+    margin: 0px;
     padding: 0px;
 `;
-
-
+export const SearchList = styled.div`
+    padding-top: 20vh;
+    width: 40%;
+    margin: auto;
+    display: inline-flexbox;
+    flex-direction: column;
+    align-items: center;
+    min-width: 200px;
+`;
+export const InputWrapper = styled.div`
+    background-color: white;
+    width: 100%;
+    border-radius: 2.5rem;
+    padding: 0 15px;
+    box-shadow: 0px 0px 8px #ddd;
+    display: flex;
+    align-items: center
+    
+`;
 export const ServicesTow = styled.section`
     position: relative;
     background-repeat: no-repeat;
-    background-position: center top;
+    background-position: left top;
     padding: 120px 0;
     background-color: #fafafa;
     margin: auto;
@@ -74,7 +96,7 @@ export const Roww = styled.div`
     flex-wrap: wrap;
     margin-right: -15px;
     margin-left: -15px;
-`
+`;
 export const BlockTwo = styled.div`
     padding: 20px;
     position: relative;
@@ -102,28 +124,44 @@ export const ImageBox = styled.div`
     }
 `;
 export const Image = styled.figure`
-    position: relative;
-    margin-bottom: 0;
-    overflow: hidden;
-    margin: 0 0 1rem;
+  position: relative;
+  margin-bottom: 0;
+  overflow: hidden;
+  margin: 0 0 1rem;
 `;
+
 export const Img = styled.img`
-    position: relative;
-    display: block;
-    width: 100%;
-    -webkit-transition: all 300ms ease;
-    -moz-transition: all 300ms ease;
-    -ms-transition: all 300ms ease;
-    -o-transition: all 300ms ease;
-    transition: all 300ms ease;
-    &::hover{
-        -webkit-transform: scale(1.2);
-        -moz-transform: scale(1.2);
-        -ms-transform: scale(1.2);
-        -o-transform: scale(1.2);
-        transform: scale(1.2);
-    }
-`
+  position: relative;
+display: block;
+  width: 100%;
+  transition: all 300ms ease;
+  &:hover {
+    transform: scale(1.2);
+  }
+`;
+// export const Image = styled.figure`
+//     position: relative;
+//     margin-bottom: 0;
+//     overflow: hidden;
+//     margin: 0 0 1rem;
+// `;
+// export const Img = styled.img`
+//     position: relative;
+//     display: block;
+//     width: 100%;
+//     -webkit-transition: all 300ms ease;
+//     -moz-transition: all 300ms ease;
+//     -ms-transition: all 300ms ease;
+//     -o-transition: all 300ms ease;
+//     transition: all 300ms ease;
+//     &::hover{
+//         -webkit-transform: scale(1.2);
+//         -moz-transform: scale(1.2);
+//         -ms-transform: scale(1.2);
+//         -o-transform: scale(1.2);
+//         transform: 'scale(1.2)';
+//     }
+// `
 export const LowerContent = styled.div`
     position: relative;
     padding: 30px 20px 40px;

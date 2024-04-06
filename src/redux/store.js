@@ -2,6 +2,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import productReducer from './slides/productSlide'
 import userReducer from './slides/userSlide'
 import orderReducer from './slides/orderSlide'
+import doctorReducer from './slides/doctorSlide'
 import {
   persistStore,
   persistReducer,
@@ -18,13 +19,14 @@ const persistConfig = {
   key: 'root',
   version: 1,
   storage,
-  blacklist: ['product','user']
+  blacklist: ['product','user','doctor']
 }
 
 const rootReducer = combineReducers({
   product: productReducer,
   user: userReducer,
-  order: orderReducer
+  order: orderReducer,
+  doctor: doctorReducer,
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

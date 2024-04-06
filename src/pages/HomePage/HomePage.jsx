@@ -59,7 +59,7 @@ const HomePage = () => {
     <Loading isLoading={isLoading || loading}>
 
       <Home />
-      <div
+      {/* <div
         className="body"
         style={{ width: "100%", backgroundColor: "#efefef" }}
       >
@@ -125,7 +125,7 @@ const HomePage = () => {
             />
           </div>
         </div>
-      </div>
+      </div> */}
     </Loading>
   );
 };

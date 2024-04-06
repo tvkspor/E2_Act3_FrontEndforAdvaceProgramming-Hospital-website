@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useDebounce } from "../../hooks/useDebounce";
 import { useEffect } from "react";
 import { Col } from "antd";
+import DoctorComponent from "../../components/DoctorComponent/DoctorComponent";
 import {
     WrapperDoctorsBoxContainer, WrapperDoctorsBoxContainerBox, WrapperHeading, WrapperHeadingSpan, WrapperTextCenter, WrapperH1,
     WrapperAfter, WrapperFilterForm, WrapperFilterChuyenGIa, WrapperContainer, WrapperContainerRow, WrapperContainerRowDiv,
@@ -14,7 +15,7 @@ import {
     WrapperDivDoiTac, WrapperDivHeThong, WrapperHeThongImg, WrapperImgInf, WrapperInfTP, WrapperInfTPA, WrapperInfTPI,
     WrapperInfTPIDiv, WrapperInfTPIDivA, WrapperProducts, WrapperButtonMore, WrapperSection,
 } from "./style";
-import doctor_background from "../../assets/images/doctor_background_2.jpg";
+import doctor_background from "../../assets/images/doctor_background.jpg";
 import ButtonInputSearch from "../../components/ButtonInputSearch/ButttonInputSearch"
 import {
     faChevronRight,
@@ -32,39 +33,45 @@ import DoctorCardComponent from "../../components/DoctorCardComponent/DoctorCard
 
 const DoctorPage = () => {
 
-        const searchDoctor = useSelector((state) => state?.doctor?.search);
-        const searchDebounce = useDebounce(searchDoctor, 500);
-        const [limit, setLimit] = useState(5);
-        const [typeDoctors, setTypeDoctors] = useState([]);
+    const searchDoctor = useSelector((state) => state?.doctor?.search);
+    const searchDebounce = useDebounce(searchDoctor, 500);
+    const [loading, setLoading] = useState(false);
+    const [limit, setLimit] = useState(4);
+    const [typeDoctors, setTypeDoctors] = useState([]);
 
-        const fetchDoctortAll = async (context) => {
-            const limit = context?.queryKey && context?.queryKey[1];
-            const search = context?.queryKey && context?.queryKey[2];
-            const res = await DoctorService.getAllDoctor(search, limit);
+    const fetchDoctorAll = async (context) => {
+        const limit = context?.queryKey && context?.queryKey[1];
+        const search = context?.queryKey && context?.queryKey[2];
+        const res = await DoctorService.getAllDoctor(search, limit);
 
-            return res;
-        };
+        return res;
+    };
 
-        const fetchAllTypeDoctor = async () => {
-            const res = await DoctorService.getAllTypedoctor();
-            if (res?.status === "OK") {
-                setTypeDoctors(res?.data);
-            }
-        };
+    const fetchAllTypeDoctor = async () => {
+        const res = await DoctorService.getAllDoctor();
+        if (res?.status === "OK") {
+            setTypeDoctors(res?.data);
+        }
+    };
 
-        const {
-            isLoading,
-            data: doctors,
-            isPreviousData,
-        } = useQuery(["doctors", limit, searchDebounce], fetchDoctortAll, {
-            retry: 3,
-            retryDelay: 1000,
-            keepPreviousData: true,
-        });
+    const {
+        isLoading,
+        data: doctors,
+        isPreviousData,
+    } = useQuery(["doctors", limit, searchDebounce], fetchDoctorAll, {
+        retry: 3,
+        retryDelay: 1000,
+        keepPreviousData: true,
+    });
 
-        useEffect(() => {
-            fetchAllTypeDoctor();
-        }, []);
+    useEffect(() => {
+        fetchAllTypeDoctor();
+    }, []);
+
+    const loadMore = () => {
+        setLimit(prevLimit => prevLimit + 4); // Increase limit by 3 each time
+    };
+
 
         return (
             <WrapperSection className="doctors" id="doctors">
@@ -74,25 +81,7 @@ const DoctorPage = () => {
                 < div>
                     <img src={doctor_background} alt="" style={{ height: "auto", display: "block", width: "100%", align: "center" }}></img>
                 </div>
-                <div style={{ display: "flex", padding: "2rem" }}>
-                    <Col span={6}>                                                                     </Col>
-                    <Col span={12}>
-                        <ButtonInputSearch
-                            border="1px solid rgba(0, 0, 0, 0.05)"
-                            size="medium"
-                            width="100%"
-                            display="inline-block"
-                            bordered={false}
-                            textbutton="Tìm kiếm"
-                            placeholder="Tìm bác sĩ"
-                            // onChange={onSearch}
-                            backgroundcolorbutton="#16a085"
-                            backgroundColorInput="#b5bab6"
-
-                        />
-                    </Col>
-                    <Col span={6}></Col>
-                </div>
+                <DoctorComponent />
 
                 <WrapperFilterForm className="filter-Form">
                     <WrapperHeading>
@@ -264,44 +253,31 @@ const DoctorPage = () => {
                             })}
                         </WrapperDoctorsBoxContainer>
                     </WrapperProducts>
-                    <div
-                        style={{
-                            width: "100%",
-                            display: "flex",
-                            justifyContent: "center",
-                            marginTop: "10px",
+                    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+                    <button onClick={loadMore} style={{
+                        border: '2px solid green',
+                        borderRadius: '5px',
+                        padding: '10px 20px',
+                        color: 'green',
+                        fontWeight: 'bold',
+                        transition: 'all 0.3s ease',
+                        cursor: 'pointer'
+                    }}
+                        onMouseOver={(e) => {
+                            e.currentTarget.style.background = 'green';
+                            e.currentTarget.style.color = 'white';
+                        }}
+                        onMouseOut={(e) => {
+                            e.currentTarget.style.background = 'transparent';
+                            e.currentTarget.style.color = 'green';
                         }}
                     >
-                        <WrapperButtonMore
-                            textbutton={isPreviousData ? "Load more" : "Xem thêm"}
-                            type="outline"
-                            styleButton={{
-                                border: `0.2rem solid ${doctors?.total === doctors?.data?.length
-                                    ? "#f5f5f5"
-                                    : "#9255FD"
-                                    }`,
-                                color: `${doctors?.total === doctors?.data?.length
-                                    ? "#f5f5f5"
-                                    : "#9255FD"
-                                    }`,
-                                width: "240px",
-                                height: "38px",
-                                borderRadius: "4px",
-                            }}
-                            disabled={
-                                doctors?.total === doctors?.data?.length ||
-                                doctors?.totalPage === 1
-                            }
-                            styleTextButton={{
-                                fontWeight: 500,
-                                color: doctors?.total === doctors?.data?.length && "#fff",
-                            }}
-                            onClick={() => setLimit((prev) => prev + 5)}
-                        />
-                    </div>
+                        Load More
+                    </button>
+                </div>
                 </div>
 
-                <WrapperTextCenter>
+                {/* <WrapperTextCenter>
                     <WrapperHeading>
                         <WrapperH1>
                             LIÊN HỆ CHÚNG TÔI
@@ -340,7 +316,7 @@ const DoctorPage = () => {
                             </WrapperInfTPIDiv>
                         </WrapperImgInf>
                     </WrapperDivHeThong>
-                </WrapperDivDoiTac>
+                </WrapperDivDoiTac> */}
 
             </WrapperSection >
         )

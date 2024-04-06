@@ -21,6 +21,7 @@ import {
   faMapMarkerAlt,
   faUserCircle,
   faBars,
+  faMapMarker,
 } from "@fortawesome/free-solid-svg-icons";
 import { 
   faFacebookF,
@@ -29,6 +30,18 @@ import {
   faTwitter,
   faPinterest,
 } from "@fortawesome/free-brands-svg-icons"
+
+import {
+    WrapperDoctorsBoxContainer, WrapperDoctorsBoxContainerBox, WrapperHeading, WrapperHeadingSpan, WrapperTextCenter, WrapperH1,
+    WrapperAfter, WrapperFilterForm, WrapperFilterChuyenGIa, WrapperContainer, WrapperContainerRow, WrapperContainerRowDiv,
+    WrapperLabel, WrapperContainerRowDiv2, WrapperContainerRowFlexMobile, WrapperContainerRowFlexMobileDiv, WrapperSelect,
+    WrapperDivDoiTac, WrapperDivHeThong, WrapperHeThongImg, WrapperImgInf, WrapperInfTP, WrapperInfTPA, WrapperInfTPI,
+    WrapperInfTPIDiv, WrapperInfTPIDivA, WrapperProducts, WrapperButtonMore, WrapperSection,
+} from "./style";
+
+import bg_ta1 from "../../assets/images/bg_ta1.jpg"
+import bg_ta2 from "../../assets/images/bg_ta2.jpg"
+
 
 
 function Footer() {
@@ -136,12 +149,14 @@ function Footer() {
                 </a>
             </div>
             </div>
-            <div className="credit">
+            {/* <div className="credit">
             {" "}
             created by <span> designer </span> | all rights reserve{" "}
-            </div>
+            </div> */}
         </section>
     );
+
+    
 }
 
 export default Footer;

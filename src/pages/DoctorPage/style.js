@@ -19,7 +19,7 @@ export const WrapperHeading = styled.h1`
 `;
 
 export const WrapperDoctorsBoxContainer = styled.div`
-    display: flex;
+    display: grid;
     grid-template-columns: repeat(auto-fit, minmax(27rem, 1fr));
     gap : 2rem;
     padding: 5rem 9%;

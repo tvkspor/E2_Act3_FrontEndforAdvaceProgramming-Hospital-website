@@ -235,7 +235,7 @@ const Navbar = () => {
               <Menu.Item key="specialist" onClick={() => handleClickNavigate("khoa")}>Chuyên Khoa</Menu.Item>
               <Menu.Item key="expert" onClick={() => handleClickNavigate("doctor")}>Chuyên gia</Menu.Item>
               <Menu.Item key="news">Tin tức</Menu.Item>
-              <Menu.Item key="book">Đặt khám</Menu.Item>
+              <Menu.Item key="book" onClick={() => handleClickNavigate("booking")}>Đặt khám</Menu.Item>
               <Menu.Item key="bill">Hoá đơn</Menu.Item>
               <Menu.Item key="contact">Liên Hệ</Menu.Item>
 

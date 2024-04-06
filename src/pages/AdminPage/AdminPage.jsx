@@ -27,6 +27,7 @@ const AdminPage = () => {
     getItem("Người dùng", "users", <UserOutlined />),
     getItem("Sản phẩm", "products", <AppstoreOutlined />),
     getItem("Đơn hàng", "orders", <ShoppingCartOutlined />),
+    getItem("Bác sĩ", "doctors", <UserOutlined />),
   ];
 
   const [keySelected, setKeySelected] = useState("");
@@ -37,13 +38,11 @@ const AdminPage = () => {
 
   const getAllProducts = async () => {
     const res = await ProductService.getAllProduct();
-    console.log("res1", res);
     return { data: res?.data, key: "products" };
   };
 
   const getAllUsers = async () => {
     const res = await UserService.getAllUser(user?.access_token);
-    console.log("res", res);
     return { data: res?.data, key: "users" };
   };
 
@@ -67,6 +66,7 @@ const AdminPage = () => {
       return result;
     }
   }, [queries]);
+
   const COLORS = {
     users: ["#e66465", "#9198e5"],
     products: ["#a8c0ff", "#3f2b96"],
@@ -91,12 +91,12 @@ const AdminPage = () => {
   };
   return (
     <>
-      <HeaderComponent isHiddenSearch isHiddenCart />
+      {/* <HeaderComponent isHiddenCart /> */}
       <div style={{ display: "flex", overflowX: "hidden" }}>
         <Menu
           mode="inline"
           style={{
-            width: 256,
+            width: 180,
             boxShadow: "1px 1px 2px #ccc",
             height: "100vh",
           }}

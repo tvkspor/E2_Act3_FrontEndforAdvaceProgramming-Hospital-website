@@ -47,6 +47,9 @@ import thanhtuu6 from "../../assets/images/thanhtuu6.jpeg"
 import booking from "../../assets/images/booking.jpg"
 import intro from "../../assets/images/intro.jpg"
 import introhome from "../../assets/images/introhome.jpg"
+import ronaldo from "../../assets/images/ronaldo.jpg"
+import messi from "../../assets/images/messi.webp"
+import mbappe from "../../assets/images/mbappe.webp"
 
 
 function Home() {
@@ -61,7 +64,7 @@ function Home() {
         </div>
         <div className="content">
           <h3>stay safe, stay healthy</h3>
-          <p>Everything is Daijoubu</p>
+          {/* <p>Everything is Daijoubu</p> */}
           <a href="#" className="btn">
             {" "}
             liên hệ <span className="fas fa-chevron-right" > <FontAwesomeIcon icon={faChevronRight}/> </span> 
@@ -100,7 +103,7 @@ function Home() {
           <div className="box">
             <i className="fas fa-notes-medical"><FontAwesomeIcon icon={faNotesMedical}/></i>
             <h3>TƯ VẤN MIỄN PHÍ</h3>
-            <p>Everything is Daijoubu</p>
+            {/* <p>Everything is Daijoubu</p> */}
             <a href="#" className="btn">
               {" "}
               xem thêm <span className="fas fa-chevron-right"><FontAwesomeIcon icon={faChevronRight}/></span>
@@ -109,7 +112,7 @@ function Home() {
           <div className="box">
             <i className="fas fa-ambulance"><FontAwesomeIcon icon={faAmbulance}/></i>
             <h3>CẤP CỨU 24/7</h3>
-            <p>Everything is Daijoubu</p>
+            {/* <p>Everything is Daijoubu</p> */}
             <a href="#" className="btn">
               {" "}
               xem thêm <span className="fas fa-chevron-right"><FontAwesomeIcon icon={faChevronRight}/></span>
@@ -118,7 +121,7 @@ function Home() {
           <div className="box">
             <i className="fas fa-user-md"><FontAwesomeIcon icon={faUserMd}/></i>
             <h3>BÁC SĨ CHUYÊN KHOA</h3>
-            <p>Everything is Daijoubu</p>
+            {/* <p>Everything is Daijoubu</p> */}
             <a href="#" className="btn">
               {" "}
               xem thêm <span className="fas fa-chevron-right"><FontAwesomeIcon icon={faChevronRight}/></span>{" "}
@@ -126,8 +129,8 @@ function Home() {
           </div>
           <div className="box">
             <i className="fas fa-pills"><FontAwesomeIcon icon={faPills}/></i>
-            <h3>THUỐC</h3>
-            <p>Everything is Daijoubu</p>
+            <h3>THUỐC MỚI NHẤT</h3>
+            {/* <p>Everything is Daijoubu</p> */}
             <a href="#" className="btn">
               {" "}
               xem thêm <span className="fas fa-chevron-right"><FontAwesomeIcon icon={faChevronRight}/></span>{" "}
@@ -136,7 +139,7 @@ function Home() {
           <div className="box">
             <i className="fas fa-procedures"><FontAwesomeIcon icon={faProcedures}/></i>
             <h3>CƠ SỞ VẬT CHẤT TỐT</h3>
-            <p>Everything is Daijoubu</p>
+            {/* <p>Everything is Daijoubu</p> */}
             <a href="#" className="btn">
               {" "}
               xem thêm <span className="fas fa-chevron-right"><FontAwesomeIcon icon={faChevronRight}/></span>{" "}
@@ -145,13 +148,13 @@ function Home() {
           <div className="box">
             <i className="fas fa-heartbeat"><FontAwesomeIcon icon={faHeartbeat}/></i>
             <h3>TẬN TÂM CHĂM SÓC</h3>
-            <p>Everything is Daijoubu</p>
+            {/* <p>Everything is Daijoubu</p> */}
             <a href="#" className="btn">
               {" "}
               xem thêm <span className="fas fa-chevron-right"><FontAwesomeIcon icon={faChevronRight}/></span>
             </a>
           </div>
-          <div className="box">
+          {/* <div className="box">
             <i className="fas fa-user-nurse"><FontAwesomeIcon icon={faUserNurse}/></i>
             <h3>attentive nurse</h3>
             <p>Everything is Daijoubu</p>
@@ -168,7 +171,7 @@ function Home() {
               {" "}
               xem thêm <span className="fas fa-chevron-right"><FontAwesomeIcon icon={faChevronRight}/></span>
             </a>
-          </div>
+          </div> */}
         </div>
       </section>
       {/* services section starts*/}
@@ -202,7 +205,7 @@ function Home() {
       </section>
       {/* about section end*/}
       {/* doctor section starts*/}
-      <section className="doctors" id="doctors">
+      {/* <section className="doctors" id="doctors">
         <h1 className="heading">
           {" "}
           our <span>doctors</span>{" "}
@@ -297,10 +300,10 @@ function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
       {/* doctor section ends*/}
       {/* booking section starts */}
-      <section className="book" id="book">
+      {/* <section className="book" id="book">
         <h1 className="heading">
           {" "}
           <span>ĐẶT</span> LỊCH{" "}
@@ -318,18 +321,18 @@ function Home() {
             <input type="submit" value="đặt ngay" className="btn" />
           </form>
         </div>
-      </section>
+      </section> */}
       {/* booking section ends */}
       {/* review section starts */}
       <section className="review" id="review">
         <h1 className="heading">
           {" "}
-          client's<span>review</span>{" "}
+          ĐÁNH<span> GIÁ</span>{" "}
         </h1>
         <div className="box-container">
           <div className="box">
-            <img src={doctor} alt="" />
-            <h3>john deo</h3>
+            <img src={ronaldo} alt="" />
+            <h3>Ronaldo</h3>
             <div className="stars">
               <i className="fas fa-star"><FontAwesomeIcon icon={faStar}/></i>
               <i className="fas fa-star"><FontAwesomeIcon icon={faStar}/></i>
@@ -339,15 +342,13 @@ function Home() {
             </div>
             <p className="text">
               {" "}
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Voluptatibus laboriosam quaerat omnis rem dolores sapiente
-              obcaecati dolor ducimus consequatur magnam nesciunt optio,
-              deserunt alias, facilis error placeat? Facere, eligendi dolorum?
+              Tôi đã có trải nghiệm tuyệt vời tại Bệnh Viện. Đội ngũ y tế chuyên nghiệp và thân thiện, 
+              dịch vụ chăm sóc bệnh nhân tận tình. Điều này khiến tôi cảm thấy an tâm và tin tưởng hoàn toàn trong quá trình điều trị.
             </p>
           </div>
           <div className="box">
-            <img src={doctor} alt="" />
-            <h3>john deo</h3>
+            <img src={messi} alt="" />
+            <h3>Messi</h3>
             <div className="stars">
               <i className="fas fa-star"><FontAwesomeIcon icon={faStar}/></i>
               <i className="fas fa-star"><FontAwesomeIcon icon={faStar}/></i>
@@ -357,15 +358,14 @@ function Home() {
             </div>
             <p className="text">
               {" "}
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Voluptatibus laboriosam quaerat omnis rem dolores sapiente
-              obcaecati dolor ducimus consequatur magnam nesciunt optio,
-              deserunt alias, facilis error placeat? Facere, eligendi dolorum?
+              Bệnh Viện là một nơi tuyệt vời để nhận điều trị. Phòng khám sạch sẽ và tiện nghi, 
+              đội ngũ y tế thân thiện và nhiệt tình. Tôi rất ấn tượng với cách họ xử lý và chăm sóc bệnh nhân. 
+              Sẽ quay lại nếu cần.
             </p>
           </div>
           <div className="box">
-            <img src={doctor} alt="" />
-            <h3>john deo</h3>
+            <img src={mbappe} alt="" />
+            <h3>Mbappe</h3>
             <div className="stars">
               <i className="fas fa-star"><FontAwesomeIcon icon={faStar}/></i>
               <i className="fas fa-star"><FontAwesomeIcon icon={faStar}/></i>
@@ -375,10 +375,8 @@ function Home() {
             </div>
             <p className="text">
               {" "}
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Voluptatibus laboriosam quaerat omnis rem dolores sapiente
-              obcaecati dolor ducimus consequatur magnam nesciunt optio,
-              deserunt alias, facilis error placeat? Facere, eligendi dolorum?
+              Tôi rất hài lòng với dịch vụ tại Bệnh Viện. Thời gian chờ đợi ngắn, bác sĩ và y tá rất chuyên nghiệp và tận tình. 
+              Bên cạnh đó, hệ thống quản lý lịch hẹn của họ cũng rất hiệu quả. Sẽ giới thiệu cho bạn bè và gia đình của tôi.
             </p>
           </div>
         </div>

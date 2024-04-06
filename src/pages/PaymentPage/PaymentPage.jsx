@@ -29,7 +29,6 @@ const PaymentPage = () => {
   const order = useSelector((state) => state.order);
   const user = useSelector((state) => state.user);
 
-  const [delivery, setDelivery] = useState("fast");
   const [payment, setPayment] = useState("later_money");
   const navigate = useNavigate();
   const [sdkReady, setSdkReady] = useState(false);
@@ -63,7 +62,7 @@ const PaymentPage = () => {
   const handleChangeAddress = () => {
     setIsOpenModalUpdateInfo(true);
   };
-
+  // Tính toán tiền bạc các thứ
   const priceMemo = useMemo(() => {
     const result = order?.orderItemsSlected?.reduce((total, cur) => {
       return total + cur.price * cur.amount;
@@ -82,21 +81,9 @@ const PaymentPage = () => {
     return 0;
   }, [order]);
 
-  const diliveryPriceMemo = useMemo(() => {
-    if (priceMemo > 200000) {
-      return 10000;
-    } else if (priceMemo === 0) {
-      return 0;
-    } else {
-      return 20000;
-    }
-  }, [priceMemo]);
-
   const totalPriceMemo = useMemo(() => {
-    return (
-      Number(priceMemo) - Number(priceDiscountMemo) + Number(diliveryPriceMemo)
-    );
-  }, [priceMemo, priceDiscountMemo, diliveryPriceMemo]);
+    return Number(priceMemo) - Number(priceDiscountMemo);
+  }, [priceMemo, priceDiscountMemo]);
 
   const handleAddOrder = () => {
     if (
@@ -119,7 +106,6 @@ const PaymentPage = () => {
         city: user?.city,
         paymentMethod: payment,
         itemsPrice: priceMemo,
-        shippingPrice: diliveryPriceMemo,
         totalPrice: totalPriceMemo,
         user: user?.id,
         email: user?.email,
@@ -155,14 +141,13 @@ const PaymentPage = () => {
       });
       dispatch(removeAllOrderProduct({ listChecked: arrayOrdered }));
       message.success("Đặt hàng thành công");
-      navigate("/orderSuccess", {
-        state: {
-          delivery,
-          payment,
-          orders: order?.orderItemsSlected,
-          totalPriceMemo: totalPriceMemo,
-        },
-      });
+      // navigate("/orderSuccess", {
+      //   state: {
+      //     payment,
+      //     orders: order?.orderItemsSlected,
+      //     totalPriceMemo: totalPriceMemo,
+      //   },
+      // });
     } else if (isError) {
       message.error();
     }
@@ -177,25 +162,6 @@ const PaymentPage = () => {
     });
     form.resetFields();
     setIsOpenModalUpdateInfo(false);
-  };
-
-  const onSuccessPaypal = (details, data) => {
-    mutationAddOrder.mutate({
-      token: user?.access_token,
-      orderItems: order?.orderItemsSlected,
-      fullName: user?.name,
-      address: user?.address,
-      phone: user?.phone,
-      city: user?.city,
-      paymentMethod: payment,
-      itemsPrice: priceMemo,
-      shippingPrice: diliveryPriceMemo,
-      totalPrice: totalPriceMemo,
-      user: user?.id,
-      isPaid: true,
-      paidAt: details.update_time,
-      email: user?.email,
-    });
   };
 
   const handleUpdateInforUser = () => {
@@ -219,33 +185,10 @@ const PaymentPage = () => {
       [e.target.name]: e.target.value,
     });
   };
-  const handleDilivery = (e) => {
-    setDelivery(e.target.value);
-  };
 
   const handlePayment = (e) => {
     setPayment(e.target.value);
   };
-
-  const addPaypalScript = async () => {
-    const { data } = await PaymentService.getConfig();
-    const script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src = `https://www.paypal.com/sdk/js?client-id=${data}`;
-    script.async = true;
-    script.onload = () => {
-      setSdkReady(true);
-    };
-    document.body.appendChild(script);
-  };
-
-  useEffect(() => {
-    if (!window.paypal) {
-      addPaypalScript();
-    } else {
-      setSdkReady(true);
-    }
-  }, []);
 
   return (
     <div style={{ background: "#f5f5fa", with: "100%", height: "100vh" }}>
@@ -254,25 +197,6 @@ const PaymentPage = () => {
           <h3>Thanh toán</h3>
           <div style={{ display: "flex", justifyContent: "center" }}>
             <WrapperLeft>
-              <WrapperInfo>
-                <div>
-                  <Lable>Chọn phương thức giao hàng</Lable>
-                  <WrapperRadio onChange={handleDilivery} value={delivery}>
-                    <Radio value="fast">
-                      <span style={{ color: "#ea8500", fontWeight: "bold" }}>
-                        FAST
-                      </span>{" "}
-                      Giao hàng tiết kiệm
-                    </Radio>
-                    <Radio value="gojek">
-                      <span style={{ color: "#ea8500", fontWeight: "bold" }}>
-                        GO_JEK
-                      </span>{" "}
-                      Giao hàng tiết kiệm
-                    </Radio>
-                  </WrapperRadio>
-                </div>
-              </WrapperInfo>
               <WrapperInfo>
                 <div>
                   <Lable>Chọn phương thức thanh toán</Lable>
@@ -345,18 +269,7 @@ const PaymentPage = () => {
                       alignItems: "center",
                       justifyContent: "space-between",
                     }}
-                  >
-                    <span>Phí giao hàng</span>
-                    <span
-                      style={{
-                        color: "#000",
-                        fontSize: "14px",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      {convertPrice(diliveryPriceMemo)}
-                    </span>
-                  </div>
+                  ></div>
                 </WrapperInfo>
                 <WrapperTotal>
                   <span>Tổng tiền</span>

@@ -1,37 +1,160 @@
-import { Button, Form, Space } from 'antd'
-import React from 'react'
-import { WrapperHeader, WrapperUploadFile } from './style'
-import TableComponent from '../TableComponent/TableComponent'
-import InputComponent from '../InputComponent/InputComponent'
-import DrawerComponent from '../DrawerComponent/DrawerComponent'
-import Loading from '../LoadingComponent/Loading'
-import ModalComponent from '../ModalComponent/ModalComponent'
-import { convertPrice, getBase64 } from '../../utils'
-import { useEffect } from 'react'
-import * as message from '../Message/Message'
-
-import * as OrderService from '../../services/OrderService'
-import { useQuery } from '@tanstack/react-query'
-import { DeleteOutlined, EditOutlined, SearchOutlined } from '@ant-design/icons'
-import { useSelector } from 'react-redux'
-import { orderContant } from '../../contant'
-import PieChartComponent from './PieChart'
+import { Button, Form, Space, Select } from "antd";
+import React from "react";
+import { WrapperHeader, WrapperUploadFile, CustomCheckbox } from "./style";
+import TableComponent from "../TableComponent/TableComponent";
+import InputComponent from "../InputComponent/InputComponent";
+import { convertPrice, getBase64 } from "../../utils";
+import { useState } from "react";
+import { useEffect } from "react";
+import * as OrderService from "../../services/OrderService";
+import * as DoctorService from "../../services/DoctorService";
+import { useQuery } from "@tanstack/react-query";
+import { CheckOutlined, EditOutlined, SearchOutlined } from "@ant-design/icons";
+import { useSelector } from "react-redux";
+import * as ProductService from "../../services/ProductService";
+import * as UserService from "../../services/UserService";
+import Loading from "../../components/LoadingComponent/Loading";
+import { orderContant } from "../../contant";
+import PieChartComponent from "./PieChart";
+import { useMutationHooks } from "../../hooks/useMutationHook";
+import DrawerComponent from "../DrawerComponent/DrawerComponent";
+import * as message from "../../components/Message/Message";
 
 const OrderAdmin = () => {
-  const user = useSelector((state) => state?.user)
+  const [isOpenDrawer, setIsOpenDrawer] = useState(false);
 
+  const order = useSelector((state) => state?.order);
+  const user = useSelector((state) => state?.user);
+  const [rowSelected, setRowSelected] = useState("");
+  const [isLoadingUpdate, setIsLoadingUpdate] = useState(false);
+
+  const inittial = () => ({
+    paymentMethod: "",
+    itemsPrice: 0,
+    totalPrice: 0,
+    doctor: "",
+    isChecked: false,
+    user: "",
+  });
+  const [stateOrderDetails, setStateOrderDetails] = useState(inittial());
+  const [form] = Form.useForm();
+
+  const mutation = useMutationHooks((data) => {
+    const { paymentMethod, itemsPrice, totalPrice } = data;
+    const res = ProductService.createProduct({
+      paymentMethod,
+      itemsPrice,
+      totalPrice,
+    });
+    return res;
+  });
+
+  const mutationUpdate = useMutationHooks((data) => {
+    const { id, ...rests } = data;
+    const res = OrderService.updateOrder(id, { ...rests });
+    return res;
+  });
+
+  const mutationUpdateTreatment = useMutationHooks((data) => {
+    const { id } = data;
+    const res = UserService.updateTreatment(id);
+    return res;
+  });
+
+  const { data, isLoading, isSuccess, isError } = mutation;
+  const {
+    data: dataUpdated,
+    isLoading: isLoadingUpdated,
+    isSuccess: isSuccessUpdated,
+    isError: isErrorUpdated,
+  } = mutationUpdate;
+  const {
+    data: dataUpdatedTreatment,
+    isLoading: isLoadingUpdatedTreatment,
+    isSuccess: isSuccessUpdatedTreatment,
+    isError: isErrorUpdatedTreatment,
+  } = mutationUpdateTreatment;
+
+  useEffect(() => {
+    if (rowSelected && isOpenDrawer) {
+      setIsLoadingUpdate(true);
+      fetchGetDetailsOrder(rowSelected);
+    }
+  }, [rowSelected, isOpenDrawer]);
+
+  const handleDetailsOrder = () => {
+    setIsOpenDrawer(true);
+  };
+
+  useEffect(() => {
+    form.setFieldsValue(stateOrderDetails);
+  }, [form, stateOrderDetails]);
+
+  const handleCloseDrawer = () => {
+    setIsOpenDrawer(false);
+    setStateOrderDetails({
+      paymentMethod: "",
+      itemsPrice: 0,
+      totalPrice: 0,
+    });
+    form.resetFields();
+  };
+
+  useEffect(() => {
+    if (isSuccessUpdated && dataUpdated?.status === "OK") {
+      message.success();
+      handleCloseDrawer();
+    } else if (isErrorUpdated) {
+      message.error();
+    }
+  }, [isSuccessUpdated]);
+
+  const handleChecked = () => {
+    mutationUpdateTreatment.mutate({
+      id: rowSelected,
+    });
+    mutationUpdate.mutate(
+      { id: rowSelected, isChecked: true },
+      {
+        onSettled: () => {
+          queryOrder.refetch();
+        },
+      }
+    );
+  };
+
+  const renderAction = () => {
+    return (
+      <div>
+        <EditOutlined
+          style={{ color: "orange", fontSize: "30px", cursor: "pointer" }}
+          onClick={handleDetailsOrder}
+        />
+        <a> </a>
+        <CheckOutlined
+          style={{ color: "green", fontSize: "30px", cursor: "pointer" }}
+          onClick={handleChecked}
+        />
+      </div>
+    );
+  };
 
   const getAllOrder = async () => {
-    const res = await OrderService.getAllOrder(user?.access_token)
-    return res
-  }
+    const res = await OrderService.getAllOrder(user?.access_token);
+    return res;
+  };
 
+  const queryOrder = useQuery({ queryKey: ["orders"], queryFn: getAllOrder });
 
-  const queryOrder = useQuery({ queryKey: ['orders'], queryFn: getAllOrder })
-  const { isLoading: isLoadingOrders, data: orders } = queryOrder
+  const { isLoading: isLoadingOrders, data: orders } = queryOrder;
 
   const getColumnSearchProps = (dataIndex) => ({
-    filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
+    filterDropdown: ({
+      setSelectedKeys,
+      selectedKeys,
+      confirm,
+      clearFilters,
+    }) => (
       <div
         style={{
           padding: 8,
@@ -42,11 +165,13 @@ const OrderAdmin = () => {
           // ref={searchInput}
           placeholder={`Search ${dataIndex}`}
           value={selectedKeys[0]}
-          onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+          onChange={(e) =>
+            setSelectedKeys(e.target.value ? [e.target.value] : [])
+          }
           // onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
           style={{
             marginBottom: 8,
-            display: 'block',
+            display: "block",
           }}
         />
         <Space>
@@ -76,7 +201,7 @@ const OrderAdmin = () => {
     filterIcon: (filtered) => (
       <SearchOutlined
         style={{
-          color: filtered ? '#1890ff' : undefined,
+          color: filtered ? "#1890ff" : undefined,
         }}
       />
     ),
@@ -87,83 +212,195 @@ const OrderAdmin = () => {
         // setTimeout(() => searchInput.current?.select(), 100);
       }
     },
-    // render: (text) =>
-    //   searchedColumn === dataIndex ? (
-    //     // <Highlighter
-    //     //   highlightStyle={{
-    //     //     backgroundColor: '#ffc069',
-    //     //     padding: 0,
-    //     //   }}
-    //     //   searchWords={[searchText]}
-    //     //   autoEscape
-    //     //   textToHighlight={text ? text.toString() : ''}
-    //     // />
-    //   ) : (
-    //     text
-    //   ),
   });
+
+  const fetchGetDetailsOrder = async (rowSelected) => {
+    const res = await OrderService.getDetailsOrder(rowSelected);
+    if (res?.data) {
+      setStateOrderDetails({
+        paymentMethod: res?.data?.paymentMethod,
+        itemsPrice: res?.data?.itemsPrice,
+        totalPrice: res?.data?.totalPrice,
+      });
+    }
+    setIsLoadingUpdate(false);
+  };
 
   const columns = [
     {
-      title: 'User name',
-      dataIndex: 'userName',
+      title: "Tên bệnh nhân",
+      dataIndex: "userName",
       sorter: (a, b) => a.userName.length - b.userName.length,
-      ...getColumnSearchProps('userName')
+      ...getColumnSearchProps("userName"),
     },
     {
-      title: 'Phone',
-      dataIndex: 'phone',
-      sorter: (a, b) => a.phone.length - b.phone.length,
-      ...getColumnSearchProps('phone')
+      title: "Các liệu trình đăng kí",
+      dataIndex: "orderItems",
+      render: (orderItems) => (
+        <ul>
+          {orderItems.map((item, index) => (
+            <li key={index}>Name: {item.name}</li>
+          ))}
+        </ul>
+      ),
     },
     {
-      title: 'Address',
-      dataIndex: 'address',
-      sorter: (a, b) => a.address.length - b.address.length,
-      ...getColumnSearchProps('address')
+      title: "Được phê duyệt",
+      dataIndex: "isChecked",
+      ...getColumnSearchProps("isChecked"),
     },
     {
-      title: 'Paided',
-      dataIndex: 'isPaid',
-      sorter: (a, b) => a.isPaid.length - b.isPaid.length,
-      ...getColumnSearchProps('isPaid')
+      title: "Bác sĩ được phân công",
+      dataIndex: "doctor",
+      ...getColumnSearchProps("doctor"),
     },
     {
-      title: 'Shipped',
-      dataIndex: 'isDelivered',
-      sorter: (a, b) => a.isDelivered.length - b.isDelivered.length,
-      ...getColumnSearchProps('isDelivered')
-    },
-    {
-      title: 'Payment method',
-      dataIndex: 'paymentMethod',
-      sorter: (a, b) => a.paymentMethod.length - b.paymentMethod.length,
-      ...getColumnSearchProps('paymentMethod')
-    },
-    {
-      title: 'Total price',
-      dataIndex: 'totalPrice',
-      sorter: (a, b) => a.totalPrice.length - b.totalPrice.length,
-      ...getColumnSearchProps('totalPrice')
+      title: "Action",
+      dataIndex: "action",
+      render: renderAction,
     },
   ];
 
-  const dataTable = orders?.data?.length && orders?.data?.map((order) => {
-    console.log('usewr', order)
-    return { ...order, key: order._id, userName: order?.shippingAddress?.fullName, phone: order?.shippingAddress?.phone, address: order?.shippingAddress?.address, paymentMethod: orderContant.payment[order?.paymentMethod],isPaid: order?.isPaid ? 'TRUE' :'FALSE',isDelivered: order?.isDelivered ? 'TRUE' : 'FALSE', totalPrice: convertPrice(order?.totalPrice)}
-  })
+  const dataTable =
+    orders?.data?.length &&
+    orders?.data?.map((order) => {
+      return {
+        ...order,
+        key: order._id,
+        orderItems: order?.orderItems,
+        userName: order?.shippingAddress?.fullName,
+        phone: order?.shippingAddress?.phone,
+        address: order?.shippingAddress?.address,
+        paymentMethod: orderContant.payment[order?.paymentMethod],
+        isChecked: order?.isChecked ? "TRUE" : "FALSE",
+        totalPrice: convertPrice(order?.totalPrice),
+      };
+    });
+
+  const handleOnchangeDetails = (e) => {
+    setStateOrderDetails({
+      ...stateOrderDetails,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const onUpdateOrder = () => {
+    mutationUpdate.mutate(
+      { id: rowSelected, ...stateOrderDetails },
+      {
+        onSettled: () => {
+          queryOrder.refetch();
+        },
+      }
+    );
+  };
+
+  const onUpdateTreatment = () => {
+    mutationUpdateTreatment.mutate({
+      id: stateOrderDetails.user,
+      ...stateOrderDetails,
+    });
+  };
+  const handleChangeSelect = (value) => {
+    setStateOrderDetails({
+      ...stateOrderDetails,
+      doctor: value,
+    });
+  };
+
+  const renderOptions = (arr) => {
+    let results = [];
+    if (arr) {
+      results = arr?.map((opt) => {
+        return {
+          value: opt,
+          label: opt,
+        };
+      });
+    }
+    return results;
+  };
+
+  const fetchAllTypeDoctor = async () => {
+    const res = await DoctorService.getAllDoctor();
+    return res;
+  };
+
+  const typeDoctor = useQuery({
+    queryKey: ["type-product"],
+    queryFn: fetchAllTypeDoctor,
+  });
 
   return (
     <div>
       <WrapperHeader>Quản lý đơn hàng</WrapperHeader>
-      <div style={{height: 200, width:200}}>
+      <div style={{ height: 200, width: 200 }}>
         <PieChartComponent data={orders?.data} />
       </div>
-      <div style={{ marginTop: '20px' }}>
-        <TableComponent  columns={columns} isLoading={isLoadingOrders} data={dataTable} />
+      <div style={{ marginTop: "20px" }}>
+        <TableComponent
+          columns={columns}
+          isLoading={isLoadingOrders}
+          data={dataTable}
+          onRow={(record, rowIndex) => {
+            return {
+              onClick: (event) => {
+                setRowSelected(record._id);
+              },
+            };
+          }}
+        />
       </div>
-    </div>
-  )
-}
+      <DrawerComponent
+        title="Chi tiết đơn hàng"
+        isOpen={isOpenDrawer}
+        onClose={() => setIsOpenDrawer(false)}
+        width="90%"
+      >
+        <Loading isLoading={isLoadingUpdate || isLoadingUpdated}>
+          <Form
+            name="basic"
+            labelCol={{ span: 2 }}
+            wrapperCol={{ span: 22 }}
+            onFinish={onUpdateOrder}
+            autoComplete="on"
+            form={form}
+          >
+            <Form.Item
+              label="itemsPrice"
+              name="itemsPrice"
+              rules={[
+                { required: true, message: "Please input your itemsPrice!" },
+              ]}
+            >
+              <InputComponent
+                value={stateOrderDetails["itemsPrice"]}
+                onChange={handleOnchangeDetails}
+                name="itemsPrice"
+              />
+            </Form.Item>
+            <Form.Item
+              label="Bác sĩ(thay đổi)"
+              name="doctor"
+              rules={[{ required: true, message: "Please choose doctor!" }]}
+            >
+              <Select
+                name="doctor"
+                value={stateOrderDetails["Name"]}
+                onChange={handleChangeSelect}
+                options={renderOptions(typeDoctor?.data?.data)}
+              />
+            </Form.Item>
 
-export default OrderAdmin
+            <Form.Item wrapperCol={{ offset: 20, span: 16 }}>
+              <Button type="primary" htmlType="submit">
+                Apply
+              </Button>
+            </Form.Item>
+          </Form>
+        </Loading>
+      </DrawerComponent>
+    </div>
+  );
+};
+
+export default OrderAdmin;
