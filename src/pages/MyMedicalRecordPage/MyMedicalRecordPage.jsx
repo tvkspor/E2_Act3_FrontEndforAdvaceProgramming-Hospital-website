@@ -6,6 +6,8 @@ import React, { useRef } from "react";
 import { SearchOutlined } from "@ant-design/icons";
 import TableUserComponent from "../../components/TableUserComponent/TableUserComponent";
 import * as UserService from "../../services/UserService";
+import { Badge, Calendar } from "antd";
+import moment from "moment";
 
 const MyMedicalRecordPage = () => {
   const user = useSelector((state) => state.user);
@@ -18,6 +20,11 @@ const MyMedicalRecordPage = () => {
 
   const getTreatment = async () => {
     const res = await UserService.getTreatment(user?.id);
+    return res;
+  };
+
+  const getEventData = async () => {
+    const res = await UserService.getEventData(user?.id);
     return res;
   };
 
@@ -164,8 +171,32 @@ const MyMedicalRecordPage = () => {
       return { ...treatmenthistory, key: treatmenthistory._id };
     });
 
+  var eventData = user?.eventData;
+
+  const dateCellRender = (value) => {
+    const eventsForDate = eventData.filter(
+      (event) =>
+        event.date === value.date() &&
+        event.month === value.month() &&
+        event.year === value.year()
+    );
+    return (
+      <div className="notes-month">
+        {eventsForDate.map((event, index) => (
+          <div key={index}>
+            <Badge key={index} status={event.type} text={event.content} />
+          </div>
+        ))}
+      </div>
+    );
+  };
+
   return (
     <div>
+      <h1 style={{ color: "#000", fontSize: "14px" }}>
+        Lịch trình điều trị (cập nhật liên tục)
+      </h1>
+      <Calendar dateCellRender={dateCellRender} />
       <h1 style={{ color: "#000", fontSize: "14px" }}>Gói chữa bệnh của tôi</h1>
       <div style={{ marginTop: "20px" }}>
         <TableUserComponent

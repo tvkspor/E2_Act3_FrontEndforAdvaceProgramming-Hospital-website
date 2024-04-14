@@ -1,5 +1,6 @@
 import AdminPage from "../pages/AdminPage/AdminPage";
 import DetailsOrderPage from "../pages/DetailsOrderPage/DetailsOrderPage";
+import Home from "../components/Home/Home";
 import HomePage from "../pages/HomePage/HomePage";
 import MyOrderPage from "../pages/MyOrder/MyOrder";
 import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
@@ -12,17 +13,18 @@ import ProfilePage from "../pages/Profile/ProfilePage";
 import SignInPage from "../pages/SignInPage/SignInPage";
 import SignUpPage from "../pages/SignUpPage/SignUpPage";
 import TypeProductPage from "../pages/TypeProductPage/TypeProductPage";
-import ForgottenPassWordPage from "../pages/ForgottenPassWord/ForgottenPassWordPage";import KhoaPage from "../pages/KhoaPage/KhoaPage";
+import ForgottenPassWordPage from "../pages/ForgottenPassWord/ForgottenPassWordPage";
+import KhoaPage from "../pages/KhoaPage/KhoaPage";
 import BookingPage from "../pages/BookingPage/BookingPage";
 import DoctorPage from "../pages/DoctorPage/DoctorPage";
 import MyMedicalRecordPage from "../pages/MyMedicalRecordPage/MyMedicalRecordPage";
 import MedicalEquipment from "../pages/medicalequipment/medicalequipment";
-
+import MyDoctorPage from "../pages/MyDoctorPage/MyDoctorPage";
 
 export const routes = [
   {
     path: "/",
-    page: HomePage,
+    page: Home,
     isShowHeader: true,
   },
   {
@@ -101,7 +103,7 @@ export const routes = [
     isShowHeader: false,
   },
   {
-    path: "/khoa",
+    path: "/specialist",
     page: KhoaPage,
     isShowHeader: true,
   },
@@ -119,6 +121,16 @@ export const routes = [
   {
     path: "/medicalequipment",
     page: MedicalEquipment,
+    isShowHeader: true,
+  },
+  {
+    path: "/orderitems",
+    page: HomePage,
+    isShowHeader: true,
+  },
+  {
+    path: "/my-doctorpage",
+    page: MyDoctorPage,
     isShowHeader: true,
   },
 ];

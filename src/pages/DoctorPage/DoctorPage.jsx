@@ -244,7 +244,7 @@ const DoctorPage = () => {
                                 return (
                                     <WrapperDoctorsBoxContainerBox>
                                         <DoctorCardComponent
-                                            key={doctor._id}
+                                            avatar={doctor.avatar}
                                             name={doctor.name}
                                             address={doctor.address}
                                         />

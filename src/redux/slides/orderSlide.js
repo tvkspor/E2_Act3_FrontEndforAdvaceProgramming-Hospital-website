@@ -1,16 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  orderItems: {},
+  orderItems: [],
   orderItemsSlected: [],
   shippingAddress: {},
   paymentMethod: "",
+  type: "",
   itemsPrice: 0,
-  taxPrice: 0,
   totalPrice: 0,
   user: "",
-  isPaid: false,
-  isSucessOrder: false,
 };
 
 export const orderSlide = createSlice({

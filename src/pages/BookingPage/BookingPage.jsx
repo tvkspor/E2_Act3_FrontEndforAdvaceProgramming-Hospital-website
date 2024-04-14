@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import booking from "../../assets/images/booking.jpg";
 import { useMutationHooks } from "../../hooks/useMutationHook";
 import * as UserService from "../../services/UserService";
+import * as BookingService from "../../services/BookingService";
 
 function BookingPage() {
   const [name, setName] = useState("");
@@ -15,7 +16,9 @@ function BookingPage() {
   const [session, setSession] = useState("");
   const [symptom, setSymptom] = useState("");
 
-  const mutation = useMutationHooks((data) => UserService.signupUser(data));
+  const mutation = useMutationHooks((data) => {
+    BookingService.booking(data);
+  });
 
   const handleOnchangeName = (e) => {
     setName(e.target.value);
@@ -47,8 +50,7 @@ function BookingPage() {
   const handleOnchangeSymptom = (e) => {
     setSymptom(e.target.value);
   }
-  const handleBooking = (e) => {
-    e.preventDefault();
+  const handleBooking = () => {
     mutation.mutate({ name, sex, birth, cccd, address, number, email, date, session, symptom });
   };
 
@@ -84,9 +86,8 @@ function BookingPage() {
             onChange={handleOnchangeSex}
           >
             <option value="">Chọn giới tính</option>
-            <option value="nam">Nam</option>
-            <option value="nu">Nữ</option>
-            <option value="khac">Khác</option>
+            <option value="true">Nam</option>
+            <option value="false">Nữ</option>
           </select>
           </div>
           <input
@@ -128,9 +129,8 @@ function BookingPage() {
             onChange={handleOnchangeSession}
           >
             <option value="">Chọn buổi khám</option>
-            <option value="sang">Sáng</option>
-            <option value="chieu">Chiều</option>
-            <option value="toi">Tối</option>
+            <option value="true">Sáng</option>
+            <option value="false">Chiều</option>
           </select>
           </div>
           <input

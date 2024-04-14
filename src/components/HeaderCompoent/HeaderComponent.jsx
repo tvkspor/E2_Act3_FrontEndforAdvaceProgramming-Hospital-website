@@ -62,9 +62,16 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
           Quản lí hệ thống
         </WrapperContentPopup>
       )}
-      <WrapperContentPopup onClick={() => handleClickNavigate(`my-order`)}>
-        Đơn hàng của tôi
-      </WrapperContentPopup>
+      {user?.isDoctor && (
+        <WrapperContentPopup onClick={() => handleClickNavigate("admin")}>
+          Lịch trình làm việc
+        </WrapperContentPopup>
+      )}
+      {!user?.isDoctor && !user?.isAdmin && (
+        <WrapperContentPopup onClick={() => handleClickNavigate(`my-order`)}>
+          Đơn hàng của tôi
+        </WrapperContentPopup>
+      )}
       <WrapperContentPopup onClick={() => handleClickNavigate()}>
         Đăng xuất
       </WrapperContentPopup>

@@ -13,12 +13,14 @@ import OrderAdmin from "../../components/OrderAdmin/OrderAmin";
 import * as OrderService from "../../services/OrderService";
 import * as ProductService from "../../services/ProductService";
 import * as UserService from "../../services/UserService";
+import * as DoctorService from "../../services/DoctorService";
 
 import CustomizedContent from "./components/CustomizedContent";
 import { useSelector } from "react-redux";
 import { useQueries } from "@tanstack/react-query";
 import { useMemo } from "react";
 import Loading from "../../components/LoadingComponent/Loading";
+
 
 const AdminPage = () => {
   const user = useSelector((state) => state?.user);
@@ -45,12 +47,18 @@ const AdminPage = () => {
     const res = await UserService.getAllUser(user?.access_token);
     return { data: res?.data, key: "users" };
   };
+  
+  const getAllDoctor = async () => {
+    const res = await DoctorService.getAllDoctor();
+    return { data: res?.data, key: "doctors" };
+  };
 
   const queries = useQueries({
     queries: [
       { queryKey: ["products"], queryFn: getAllProducts, staleTime: 1000 * 60 },
       { queryKey: ["users"], queryFn: getAllUsers, staleTime: 1000 * 60 },
       { queryKey: ["orders"], queryFn: getAllOrder, staleTime: 1000 * 60 },
+      { queryKey: ["doctors"], queryFn: getAllDoctor, staleTime: 1000 * 60},
     ],
   });
   const memoCount = useMemo(() => {
@@ -81,6 +89,7 @@ const AdminPage = () => {
         return <AdminProduct />;
       case "orders":
         return <OrderAdmin />;
+      
       default:
         return <></>;
     }

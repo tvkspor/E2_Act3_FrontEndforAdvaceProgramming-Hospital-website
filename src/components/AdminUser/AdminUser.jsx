@@ -119,7 +119,8 @@ const AdminUser = () => {
   } = mutationDeletedMany;
 
   const queryClient = useQueryClient();
-  const users = queryClient.getQueryData(["users"]);
+  const userss = queryClient.getQueryData(["users"]);
+  const users = userss.data.filter((user) => !user.isAdmin);
   const isFetchingUser = useIsFetching(["users"]);
   const renderAction = () => {
     return (
@@ -253,8 +254,8 @@ const AdminUser = () => {
     },
   ];
   const dataTable =
-    users?.data?.length > 0 &&
-    users?.data?.map((user) => {
+    users?.length > 0 &&
+    users?.map((user) => {
       return {
         ...user,
         key: user._id,

@@ -197,7 +197,7 @@ const OrderPage = () => {
       <div style={{ height: "100%", width: "1270px", margin: "0 auto" }}>
         <div style={{ display: "flex", justifyContent: "center" }}>
           <WrapperLeft>
-            <h4>Phí giao hàng</h4>
+            <h4>Thông tin đặt dịch vụ</h4>
             <WrapperStyleHeader>
               <span style={{ display: "inline-block", width: "390px" }}>
                 <span> Tất cả: {order?.orderItems?.length} sản phẩm</span>
@@ -211,7 +211,6 @@ const OrderPage = () => {
                 }}
               >
                 <span>Đơn giá</span>
-                <span>Số lượng</span>
                 <span>Thành tiền</span>
                 <DeleteOutlined
                   style={{ cursor: "pointer" }}
@@ -268,52 +267,6 @@ const OrderPage = () => {
                           {convertPrice(order?.price)}
                         </span>
                       </span>
-                      <WrapperCountOrder>
-                        <button
-                          style={{
-                            border: "none",
-                            background: "transparent",
-                            cursor: "pointer",
-                          }}
-                          onClick={() =>
-                            handleChangeCount(
-                              "decrease",
-                              order?.product,
-                              order?.amount === 1
-                            )
-                          }
-                        >
-                          <MinusOutlined
-                            style={{ color: "#000", fontSize: "10px" }}
-                          />
-                        </button>
-                        <WrapperInputNumber
-                          defaultValue={order?.amount}
-                          value={order?.amount}
-                          size="small"
-                          min={1}
-                          max={order?.countInstock}
-                        />
-                        <button
-                          style={{
-                            border: "none",
-                            background: "transparent",
-                            cursor: "pointer",
-                          }}
-                          onClick={() =>
-                            handleChangeCount(
-                              "increase",
-                              order?.product,
-                              order?.amount === order.countInstock,
-                              order?.amount === 1
-                            )
-                          }
-                        >
-                          <PlusOutlined
-                            style={{ color: "#000", fontSize: "10px" }}
-                          />
-                        </button>
-                      </WrapperCountOrder>
                       <span
                         style={{
                           color: "rgb(255, 66, 78)",

@@ -41,7 +41,7 @@ const DoctorCardComponent = (props) => {
 
             // <WrapperDoctorsBoxContainerBox>
             <>
-                <WrapperDoctorsBoxContainerBoxImg src={doc_1} alt=""></WrapperDoctorsBoxContainerBoxImg>
+                <WrapperDoctorsBoxContainerBoxImg src={avatar} alt=""></WrapperDoctorsBoxContainerBoxImg>
                 <WrapperDoctorsBoxContainerBoxH3>{name}</WrapperDoctorsBoxContainerBoxH3>
                 <WrapperDoctorsBoxContainerBoxSpan>{address}</WrapperDoctorsBoxContainerBoxSpan>
                 <WrapperDoctorsBoxContainerBoxShare>

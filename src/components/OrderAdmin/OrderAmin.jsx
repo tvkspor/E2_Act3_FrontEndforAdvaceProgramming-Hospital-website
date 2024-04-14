@@ -33,6 +33,7 @@ const OrderAdmin = () => {
     itemsPrice: 0,
     totalPrice: 0,
     doctor: "",
+    type: "",
     isChecked: false,
     user: "",
   });
@@ -139,12 +140,15 @@ const OrderAdmin = () => {
     );
   };
 
-  const getAllOrder = async () => {
-    const res = await OrderService.getAllOrder(user?.access_token);
+  const getAllOrderUnchecked = async () => {
+    const res = await OrderService.getAllOrderUnchecked(user?.access_token);
     return res;
   };
 
-  const queryOrder = useQuery({ queryKey: ["orders"], queryFn: getAllOrder });
+  const queryOrder = useQuery({
+    queryKey: ["orders"],
+    queryFn: getAllOrderUnchecked,
+  });
 
   const { isLoading: isLoadingOrders, data: orders } = queryOrder;
 
@@ -300,6 +304,14 @@ const OrderAdmin = () => {
       ...stateOrderDetails,
     });
   };
+
+  const handleChangeSelectType = (value) => {
+    setStateOrderDetails({
+      ...stateOrderDetails,
+      type: value,
+    });
+  };
+
   const handleChangeSelect = (value) => {
     setStateOrderDetails({
       ...stateOrderDetails,
@@ -320,22 +332,49 @@ const OrderAdmin = () => {
     return results;
   };
 
-  const fetchAllTypeDoctor = async () => {
-    const res = await DoctorService.getAllDoctor();
+  const fetchAllDoctorCardiology = async () => {
+    const res = await DoctorService.getAllDoctorCardiology();
     return res;
   };
 
-  const typeDoctor = useQuery({
-    queryKey: ["type-product"],
-    queryFn: fetchAllTypeDoctor,
+  const fetchAllDoctorNervesurgery = async () => {
+    const res = await DoctorService.getAllDoctorNervesurgery();
+    return res;
+  };
+
+  // Khu phân khoa
+  const DoctorCardiology = useQuery({
+    queryKey: ["doctor"],
+    queryFn: fetchAllDoctorCardiology,
+  });
+  const doctorCardiologyNames = DoctorCardiology?.data?.data?.map(
+    (doctor) => doctor.name
+  );
+
+  const DoctorNervesurgery = useQuery({
+    queryKey: ["doctor2"],
+    queryFn: fetchAllDoctorNervesurgery,
+  });
+  const doctorNervesugeryNames = DoctorNervesurgery?.data?.data?.map(
+    (doctor) => doctor.name
+  );
+
+  const fetchAllDepartmentDoctor = async () => {
+    const res = await DoctorService.getAllDepartmentDoctor();
+    return res;
+  };
+
+  const typeDepartment = useQuery({
+    queryKey: ["type-department"],
+    queryFn: fetchAllDepartmentDoctor,
   });
 
   return (
     <div>
       <WrapperHeader>Quản lý đơn hàng</WrapperHeader>
-      <div style={{ height: 200, width: 200 }}>
+      {/* <div style={{ height: 200, width: 200 }}>
         <PieChartComponent data={orders?.data} />
-      </div>
+      </div> */}
       <div style={{ marginTop: "20px" }}>
         <TableComponent
           columns={columns}
@@ -379,17 +418,45 @@ const OrderAdmin = () => {
               />
             </Form.Item>
             <Form.Item
-              label="Bác sĩ(thay đổi)"
-              name="doctor"
-              rules={[{ required: true, message: "Please choose doctor!" }]}
+              label="Type"
+              name="type"
+              rules={[{ required: true, message: "Please input type!" }]}
             >
               <Select
-                name="doctor"
-                value={stateOrderDetails["Name"]}
-                onChange={handleChangeSelect}
-                options={renderOptions(typeDoctor?.data?.data)}
+                name="type"
+                value={stateOrderDetails.type}
+                onChange={handleChangeSelectType}
+                options={renderOptions(typeDepartment?.data?.data)}
               />
             </Form.Item>
+            {stateOrderDetails.type === "cardiology" && (
+              <Form.Item
+                label="Bác sĩ"
+                name="doctor"
+                rules={[{ required: true, message: "Please choose doctor!" }]}
+              >
+                <Select
+                  name="doctor"
+                  value={stateOrderDetails["Name"]}
+                  onChange={handleChangeSelect}
+                  options={renderOptions(doctorCardiologyNames)}
+                />
+              </Form.Item>
+            )}
+            {stateOrderDetails.type === "nerve surgery" && (
+              <Form.Item
+                label="Bác sĩ"
+                name="doctor"
+                rules={[{ required: true, message: "Please choose doctor!" }]}
+              >
+                <Select
+                  name="doctor"
+                  value={stateOrderDetails["Name"]}
+                  onChange={handleChangeSelect}
+                  options={renderOptions(doctorNervesugeryNames)}
+                />
+              </Form.Item>
+            )}
 
             <Form.Item wrapperCol={{ offset: 20, span: 16 }}>
               <Button type="primary" htmlType="submit">

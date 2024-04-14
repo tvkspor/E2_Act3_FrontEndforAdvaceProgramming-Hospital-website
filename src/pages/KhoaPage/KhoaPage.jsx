@@ -37,7 +37,90 @@ function KhoaPage() {
                     </TitleOuter>
                 </AutoContainer>
             </PageTitle>
-            <body>
+            <section className="blogs" id="blogs">
+            <ServicesTow className="services-section-two" style={{backgroundImage :`url(${pattern})`}}>
+                    <AutoContainer className="auto-container">
+                        <CarouselOuter className="carousel-outer">
+                        <div className="box-container">
+                            <div className="box">
+                                <div className="image">
+                                    <a href="/chuyen-khoa/khoa-tim-mach-1"><img src={logo} alt="Khoa Tim M&#x1EA1;ch" style={{width: "100%", height: "100%", objectFit: "contain"}}/></a>
+                                </div>
+                                <div className="content">
+                                    <span className="icon flaticon-heart-2"></span>
+                                    <h4><a href="/chuyen-khoa/khoa-tim-mach-1">Khoa tim mạch - Cardiology </a></h4>
+                                        
+                                    <Text className="text"></Text>
+                                    <span className="icon-right flaticon-heart-2"></span>
+                                </div>
+                            </div>
+                            <div className="box">
+                                <div className="image">
+                                    <a href="/chuyen-khoa/khoa-ngoai-than-kinh-2"><img src={KhoaNgoaiTK} alt="" style={{width: "100%", height: "100%", objectFit: "contain"}}/></a>
+                                </div>
+                                <div className="content">
+                                    <span className="icon flaticon-heart-2"></span>
+                                    <h4><a href="/chuyen-khoa/khoa-tim-mach-1">Khoa thần kinh - Nerve surgery</a></h4>
+                                        
+                                    <Text className="text">L&#xE0; m&#x1ED9;t trong nh&#x1EEF;ng chuy&#xEA;n khoa s&#xE2;u ph&#xE1;t tri&#x1EC3;n m&#x1EA1;nh c&#x1EE7;a b&#x1EC7;nh vi&#x1EC7;n Tri&#x1EC1;u An</Text>
+                                    <span className="icon-right flaticon-brain"></span>
+                                </div>
+                            </div>
+                            <div className="box">
+                                <div className="image">
+                                    <a href="/chuyen-khoa/khoa-noi-tong-hop-3"><img src={Noi2} alt="Khoa N&#x1ED9;i T&#x1ED5;ng H&#x1EE3;p" style={{width: "100%", height: "100%", objectFit: "contain"}}/></a>
+                                </div>
+                                <div className="content">
+                                    <span className="icon flaticon-kidney"></span>
+                                    <h4><a href="/chuyen-khoa/khoa-noi-tong-hop-3">Khoa hồi sức - Intensive care</a></h4>
+
+                                    <Text className="text"></Text>
+                                    <span className="icon-right flaticon-kidney"></span>
+                                </div>
+                            </div>
+                            <div className="box">
+                                <div className="image">
+                                    <a href="/chuyen-khoa/khoa-lien-chuyen-khoa-4"><img src={LienChuyenKhoa} alt="Khoa Li&#xEA;n Chuy&#xEA;n Khoa" style={{width: "100%", height: "100%", objectFit: "contain"}}/></a>
+                                </div>
+                                <div className="content">
+                                    <span className="icon flaticon-eye"></span>
+                                    <h4><a href="/chuyen-khoa/khoa-lien-chuyen-khoa-4">Khoa xương khớp - Musculoskeletal</a></h4>
+
+                                    <Text className="text">Khoa Li&#xEA;n Chuy&#xEA;n Khoa t&#x1EA1;i b&#x1EC7;nh vi&#x1EC7;n</Text>
+                                    <span className="icon-right flaticon-eye"></span>
+                                </div>
+                            </div>
+                            <div className="box">
+                                <div className="image">
+                                    <a href="/chuyen-khoa/khoa-kham-benh-5"><img src={KhoaKhamBenh} alt="Khoa Kh&#xE1;m B&#x1EC7;nh" style={{width: "100%", height: "100%", objectFit: "contain"}}/></a>
+                                </div>
+                                <div className="content">
+                                    <span className="icon"></span>
+                                    <h4><a href="/chuyen-khoa/khoa-kham-benh-5">Khoa tai mũi họng - Otorhinolaryngology</a></h4>
+
+                                    <Text className="text">Khoa Kh&#xE1;m b&#x1EC7;nh B&#x1EC7;nh vi&#x1EC7;n Tri&#x1EC1;u An</Text>
+                                    <span className="icon-right"></span>
+                                </div>
+                            </div>
+                            <div className="box">
+                                <div className="image">
+                                    <a href="/chuyen-khoa/khoa-hoi-suc-cap-cuu-6"><img src={CapCuu} alt="Khoa H&#x1ED3;i S&#x1EE9;c C&#x1EA5;p C&#x1EE9;u" style={{width: "100%", height: "100%", objectFit: "contain"}}/></a>
+                                </div>
+                                <div className="content">
+                                    <span className="icon"></span>
+                                    <h4><a href="/chuyen-khoa/khoa-hoi-suc-cap-cuu-6">Khoa nhi - Pediatrics</a></h4>
+
+                                    <Text className="text">Nhanh ch&#xF3;ng &#x2013; K&#x1ECB;p th&#x1EDD;i &#x2013; Hi&#x1EC7;u qu&#x1EA3;</Text>
+                                    <span className="icon-right"></span>
+                                </div>
+                            </div>
+                        </div>
+                        </CarouselOuter>
+                    </AutoContainer>
+                </ServicesTow>
+                
+            </section>
+            {/* <body>
                 <ServicesTow className="services-section-two" style={{backgroundImage :`url(${pattern})`}}>
                     <AutoContainer className="auto-container">
 
@@ -63,7 +146,7 @@ function KhoaPage() {
                                 <BlockTwo className="service-block-two col-lg-4 col-md-6 col-sm-12">
                                     <InnerBox className="inner-box">
                                         <ImageBox className="image-box">
-                                            <Image className="image"><a href="/chuyen-khoa/khoa-ngoai-than-kinh-2"><Img src={KhoaNgoaiTK} alt="Khoa Ngo&#x1EA1;i Th&#x1EA7;n Kinh" width="370" /></a></Image>
+                                            <Image className="image"><a href="/chuyen-khoa/khoa-ngoai-than-kinh-2"><img src={KhoaNgoaiTK} alt="Khoa Ngo&#x1EA1;i Th&#x1EA7;n Kinh" width="370" /></a></Image>
                                         </ImageBox>
                                         <LowerContent className="lower-content">
                                             <TitleBox className="title-box">
@@ -78,7 +161,7 @@ function KhoaPage() {
                                 <BlockTwo className="service-block-two col-lg-4 col-md-6 col-sm-12">
                                     <InnerBox className="inner-box">
                                         <ImageBox className="image-box">
-                                            <Image classNameName="image"><a href="/chuyen-khoa/khoa-noi-tong-hop-3"><Img src={Noi2} alt="Khoa N&#x1ED9;i T&#x1ED5;ng H&#x1EE3;p" width="370" /></a></Image>
+                                            <Image classNameName="image"><a href="/chuyen-khoa/khoa-noi-tong-hop-3"><img src={Noi2} alt="Khoa N&#x1ED9;i T&#x1ED5;ng H&#x1EE3;p" width="370" /></a></Image>
                                         </ImageBox>
                                         <LowerContent className="lower-content">
                                             <TitleBox className="title-box">
@@ -93,7 +176,7 @@ function KhoaPage() {
                                 <BlockTwo className="service-block-two col-lg-4 col-md-6 col-sm-12">
                                     <InnerBox className="inner-box">
                                         <ImageBox className="image-box">
-                                            <Image className="image"><a href="/chuyen-khoa/khoa-lien-chuyen-khoa-4"><Img src={LienChuyenKhoa} alt="Khoa Li&#xEA;n Chuy&#xEA;n Khoa" width="370" /></a></Image>
+                                            <Image className="image"><a href="/chuyen-khoa/khoa-lien-chuyen-khoa-4"><img src={LienChuyenKhoa} alt="Khoa Li&#xEA;n Chuy&#xEA;n Khoa" width="370" /></a></Image>
                                         </ImageBox>
                                         <LowerContent className="lower-content">
                                             <TitleBox className="title-box">
@@ -108,7 +191,7 @@ function KhoaPage() {
                                 <BlockTwo className="service-block-two col-lg-4 col-md-6 col-sm-12">
                                     <InnerBox className="inner-box">
                                         <ImageBox className="image-box">
-                                            <Image className="image"><a href="/chuyen-khoa/khoa-kham-benh-5"><Img src={KhoaKhamBenh} alt="Khoa Kh&#xE1;m B&#x1EC7;nh" width="370" /></a></Image>
+                                            <Image className="image"><a href="/chuyen-khoa/khoa-kham-benh-5"><img src={KhoaKhamBenh} alt="Khoa Kh&#xE1;m B&#x1EC7;nh" width="370" /></a></Image>
                                         </ImageBox>
                                         <LowerContent className="lower-content">
                                             <TitleBox className="title-box">
@@ -123,7 +206,7 @@ function KhoaPage() {
                                 <BlockTwo className="service-block-two col-lg-4 col-md-6 col-sm-12">
                                     <InnerBox className="inner-box">
                                         <ImageBox className="image-box">
-                                            <Image className="image"><a href="/chuyen-khoa/khoa-hoi-suc-cap-cuu-6"><Img src={CapCuu} alt="Khoa H&#x1ED3;i S&#x1EE9;c C&#x1EA5;p C&#x1EE9;u" width="370" /></a></Image>
+                                            <Image className="image"><a href="/chuyen-khoa/khoa-hoi-suc-cap-cuu-6"><img src={CapCuu} alt="Khoa H&#x1ED3;i S&#x1EE9;c C&#x1EA5;p C&#x1EE9;u" width="370" /></a></Image>
                                         </ImageBox>
                                         <LowerContent className="lower-content">
                                             <TitleBox className="title-box">
@@ -138,7 +221,7 @@ function KhoaPage() {
                                 <BlockTwo className="service-block-two col-lg-4 col-md-6 col-sm-12">
                                     <InnerBox className="inner-box">
                                         <ImageBox className="image-box">
-                                            <Image className="image"><a href="/chuyen-khoa/khu-%C4%91ieu-tri-cap-cao-(v.i.p)-7"><Img src={KhuVip} alt="Khu &#x110;i&#x1EC1;u Tr&#x1ECB; C&#x1EA5;p Cao (V.I.P)" width="370" /></a></Image>
+                                            <Image className="image"><a href="/chuyen-khoa/khu-%C4%91ieu-tri-cap-cao-(v.i.p)-7"><img src={KhuVip} alt="Khu &#x110;i&#x1EC1;u Tr&#x1ECB; C&#x1EA5;p Cao (V.I.P)" width="370" /></a></Image>
                                         </ImageBox>
                                         <LowerContent className="lower-content">
                                             <TitleBox className="title-box">
@@ -153,7 +236,7 @@ function KhoaPage() {
                                 <BlockTwo className="service-block-two col-lg-4 col-md-6 col-sm-12">
                                     <InnerBox className="inner-box">
                                         <ImageBox className="image-box">
-                                            <Image className="image"><a href="/chuyen-khoa/khoa-ngoai-tong-quat-8"><Img src={NgoaiTQ} alt="Khoa Ngo&#x1EA1;i T&#x1ED5;ng Qu&#xE1;t" width="370" /></a></Image>
+                                            <Image className="image"><a href="/chuyen-khoa/khoa-ngoai-tong-quat-8"><img src={NgoaiTQ} alt="Khoa Ngo&#x1EA1;i T&#x1ED5;ng Qu&#xE1;t" width="370" /></a></Image>
                                         </ImageBox>
                                         <LowerContent className="lower-content">
                                             <TitleBox className="title-box">
@@ -168,7 +251,7 @@ function KhoaPage() {
                                 <BlockTwo className="service-block-two col-lg-4 col-md-6 col-sm-12">
                                     <InnerBox className="inner-box">
                                         <ImageBox className="image-box">
-                                            <Image className="image"><a href="/chuyen-khoa/khoa-noi-than-kinh-9"><Img src={NoiTK} alt="Khoa N&#x1ED9;i Th&#x1EA7;n Kinh" width="370" /></a></Image>
+                                            <Image className="image"><a href="/chuyen-khoa/khoa-noi-than-kinh-9"><img src={NoiTK} alt="Khoa N&#x1ED9;i Th&#x1EA7;n Kinh" width="370" /></a></Image>
                                         </ImageBox>
                                         <LowerContent className="lower-content">
                                             <TitleBox className="title-box">
@@ -183,7 +266,7 @@ function KhoaPage() {
                                 <BlockTwo className="service-block-two col-lg-4 col-md-6 col-sm-12">
                                     <InnerBox className="inner-box">
                                         <ImageBox className="image-box">
-                                            <Image className="image"><a href="/chuyen-khoa/khoa-nhi-10"><Img src={KhoaNhi} alt="Khoa Nhi" width="370" /></a></Image>
+                                            <Image className="image"><a href="/chuyen-khoa/khoa-nhi-10"><img src={KhoaNhi} alt="Khoa Nhi" width="370" /></a></Image>
                                         </ImageBox>
                                         <LowerContent className="lower-content">
                                             <TitleBox className="title-box">
@@ -198,7 +281,7 @@ function KhoaPage() {
                                 <BlockTwo className="service-block-two col-lg-4 col-md-6 col-sm-12">
                                     <InnerBox className="inner-box">
                                         <ImageBox className="image-box">
-                                            <Image className="image"><a href="/chuyen-khoa/khoa-noi-tiet-11"><Img src={KhoaNoiTiet} alt="Khoa N&#x1ED9;i Ti&#x1EBF;t" width="370" /></a></Image>
+                                            <Image className="image"><a href="/chuyen-khoa/khoa-noi-tiet-11"><img src={KhoaNoiTiet} alt="Khoa N&#x1ED9;i Ti&#x1EBF;t" width="370" /></a></Image>
                                         </ImageBox>
                                         <LowerContent className="lower-content">
                                             <TitleBox className="title-box">
@@ -213,7 +296,7 @@ function KhoaPage() {
                                 <BlockTwo className="service-block-two col-lg-4 col-md-6 col-sm-12">
                                     <InnerBox className="inner-box">
                                         <ImageBox className="image-box">
-                                            <Image className="image"><a href="/chuyen-khoa/khoa-tiet-nieu-15"><Img src={KhoaTietNieu} alt="Khoa Ti&#x1EBF;t Ni&#x1EC7;u" width="370" /></a></Image>
+                                            <Image className="image"><a href="/chuyen-khoa/khoa-tiet-nieu-15"><img src={KhoaTietNieu} alt="Khoa Ti&#x1EBF;t Ni&#x1EC7;u" width="370" /></a></Image>
                                         </ImageBox>
                                         <LowerContent className="lower-content">
                                             <TitleBox className="title-box">
@@ -235,7 +318,7 @@ function KhoaPage() {
                         </CarouselOuter>
                     </AutoContainer>
                 </ServicesTow>
-            </body>
+            </body> */}
         </>
     )
 }

@@ -3,6 +3,7 @@ import productReducer from './slides/productSlide'
 import userReducer from './slides/userSlide'
 import orderReducer from './slides/orderSlide'
 import doctorReducer from './slides/doctorSlide'
+import itemReducer from './slides/itemSlide'
 import {
   persistStore,
   persistReducer,
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   user: userReducer,
   order: orderReducer,
   doctor: doctorReducer,
+  item: itemReducer,
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

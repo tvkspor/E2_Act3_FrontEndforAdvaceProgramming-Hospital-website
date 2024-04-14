@@ -19,11 +19,14 @@ import { useEffect } from "react";
 import NavMenu from "../../components/NavMenu/NavMenu";
 import Home from "../../components/Home/Home";
 
+import ProductSearchComponent from "../../components/ProductSearchComponent/ProductSearchComponent";
+
+
 const HomePage = () => {
   const searchProduct = useSelector((state) => state?.product?.search);
   const searchDebounce = useDebounce(searchProduct, 500);
   const [loading, setLoading] = useState(false);
-  const [limit, setLimit] = useState(6);
+  const [limit, setLimit] = useState(3);
   const [typeProducts, setTypeProducts] = useState([]);
 
   const fetchProductAll = async (context) => {
@@ -43,7 +46,7 @@ const HomePage = () => {
 
   const {
     isLoading,
-    data: products,
+    data: product,
     isPreviousData,
   } = useQuery(["products", limit, searchDebounce], fetchProductAll, {
     retry: 3,
@@ -55,23 +58,211 @@ const HomePage = () => {
     fetchAllTypeProduct();
   }, []);
 
-  return (
-    <Loading isLoading={isLoading || loading}>
+  const [sortOrderPrice, setSortOrderPrice] = useState('asc'); // 'asc' for ascending, 'desc' for descending
+  const [sortOrderDate, setSortOrderDate] = useState('asc'); // 'asc' for ascending, 'desc' for descending
+  const [sortOrderName, setSortOrderName] = useState('asc'); // 'asc' for ascending, 'desc' for descending
+  const sortedItems = React.useMemo(() => {
+    if (Array.isArray(product?.data)) {
+      return [...product.data].sort((a, b) => {
+        if (sortOrderPrice === 'asc') {
+          return a.price - b.price;
+        } else {
+          return b.price - a.price;
+        }
+      }).sort((a, b) => {
+        const dateA = new Date(a.importDate);
+        const dateB = new Date(b.importDate);
+        if (sortOrderDate === 'asc') {
+          return dateA - dateB;
+        } else {
+          return dateB - dateA;
+        }
+      }).sort((a, b) => {
+        if (sortOrderName === 'asc') {
+          return a.name.localeCompare(b.name);
+        } else {
+          return b.name.localeCompare(a.name);
+        }
+      });
+    } else {
+      return [];
+    }
+  }, [product, sortOrderPrice, sortOrderDate, sortOrderName]);
 
-      <Home />
-      {/* <div
-        className="body"
-        style={{ width: "100%", backgroundColor: "#efefef" }}
-      >
-        <div
-          id="container"
-          style={{ height: "1000px", width: "1270px", margin: "0 auto" }}
-        >
-          <SliderComponent arrImages={[hinh1, hinh2]} />
-          <WrapperProducts>
-            {products?.data?.map((product) => {
-              return (
-                <CardComponent
+  const loadMore = () => {
+    setLimit(prevLimit => prevLimit + 3); // Increase limit by 3 each time
+  };
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  return (
+
+
+//       {/* <div
+//         className="body"
+//         style={{ width: "100%", backgroundColor: "#efefef" }}
+//       >
+//         <div
+//           id="container"
+//           style={{ height: "1000px", width: "1270px", margin: "0 auto" }}
+//         >
+//           <SliderComponent arrImages={[hinh1, hinh2]} />
+//           <WrapperProducts>
+//             {product?.data?.map((product) => {
+//               return ( */}
+               
+// <section className="blogs" id="blogs">
+// <Loading isLoading={isLoading || loading}>
+
+//       <ItemSearchComponent/> 
+//       {/* <div className="sort-container" style={sortContainerStyle}>
+//       <label style={labelStyle}>Sắp xếp theo giá: </label>
+//       <select style={selectStyle} value={sortOrderPrice} onChange={(e) => setSortOrderPrice(e.target.value)}>
+//         <option value="asc">Giá tăng dần</option>
+//         <option value="desc">Gía giảm dần</option>
+//       </select>
+
+//       <label style={labelStyle}>Sắp xếp theo ngày: </label>
+//       <select style={selectStyle} value={sortOrderDate} onChange={(e) => setSortOrderDate(e.target.value)}>
+//         <option value="asc">Tăng dần</option>
+//         <option value="desc">Giảm dần</option>
+//       </select>
+
+//       <label style={labelStyle}>Sắp xếp theo tên: </label>
+//         <select style={selectStyle} value={sortOrderName} onChange={(e) => setSortOrderName(e.target.value)}>
+//           <option value="asc">Từ A-Z</option>
+//           <option value="desc">Từ Z-A</option>
+//         </select>
+//     </div>   */}
+//       <div className="box-container">
+//               {sortedItems.map((items) => {
+//                 return (
+//                   <CardComponent
+//                   key={product._id}
+//                   countInStock={product.countInStock}
+//                   description={product.description}
+//                   image={product.image}
+//                   name={product.name}
+//                   price={product.price}
+//                   rating={product.rating}
+//                   type={product.type}
+//                   selled={product.selled}
+//                   discount={product.discount}
+//                   id={product._id}
+//                 />
+//                 );
+//               })}
+//       </div>
+//       <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+//         <button onClick={loadMore} style={{
+//           border: '2px solid green',
+//           borderRadius: '5px',
+//           padding: '10px 20px',
+//           color: 'green',
+//           fontWeight: 'bold',
+//           transition: 'all 0.3s ease',
+//           cursor: 'pointer'
+//         }}
+//         onMouseOver={(e) => {
+//           e.currentTarget.style.background = 'green';
+//           e.currentTarget.style.color = 'white';
+//         }}
+//         onMouseOut={(e) => {
+//           e.currentTarget.style.background = 'transparent';
+//           e.currentTarget.style.color = 'green';
+//         }}
+//         >
+//           Load More
+//         </button>
+//       </div>
+
+//                 // <CardComponent
+//                 //   key={product._id}
+//                 //   countInStock={product.countInStock}
+//                 //   description={product.description}
+//                 //   image={product.image}
+//                 //   name={product.name}
+//                 //   price={product.price}
+//                 //   rating={product.rating}
+//                 //   type={product.type}
+//                 //   selled={product.selled}
+//                 //   discount={product.discount}
+//                 //   id={product._id}
+//                 // />
+//             //   );
+//             // })}
+//       //     </WrapperProducts>
+//       //     <div
+//       //       style={{
+//       //         width: "100%",
+//       //         display: "flex",
+//       //         justifyContent: "center",
+//       //         marginTop: "10px",
+//       //       }}
+//       //     >
+//       //       <WrapperButtonMore
+//       //         textbutton={isPreviousData ? "Load more" : "Xem thêm"}
+//       //         type="outline"
+//       //         styleButton={{
+//       //           border: `1px solid ${
+//       //             product?.total === product?.data?.length
+//       //               ? "#f5f5f5"
+//       //               : "#9255FD"
+//       //           }`,
+//       //           color: `${
+//       //             product?.total === product?.data?.length
+//       //               ? "#f5f5f5"
+//       //               : "#9255FD"
+//       //           }`,
+//       //           width: "240px",
+//       //           height: "38px",
+//       //           borderRadius: "4px",
+//       //         }}
+//       //         disabled={
+//       //           product?.total === product?.data?.length ||
+//       //           product?.totalPage === 1
+//       //         }
+//       //         styleTextButton={{
+//       //           fontWeight: 500,
+//       //           color: product?.total === product?.data?.length && "#fff",
+//       //         }}
+//       //         onClick={() => setLimit((prev) => prev + 6)}
+//       //       />
+//       //     </div>
+//       //   </div>
+//       // </div>
+//     </Loading>
+//     </section>
+
+<section className="blogs" id="blogs">
+      <h1 className="heading">
+        {" "}
+        LIỆU TRÌNH <span>ĐIỀU TRỊ</span>{" "}
+      </h1>
+      <ProductSearchComponent/> 
+      {/* <div className="sort-container" style={sortContainerStyle}>
+      <label style={labelStyle}>Sắp xếp theo giá: </label>
+      <select style={selectStyle} value={sortOrderPrice} onChange={(e) => setSortOrderPrice(e.target.value)}>
+        <option value="asc">Giá tăng dần</option>
+        <option value="desc">Gía giảm dần</option>
+      </select>
+
+      <label style={labelStyle}>Sắp xếp theo ngày: </label>
+      <select style={selectStyle} value={sortOrderDate} onChange={(e) => setSortOrderDate(e.target.value)}>
+        <option value="asc">Tăng dần</option>
+        <option value="desc">Giảm dần</option>
+      </select>
+
+      <label style={labelStyle}>Sắp xếp theo tên: </label>
+        <select style={selectStyle} value={sortOrderName} onChange={(e) => setSortOrderName(e.target.value)}>
+          <option value="asc">Từ A-Z</option>
+          <option value="desc">Từ Z-A</option>
+        </select>
+    </div>   */}
+      <div className="box-container">
+              {sortedItems.map((product) => {
+                return (
+                 <CardComponent
                   key={product._id}
                   countInStock={product.countInStock}
                   description={product.description}
@@ -84,49 +275,32 @@ const HomePage = () => {
                   discount={product.discount}
                   id={product._id}
                 />
-              );
-            })}
-          </WrapperProducts>
-          <div
-            style={{
-              width: "100%",
-              display: "flex",
-              justifyContent: "center",
-              marginTop: "10px",
-            }}
-          >
-            <WrapperButtonMore
-              textbutton={isPreviousData ? "Load more" : "Xem thêm"}
-              type="outline"
-              styleButton={{
-                border: `1px solid ${
-                  products?.total === products?.data?.length
-                    ? "#f5f5f5"
-                    : "#9255FD"
-                }`,
-                color: `${
-                  products?.total === products?.data?.length
-                    ? "#f5f5f5"
-                    : "#9255FD"
-                }`,
-                width: "240px",
-                height: "38px",
-                borderRadius: "4px",
-              }}
-              disabled={
-                products?.total === products?.data?.length ||
-                products?.totalPage === 1
-              }
-              styleTextButton={{
-                fontWeight: 500,
-                color: products?.total === products?.data?.length && "#fff",
-              }}
-              onClick={() => setLimit((prev) => prev + 6)}
-            />
-          </div>
-        </div>
-      </div> */}
-    </Loading>
+                );
+              })}
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+        <button onClick={loadMore} style={{
+          border: '2px solid green',
+          borderRadius: '5px',
+          padding: '10px 20px',
+          color: 'green',
+          fontWeight: 'bold',
+          transition: 'all 0.3s ease',
+          cursor: 'pointer'
+        }}
+        onMouseOver={(e) => {
+          e.currentTarget.style.background = 'green';
+          e.currentTarget.style.color = 'white';
+        }}
+        onMouseOut={(e) => {
+          e.currentTarget.style.background = 'transparent';
+          e.currentTarget.style.color = 'green';
+        }}
+        >
+          Load More
+        </button>
+      </div>
+    </section>
   );
 };
 

@@ -9,9 +9,11 @@ const initialState = {
   access_token: "",
   id: "",
   isAdmin: false,
+  isDoctor: false,
   city: "",
   refreshToken: "",
   sex: "",
+  eventData: [],
   dateofbirth: "",
 };
 
@@ -29,10 +31,12 @@ export const userSlide = createSlice({
         avatar = "",
         _id = "",
         isAdmin,
+        isDoctor,
         city = "",
         refreshToken = "",
         sex = "",
         dateofbirth = "",
+        eventData = [],
       } = action.payload;
       state.name = name ? name : state.name;
       state.email = email ? email : state.email;
@@ -42,10 +46,12 @@ export const userSlide = createSlice({
       state.id = _id ? _id : state.id;
       state.access_token = access_token ? access_token : state.access_token;
       state.isAdmin = isAdmin ? isAdmin : state.isAdmin;
+      state.isDoctor = isDoctor ? isDoctor : state.isDoctor;
       state.city = city ? city : state.city;
       state.refreshToken = refreshToken ? refreshToken : state.refreshToken;
       state.sex = sex ? sex : state.sex;
       state.dateofbirth = dateofbirth ? dateofbirth : state.dateofbirth;
+      state.eventData = eventData ? eventData : state.eventData;
     },
     resetUser: (state) => {
       window.localStorage.clear();
@@ -57,6 +63,7 @@ export const userSlide = createSlice({
       state.id = "";
       state.access_token = "";
       state.isAdmin = false;
+      state.isDoctor = false;
       state.city = "";
       state.refreshToken = "";
       state.sex = "";
