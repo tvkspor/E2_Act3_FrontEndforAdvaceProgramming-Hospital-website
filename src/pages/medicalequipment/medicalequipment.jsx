@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useDebounce } from "../../hooks/useDebounce";
 import { useSelector } from "react-redux";
 import { useQuery } from "@tanstack/react-query";
@@ -30,6 +30,20 @@ function MedicalEquipment() {
     }
   };
 
+  useEffect(() => {
+    fetchAllTypeProduct();
+  }, []);
+
+  const sortFunctions = useMemo(() => ({
+    price: (a, b) => (sortOrder === "asc" ? a.price - b.price : b.price - a.price),
+    date: (a, b) => {
+      const dateA = new Date(a.importDate);
+      const dateB = new Date(b.importDate);
+      return sortOrder === "asc" ? dateA - dateB : dateB - dateA;
+    },
+    name: (a, b) => (sortOrder === "asc" ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name)),
+  }), [sortOrder]);
+
   const {
     isLoading,
     data: items,
@@ -40,27 +54,10 @@ function MedicalEquipment() {
     keepPreviousData: true,
   });
 
-  useEffect(() => {
-    fetchAllTypeProduct();
-  }, []);
-
-  const sortFunctions = {
-    price: (a, b) => (sortOrder === "asc" ? a.price - b.price : b.price - a.price),
-    date: (a, b) => {
-      const dateA = new Date(a.importDate);
-      const dateB = new Date(b.importDate);
-      return sortOrder === "asc" ? dateA - dateB : dateB - dateA;
-    },
-    name: (a, b) => (sortOrder === "asc" ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name)),
-  };
-
-  const sortedItems = React.useMemo(() => {
-    if (Array.isArray(items?.data)) {
-      return [...items.data].sort(sortFunctions[sortBy]);
-    } else {
-      return [];
-    }
-  }, [items, sortOrder, sortBy]);
+  const sortedItems = useMemo(() => {
+    if (!Array.isArray(items?.data)) return [];
+    return [...items.data].sort(sortFunctions[sortBy]);
+  }, [items, sortBy]);
 
   const handleSortChange = (criteria) => {
     setSortBy(criteria);
@@ -88,7 +85,7 @@ function MedicalEquipment() {
       <div className="sort-container" style={sortContainerStyle}>
         <label style={labelStyle}>Sắp xếp theo: </label>
         <select
-          style={{ ...selectStyle, cursor: "pointer" }}
+          style={selectStyle}
           value={sortBy}
           onChange={(e) => handleSortChange(e.target.value)}
         >
@@ -96,8 +93,7 @@ function MedicalEquipment() {
           <option value="date">Ngày</option>
           <option value="name">Tên</option>
         </select>
-
-        <button style={{ ...buttonStyle, cursor: "pointer" }} onClick={handleOrderChange}>
+        <button onClick={handleOrderChange}>
           {sortOrder === "asc" ? "Tăng dần" : "Giảm dần"}
         </button>
       </div>
@@ -105,7 +101,7 @@ function MedicalEquipment() {
         {sortedItems.map((item) => {
           return (
             <ItemCardComponent
-              key={item.ID}
+              //</ItemCardComponent>key={item.ID} // Don't forget to add a unique key
               name={item.name}
               ID={item.ID}
               price={item.price}
@@ -157,21 +153,15 @@ const sortContainerStyle = {
 };
 
 const labelStyle = {
-  marginRight: "20px",
+  marginRight: "10px",
   fontWeight: "bold",
 };
 
 const selectStyle = {
   padding: "5px",
-  marginRight: "20px",
   border: "none",
   borderRadius: "5px",
   boxShadow: "0 0 5px rgba(0, 0, 0, 0.1)",
 };
-
-const buttonStyle = {
-  borderWidth: '2px', 
-  borderRadius: '5px', 
-}
 
 export default MedicalEquipment;

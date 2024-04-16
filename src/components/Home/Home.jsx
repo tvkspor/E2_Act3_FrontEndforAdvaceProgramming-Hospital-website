@@ -55,9 +55,6 @@ import mbappe from "../../assets/images/mbappe.webp"
 function Home() {
   return (
     <>
-        
-
-
       <section className="home" id="home">
         <div className="image">
           <img src={introhome} alt="" />
@@ -65,10 +62,10 @@ function Home() {
         <div className="content">
           <h3>stay safe, stay healthy</h3>
           {/* <p>Everything is Daijoubu</p> */}
-          <a href="#" className="btn">
+          {/* <a href="#" className="btn">
             {" "}
             liên hệ <span className="fas fa-chevron-right" > <FontAwesomeIcon icon={faChevronRight}/> </span> 
-          </a>
+          </a> */}
         </div>
       </section>
       {/* home section*/}
@@ -90,7 +87,7 @@ function Home() {
         </div>
         <div className="icons">
           <i className="fas fa-hospital"><FontAwesomeIcon icon={faHospital}/></i>
-          <h3>80+</h3>
+          <h3>02+</h3>
           <p>cơ sở</p>
         </div>
       </section>
@@ -104,55 +101,55 @@ function Home() {
             <i className="fas fa-notes-medical"><FontAwesomeIcon icon={faNotesMedical}/></i>
             <h3>TƯ VẤN MIỄN PHÍ</h3>
             {/* <p>Everything is Daijoubu</p> */}
-            <a href="#" className="btn">
+            {/* <a href="#" className="btn">
               {" "}
               xem thêm <span className="fas fa-chevron-right"><FontAwesomeIcon icon={faChevronRight}/></span>
-            </a>
+            </a> */}
           </div>
           <div className="box">
             <i className="fas fa-ambulance"><FontAwesomeIcon icon={faAmbulance}/></i>
             <h3>CẤP CỨU 24/7</h3>
             {/* <p>Everything is Daijoubu</p> */}
-            <a href="#" className="btn">
+            {/* <a href="#" className="btn">
               {" "}
               xem thêm <span className="fas fa-chevron-right"><FontAwesomeIcon icon={faChevronRight}/></span>
-            </a>
+            </a> */}
           </div>
           <div className="box">
             <i className="fas fa-user-md"><FontAwesomeIcon icon={faUserMd}/></i>
             <h3>BÁC SĨ CHUYÊN KHOA</h3>
             {/* <p>Everything is Daijoubu</p> */}
-            <a href="#" className="btn">
+            {/* <a href="#" className="btn">
               {" "}
               xem thêm <span className="fas fa-chevron-right"><FontAwesomeIcon icon={faChevronRight}/></span>{" "}
-            </a>
+            </a> */}
           </div>
           <div className="box">
             <i className="fas fa-pills"><FontAwesomeIcon icon={faPills}/></i>
             <h3>THUỐC MỚI NHẤT</h3>
             {/* <p>Everything is Daijoubu</p> */}
-            <a href="#" className="btn">
+            {/* <a href="#" className="btn">
               {" "}
               xem thêm <span className="fas fa-chevron-right"><FontAwesomeIcon icon={faChevronRight}/></span>{" "}
-            </a>
+            </a> */}
           </div>
           <div className="box">
             <i className="fas fa-procedures"><FontAwesomeIcon icon={faProcedures}/></i>
             <h3>CƠ SỞ VẬT CHẤT TỐT</h3>
             {/* <p>Everything is Daijoubu</p> */}
-            <a href="#" className="btn">
+            {/* <a href="#" className="btn">
               {" "}
               xem thêm <span className="fas fa-chevron-right"><FontAwesomeIcon icon={faChevronRight}/></span>{" "}
-            </a>
+            </a> */}
           </div>
           <div className="box">
             <i className="fas fa-heartbeat"><FontAwesomeIcon icon={faHeartbeat}/></i>
             <h3>TẬN TÂM CHĂM SÓC</h3>
             {/* <p>Everything is Daijoubu</p> */}
-            <a href="#" className="btn">
+            {/* <a href="#" className="btn">
               {" "}
               xem thêm <span className="fas fa-chevron-right"><FontAwesomeIcon icon={faChevronRight}/></span>
-            </a>
+            </a> */}
           </div>
           {/* <div className="box">
             <i className="fas fa-user-nurse"><FontAwesomeIcon icon={faUserNurse}/></i>
@@ -196,10 +193,10 @@ function Home() {
             bệnh viện đã quy tụ được đội ngũ chuyên gia hàng đầu từ nhiều lĩnh vực.
             </p>
             
-            <a href="#" className="btn">
+            {/* <a href="#" className="btn">
               {" "}
               xem thêm <span className="fas fa-chevron-right"><FontAwesomeIcon icon={faChevronRight}/></span>{" "}
-            </a>
+            </a> */}
           </div>
         </div>
       </section>
@@ -342,8 +339,9 @@ function Home() {
             </div>
             <p className="text">
               {" "}
-              Tôi đã có trải nghiệm tuyệt vời tại Bệnh Viện. Đội ngũ y tế chuyên nghiệp và thân thiện, 
-              dịch vụ chăm sóc bệnh nhân tận tình. Điều này khiến tôi cảm thấy an tâm và tin tưởng hoàn toàn trong quá trình điều trị.
+              Tive uma experiência maravilhosa no Hospital.
+              Equipe médica profissional e amigável, serviço dedicado ao atendimento ao paciente.
+              Isso me faz sentir seguro e completamente confiante durante o processo de tratamento.
             </p>
           </div>
           <div className="box">
@@ -354,13 +352,14 @@ function Home() {
               <i className="fas fa-star"><FontAwesomeIcon icon={faStar}/></i>
               <i className="fas fa-star"><FontAwesomeIcon icon={faStar}/></i>
               <i className="fas fa-star"><FontAwesomeIcon icon={faStar}/></i>
-              <i className="fas fa-star-half-alt"><FontAwesomeIcon icon={faStarHalfAlt}/></i>
+              <i className="fas fa-star"><FontAwesomeIcon icon={faStar}/></i>
             </div>
             <p className="text">
               {" "}
-              Bệnh Viện là một nơi tuyệt vời để nhận điều trị. Phòng khám sạch sẽ và tiện nghi, 
-              đội ngũ y tế thân thiện và nhiệt tình. Tôi rất ấn tượng với cách họ xử lý và chăm sóc bệnh nhân. 
-              Sẽ quay lại nếu cần.
+              El Hospital es un gran lugar para recibir tratamiento.
+              La clínica es limpia y cómoda, el equipo médico es amable y entusiasta.
+              Estoy muy impresionado con la forma en que tratan y cuidan a los pacientes.
+              Volverá si es necesario.
             </p>
           </div>
           <div className="box">
@@ -371,12 +370,14 @@ function Home() {
               <i className="fas fa-star"><FontAwesomeIcon icon={faStar}/></i>
               <i className="fas fa-star"><FontAwesomeIcon icon={faStar}/></i>
               <i className="fas fa-star"><FontAwesomeIcon icon={faStar}/></i>
-              <i className="fas fa-star-half-alt"><FontAwesomeIcon icon={faStarHalfAlt}/></i>
+              <i className="fas fa-star"><FontAwesomeIcon icon={faStar}/></i>
             </div>
             <p className="text">
               {" "}
-              Tôi rất hài lòng với dịch vụ tại Bệnh Viện. Thời gian chờ đợi ngắn, bác sĩ và y tá rất chuyên nghiệp và tận tình. 
-              Bên cạnh đó, hệ thống quản lý lịch hẹn của họ cũng rất hiệu quả. Sẽ giới thiệu cho bạn bè và gia đình của tôi.
+              Je suis très satisfait du service à l'hôpital.
+              Le temps d'attente est court, les médecins et infirmières sont très professionnels et dévoués.
+              De plus, leur système de gestion des rendez-vous est également très efficace.
+              Je le recommanderai à mes amis et à ma famille.
             </p>
           </div>
         </div>
@@ -404,10 +405,10 @@ function Home() {
               </div>
               <h3>2022 - TĂNG CƯỜNG HỒI PHỤC CHO NGƯỜI BỆNH SAU PHẪU THUẬT</h3>
               <p>CHƯƠNG TRÌNH TĂNG CƯỜNG HỒI PHỤC CHO NGƯỜI BỆNH SAU PHẪU THUẬT</p>
-              <a href="#" className="btn">
+              {/* <a href="#" className="btn">
                 {" "}
                 xem thêm <span className="fas fa-chevron-right"><FontAwesomeIcon icon={faChevronRight}/></span>
-              </a>
+              </a> */}
             </div>
           </div>
           <div className="box">
@@ -425,10 +426,10 @@ function Home() {
               </div>
               <h3>2021 - THỰC HIỆN GHÉP GAN TRẺ EM</h3>
               <p>Thành công của ca ghép gan trẻ em góp phần mở ra nhiều hi vọng cho bệnh nhi bị bệnh lý về gan nặng, có chỉ định ghép gan.</p>
-              <a href="#" className="btn">
+              {/* <a href="#" className="btn">
                 {" "}
                 xem thêm <span className="fas fa-chevron-right"><FontAwesomeIcon icon={faChevronRight}/></span>
-              </a>
+              </a> */}
             </div>
           </div>
           <div className="box">
@@ -446,10 +447,10 @@ function Home() {
               </div>
               <h3>2021 – CHẨN ĐOÁN, CAN THIỆP VÀ PHẪU THUẬT TIM MẠCH</h3>
               <p>Trung tâm Tim Mạch hoạt động điều trị - nghiên cứu – đào tạo bao quát, đồng bộ với Nội tim mạch, Phẫu thuật tim mạch, Can thiệp tim mạch và Nhịp tim học.</p>
-              <a href="#" className="btn">
+              {/* <a href="#" className="btn">
                 {" "}
                 xem thêm <span className="fas fa-chevron-right"><FontAwesomeIcon icon={faChevronRight}/></span>
-              </a>
+              </a> */}
             </div>
           </div>
 
@@ -468,10 +469,10 @@ function Home() {
               </div>
               <h3>2021 - BỆNH VIỆN ĐẠT GIẢI THÀNH TỰU Y KHOA VIỆT NAM</h3>
               <p>Giải thành tựu y khoa Việt Nam 2021 với mô hình “Chăm sóc F0 dựa vào cộng đồng” và “Phối hợp liên viện và ECMO cứu sống mẹ con sản phụ mắc COVID-19 nguy kịch”.</p>
-              <a href="#" className="btn">
+              {/* <a href="#" className="btn">
                 {" "}
                 xem thêm <span className="fas fa-chevron-right"><FontAwesomeIcon icon={faChevronRight}/></span>
-              </a>
+              </a> */}
             </div>
           </div>
 
@@ -491,10 +492,10 @@ function Home() {
               <h3>2021 – KỸ THUẬT ECMO GIÚP CỨU SẢN PHỤ MẮC COVID-19
 </h3>
               <p>ECMO là một trong những kỹ thuật chuyên sâu về hồi sức cấp cứu, như một bộ máy thay thế cho phổi và một phần cho tim khi phổi không hoạt động được.</p>
-              <a href="#" className="btn">
+              {/* <a href="#" className="btn">
                 {" "}
                 xem thêm <span className="fas fa-chevron-right"><FontAwesomeIcon icon={faChevronRight}/></span>
-              </a>
+              </a> */}
             </div>
           </div>
 
@@ -513,10 +514,10 @@ function Home() {
               </div>
               <h3>2022 – THÀNH TỰU QUẨN TRỊ - CHUYỂN ĐỔI SỐ</h3>
               <p>BV tiên phong triển khai ứng dụng Công nghệ thông tin (CNTT) từ khám, chữa bệnh tới quản trị hệ thống.</p>
-              <a href="#" className="btn">
+              {/* <a href="#" className="btn">
                 {" "}
                 xem thêm <span className="fas fa-chevron-right"><FontAwesomeIcon icon={faChevronRight}/></span>
-              </a>
+              </a> */}
             </div>
           </div>
         </div>

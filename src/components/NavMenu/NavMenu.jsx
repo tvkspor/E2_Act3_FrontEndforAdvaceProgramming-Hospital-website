@@ -99,6 +99,8 @@ const Navbar = () => {
       navigate("/");
     } else if (type === "doctor") {
       navigate("/doctor");
+    } else if (type === "doctorpage") {
+      navigate("/my-doctorpage");
     } else if (type === "medicalreport") {
       navigate("/my-medicalrecords");
     }

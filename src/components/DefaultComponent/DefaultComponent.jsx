@@ -7,7 +7,7 @@ import Footer from "../Footer/Footer";
 const DefaultComponent = ({ children }) => {
   return (
     <div>
-      <HeaderComponent/>
+      {/* <HeaderComponent/> */}
       <NavMenu isHiddenCart/>
       {children}
       <Footer />

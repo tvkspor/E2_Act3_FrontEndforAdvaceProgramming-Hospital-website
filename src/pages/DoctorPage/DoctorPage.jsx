@@ -76,7 +76,7 @@ const DoctorPage = () => {
         return (
             <WrapperSection className="doctors" id="doctors">
 
-                <WrapperHeading> CHUYÊN <WrapperHeadingSpan>KHOA</WrapperHeadingSpan> </WrapperHeading>
+                <WrapperHeading> CHUYÊN <WrapperHeadingSpan>GIA</WrapperHeadingSpan> </WrapperHeading>
 
                 < div>
                     <img src={doctor_background} alt="" style={{ height: "auto", display: "block", width: "100%", align: "center" }}></img>

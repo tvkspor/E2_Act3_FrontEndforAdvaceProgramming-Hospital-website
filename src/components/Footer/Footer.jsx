@@ -49,37 +49,6 @@ function Footer() {
     <section className="footer">
             <div className="box-container">
             <div className="box">
-                <h3>quick links</h3>
-                <a href="#">
-                {" "}
-                <i className="fas fa-chevron-right"><FontAwesomeIcon icon={faChevronRight}/></i> home{" "}
-                </a>
-                <a href="#">
-                {" "}
-                <i className="fas fa-chevron-right"><FontAwesomeIcon icon={faChevronRight}/></i> services{" "}
-                </a>
-                <a href="#">
-                {" "}
-                <i className="fas fa-chevron-right"><FontAwesomeIcon icon={faChevronRight}/></i> about{" "}
-                </a>
-                <a href="#">
-                {" "}
-                <i className="fas fa-chevron-right"><FontAwesomeIcon icon={faChevronRight}/></i> doctors{" "}
-                </a>
-                <a href="#">
-                {" "}
-                <i className="fas fa-chevron-right"><FontAwesomeIcon icon={faChevronRight}/></i> book{" "}
-                </a>
-                <a href="#">
-                {" "}
-                <i className="fas fa-chevron-right"><FontAwesomeIcon icon={faChevronRight}/></i> review{" "}
-                </a>
-                <a href="#">
-                {" "}
-                <i className="fas fa-chevron-right"><FontAwesomeIcon icon={faChevronRight}/></i> blogs{" "}
-                </a>
-            </div>
-            <div className="box">
                 <h3>our services</h3>
                 <a href="#">
                 {" "}
@@ -106,35 +75,31 @@ function Footer() {
                 <h3>contact info</h3>
                 <a href="#">
                 {" "}
-                <i className="fas fa-phone"><FontAwesomeIcon icon={faPhone}/></i> +123-456-789{" "}
+                <i className="fas fa-phone"><FontAwesomeIcon icon={faPhone}/></i> +115{" "}
                 </a>
                 <a href="#">
                 {" "}
-                <i className="fas fa-phone"><FontAwesomeIcon icon={faPhone}/></i> +789-456-123{" "}
-                </a>
-                <a href="#">
-                {" "}
-                <i className="fas fa-envelope"><FontAwesomeIcon icon={faEnvelope}/></i> email@gmail.com{" "}
-                </a>
-                <a href="#">
-                {" "}
-                <i className="fas fa-envelope"><FontAwesomeIcon icon={faEnvelope}/></i> email@gmail.com{" "}
+                <i className="fas fa-envelope"><FontAwesomeIcon icon={faEnvelope}/></i> tuyen060204@gmail.com{" "}
                 </a>
                 <a href="#">
                 {" "}
                 <i className="fas fa-map-marker-alt"><FontAwesomeIcon icon={faMapMarkerAlt}/></i> TP HCM, Viet Nam{" "}
                 </a>
+                <a href="#">
+                {" "}
+                <i className="fas fa-map-marker-alt"><FontAwesomeIcon icon={faMapMarkerAlt}/></i> 766 Võ Văn Kiệt, Phường 1, Quận 5, TP. HCM{" "}
+                </a>
             </div>
             <div className="box">
                 <h3>follow us</h3>
-                <a href="#">
+                <a href="https://www.facebook.com/profile.php?id=61558353060924">
                 {" "}
-                <i className="fab fa-facebook-f"><FontAwesomeIcon icon={faFacebookF}/></i> facebook{" "}
+                <i className="fab fa-facebook-f"><FontAwesomeIcon icon={faFacebookF}/></i> Fanpage{" "}
                 </a>
-                <a href="#">
+                {/* <a href="#">
                 {" "}
                 <i className="fab fa-twitter"><FontAwesomeIcon icon={faTwitter}/></i> twitter{" "}
-                </a>
+                </a> */}
                 <a href="#">
                 {" "}
                 <i className="fab fa-instagram"><FontAwesomeIcon icon={faInstagram}/></i> instagram{" "}
@@ -143,10 +108,10 @@ function Footer() {
                 {" "}
                 <i className="fab fa-linkedin"><FontAwesomeIcon icon={faLinkedin}/></i> linkedin{" "}
                 </a>
-                <a href="#">
+                {/* <a href="#">
                 {" "}
                 <i className="fab fa-pinterest"><FontAwesomeIcon icon={faPinterest}/></i> pinterest{" "}
-                </a>
+                </a> */}
             </div>
             </div>
             {/* <div className="credit">

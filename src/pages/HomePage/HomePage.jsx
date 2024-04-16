@@ -97,142 +97,8 @@ const HomePage = () => {
   }
   return (
 
-
-//       {/* <div
-//         className="body"
-//         style={{ width: "100%", backgroundColor: "#efefef" }}
-//       >
-//         <div
-//           id="container"
-//           style={{ height: "1000px", width: "1270px", margin: "0 auto" }}
-//         >
-//           <SliderComponent arrImages={[hinh1, hinh2]} />
-//           <WrapperProducts>
-//             {product?.data?.map((product) => {
-//               return ( */}
                
-// <section className="blogs" id="blogs">
-// <Loading isLoading={isLoading || loading}>
-
-//       <ItemSearchComponent/> 
-//       {/* <div className="sort-container" style={sortContainerStyle}>
-//       <label style={labelStyle}>Sắp xếp theo giá: </label>
-//       <select style={selectStyle} value={sortOrderPrice} onChange={(e) => setSortOrderPrice(e.target.value)}>
-//         <option value="asc">Giá tăng dần</option>
-//         <option value="desc">Gía giảm dần</option>
-//       </select>
-
-//       <label style={labelStyle}>Sắp xếp theo ngày: </label>
-//       <select style={selectStyle} value={sortOrderDate} onChange={(e) => setSortOrderDate(e.target.value)}>
-//         <option value="asc">Tăng dần</option>
-//         <option value="desc">Giảm dần</option>
-//       </select>
-
-//       <label style={labelStyle}>Sắp xếp theo tên: </label>
-//         <select style={selectStyle} value={sortOrderName} onChange={(e) => setSortOrderName(e.target.value)}>
-//           <option value="asc">Từ A-Z</option>
-//           <option value="desc">Từ Z-A</option>
-//         </select>
-//     </div>   */}
-//       <div className="box-container">
-//               {sortedItems.map((items) => {
-//                 return (
-//                   <CardComponent
-//                   key={product._id}
-//                   countInStock={product.countInStock}
-//                   description={product.description}
-//                   image={product.image}
-//                   name={product.name}
-//                   price={product.price}
-//                   rating={product.rating}
-//                   type={product.type}
-//                   selled={product.selled}
-//                   discount={product.discount}
-//                   id={product._id}
-//                 />
-//                 );
-//               })}
-//       </div>
-//       <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-//         <button onClick={loadMore} style={{
-//           border: '2px solid green',
-//           borderRadius: '5px',
-//           padding: '10px 20px',
-//           color: 'green',
-//           fontWeight: 'bold',
-//           transition: 'all 0.3s ease',
-//           cursor: 'pointer'
-//         }}
-//         onMouseOver={(e) => {
-//           e.currentTarget.style.background = 'green';
-//           e.currentTarget.style.color = 'white';
-//         }}
-//         onMouseOut={(e) => {
-//           e.currentTarget.style.background = 'transparent';
-//           e.currentTarget.style.color = 'green';
-//         }}
-//         >
-//           Load More
-//         </button>
-//       </div>
-
-//                 // <CardComponent
-//                 //   key={product._id}
-//                 //   countInStock={product.countInStock}
-//                 //   description={product.description}
-//                 //   image={product.image}
-//                 //   name={product.name}
-//                 //   price={product.price}
-//                 //   rating={product.rating}
-//                 //   type={product.type}
-//                 //   selled={product.selled}
-//                 //   discount={product.discount}
-//                 //   id={product._id}
-//                 // />
-//             //   );
-//             // })}
-//       //     </WrapperProducts>
-//       //     <div
-//       //       style={{
-//       //         width: "100%",
-//       //         display: "flex",
-//       //         justifyContent: "center",
-//       //         marginTop: "10px",
-//       //       }}
-//       //     >
-//       //       <WrapperButtonMore
-//       //         textbutton={isPreviousData ? "Load more" : "Xem thêm"}
-//       //         type="outline"
-//       //         styleButton={{
-//       //           border: `1px solid ${
-//       //             product?.total === product?.data?.length
-//       //               ? "#f5f5f5"
-//       //               : "#9255FD"
-//       //           }`,
-//       //           color: `${
-//       //             product?.total === product?.data?.length
-//       //               ? "#f5f5f5"
-//       //               : "#9255FD"
-//       //           }`,
-//       //           width: "240px",
-//       //           height: "38px",
-//       //           borderRadius: "4px",
-//       //         }}
-//       //         disabled={
-//       //           product?.total === product?.data?.length ||
-//       //           product?.totalPage === 1
-//       //         }
-//       //         styleTextButton={{
-//       //           fontWeight: 500,
-//       //           color: product?.total === product?.data?.length && "#fff",
-//       //         }}
-//       //         onClick={() => setLimit((prev) => prev + 6)}
-//       //       />
-//       //     </div>
-//       //   </div>
-//       // </div>
-//     </Loading>
-//     </section>
+          
 
 <section className="blogs" id="blogs">
       <h1 className="heading">
@@ -263,7 +129,7 @@ const HomePage = () => {
               {sortedItems.map((product) => {
                 return (
                  <CardComponent
-                  key={product._id}
+                  // key={product.id}
                   countInStock={product.countInStock}
                   description={product.description}
                   image={product.image}
@@ -273,7 +139,7 @@ const HomePage = () => {
                   type={product.type}
                   selled={product.selled}
                   discount={product.discount}
-                  id={product._id}
+                  id={product.id}
                 />
                 );
               })}

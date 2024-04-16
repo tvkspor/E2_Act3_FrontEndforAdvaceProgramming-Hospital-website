@@ -4,6 +4,7 @@ import {
   SearchOutlined,
   PlusOutlined,
   MedicineBoxOutlined,
+  PlusCircleOutlined,
 } from "@ant-design/icons";
 import React, { useRef } from "react";
 import { WrapperHeader, WrapperUploadFile } from "./style";
@@ -25,6 +26,7 @@ const MyDoctorPage = () => {
   const [isOpenDrawer, setIsOpenDrawer] = useState(false);
   const [isOpenDrawer2, setIsOpenDrawer2] = useState(false);
   const [isOpenDrawer3, setIsOpenDrawer3] = useState(false);
+  const [isOpenDrawer4, setIsOpenDrawer4] = useState(false);
   const [isLoadingUpdate, setIsLoadingUpdate] = useState(false);
   const user = useSelector((state) => state?.user);
   const queryClient = useQueryClient();
@@ -49,6 +51,11 @@ const MyDoctorPage = () => {
     medicinename: "",
   });
   const [stateMedicine, setStateMedicine] = useState(inittial3());
+
+  const inittial4 = () => ({
+    progress: 0,
+  });
+  const [stateProgress, setStateProgress] = useState(inittial4());
 
   const [form] = Form.useForm();
 
@@ -92,6 +99,19 @@ const MyDoctorPage = () => {
     isSuccess: isSuccessM,
     isError: isErrorM,
   } = mutationUpdateMedicine;
+  //
+  const mutationUpdateProgress = useMutationHooks((data) => {
+    const { id, ...rests } = data;
+    const res = UserService.updateProgress(id, { ...rests });
+    return res;
+  });
+
+  const {
+    data: dataP,
+    isLoading: isLoadingP,
+    isSuccess: isSuccessP,
+    isError: isErrorP,
+  } = mutationUpdateProgress;
 
   //
   useEffect(() => {
@@ -118,6 +138,14 @@ const MyDoctorPage = () => {
       message.error();
     }
   }, [isSuccessM]);
+  useEffect(() => {
+    if (isSuccessP && dataP?.status === "OK") {
+      message.success();
+      handleCloseDrawer4();
+    } else if (isErrorE) {
+      message.error();
+    }
+  }, [isSuccessP]);
 
   // Truy vấn dữ liệu từ database
 
@@ -133,12 +161,25 @@ const MyDoctorPage = () => {
     setIsOpenDrawer3(true);
   };
 
+  const handleProgress = () => {
+    setIsOpenDrawer4(true);
+  };
+
   const renderAction = () => {
     return (
       <div>
         <EditOutlined
-          style={{ color: "orange", fontSize: "30px", cursor: "pointer" }}
+          style={{
+            color: "orange",
+            fontSize: "30px",
+            cursor: "pointer",
+            marginRight: "30px",
+          }}
           onClick={handleHistory}
+        />
+        <PlusCircleOutlined
+          style={{ color: "orange", fontSize: "30px", cursor: "pointer" }}
+          onClick={handleProgress}
         />
       </div>
     );
@@ -293,6 +334,11 @@ const MyDoctorPage = () => {
       ...getColumnSearchProps("nameOrder"),
     },
     {
+      title: "Tiến độ",
+      dataIndex: "progress",
+      ...getColumnSearchProps("progress"),
+    },
+    {
       title: "Tên thuốc ngoài chương trình",
       dataIndex: "Medicine",
       render: (Medicine) => (
@@ -304,7 +350,7 @@ const MyDoctorPage = () => {
       ),
     },
     {
-      title: "Cập nhật tình hình bệnh nhân",
+      title: "Cập nhật tình hình bệnh nhân và tiến độ",
       dataIndex: "action",
       render: renderAction,
     },
@@ -354,6 +400,14 @@ const MyDoctorPage = () => {
     });
     form.resetFields();
   };
+
+  const handleCloseDrawer4 = () => {
+    setIsOpenDrawer4(false);
+    setStateProgress({
+      progress: 0,
+    });
+    form.resetFields();
+  };
   //
 
   const handleOnchangeDetails = (e) => {
@@ -388,6 +442,12 @@ const MyDoctorPage = () => {
       medicinename: value,
     });
   };
+  const handleChangeSelectProgress = (value) => {
+    setStateProgress({
+      ...stateProgress,
+      progress: value,
+    });
+  };
 
   //
 
@@ -419,6 +479,20 @@ const MyDoctorPage = () => {
     );
   };
 
+  const onUpdateProgress = () => {
+    mutationUpdateProgress.mutate(
+      {
+        id: rowSelected,
+        ...stateProgress,
+      },
+      {
+        onSettled: () => {
+          queryClient.invalidateQueries(["progress"]);
+        },
+      }
+    );
+  };
+
   const renderOptions = (arr) => {
     let results = [];
     if (arr) {
@@ -432,18 +506,45 @@ const MyDoctorPage = () => {
     return results;
   };
 
+  const renderOptions2 = () => {
+    const defaultOptions = [15, 30, 50, 75, 100];
+    return defaultOptions.map((option) => ({
+      value: option,
+      label: option.toString(),
+    }));
+  };
+
   // Tên thuốc từng type
 
   const fetchAllTablets = async () => {
     const res = await MedicineService.getAllTabletsname();
     return res;
   };
-
   const Tablets = useQuery({
-    queryKey: ["doctor2"],
+    queryKey: ["tablets"],
     queryFn: fetchAllTablets,
   });
   const TabletsNames = Tablets?.data?.data?.map((medicine) => medicine.name);
+
+  const fetchAllLiquor = async () => {
+    const res = await MedicineService.getAllLiquorsname();
+    return res;
+  };
+  const Liquors = useQuery({
+    queryKey: ["liquors"],
+    queryFn: fetchAllLiquor,
+  });
+  const LiquorsNames = Liquors?.data?.data?.map((medicine) => medicine.name);
+
+  const fetchAllPowder = async () => {
+    const res = await MedicineService.getAllPowdersname();
+    return res;
+  };
+  const Powders = useQuery({
+    queryKey: ["powders"],
+    queryFn: fetchAllPowder,
+  });
+  const PowdersNames = Powders?.data?.data?.map((medicine) => medicine.name);
 
   return (
     <div>
@@ -489,7 +590,7 @@ const MyDoctorPage = () => {
               <InputComponent
                 value={stateHistory["day"]}
                 onChange={handleOnchangeDetails}
-                name="name"
+                name="day"
               />
             </Form.Item>
             <Form.Item
@@ -635,7 +736,75 @@ const MyDoctorPage = () => {
                 />
               </Form.Item>
             )}
+            {stateMedicine.type === "dung dịch" && (
+              <Form.Item
+                label="Tên thuốc"
+                name="medicinename"
+                rules={[
+                  { required: true, message: "Please choose Medicinename!" },
+                ]}
+              >
+                <Select
+                  name="medicinename"
+                  value={stateMedicine.medicinename}
+                  onChange={handleChangeMedicineName}
+                  options={renderOptions(LiquorsNames)}
+                />
+              </Form.Item>
+            )}
+            {stateMedicine.type === "bột" && (
+              <Form.Item
+                label="Tên thuốc"
+                name="medicinename"
+                rules={[
+                  { required: true, message: "Please choose Medicinename!" },
+                ]}
+              >
+                <Select
+                  name="medicinename"
+                  value={stateMedicine.medicinename}
+                  onChange={handleChangeMedicineName}
+                  options={renderOptions(PowdersNames)}
+                />
+              </Form.Item>
+            )}
 
+            <Form.Item wrapperCol={{ offset: 20, span: 16 }}>
+              <Button type="primary" htmlType="submit">
+                Cập nhật
+              </Button>
+            </Form.Item>
+          </Form>
+        </Loading>
+      </DrawerComponent>
+
+      <DrawerComponent
+        title="Cập nhật tiến độ"
+        isOpen={isOpenDrawer4}
+        onClose={() => setIsOpenDrawer4(false)}
+        width="90%"
+      >
+        <Loading isLoading={isLoadingUpdate || isLoadingUpdated}>
+          <Form
+            name="basic"
+            labelCol={{ span: 2 }}
+            wrapperCol={{ span: 22 }}
+            onFinish={onUpdateProgress}
+            autoComplete="on"
+            form={form}
+          >
+            <Form.Item
+              label="Tiến độ"
+              name="progress"
+              rules={[{ required: true, message: "Please input progress!" }]}
+            >
+              <Select
+                name="progress"
+                value={stateProgress.progress}
+                onChange={handleChangeSelectProgress}
+                options={renderOptions2()}
+              />
+            </Form.Item>
             <Form.Item wrapperCol={{ offset: 20, span: 16 }}>
               <Button type="primary" htmlType="submit">
                 Cập nhật

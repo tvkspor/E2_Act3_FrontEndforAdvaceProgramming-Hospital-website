@@ -10,17 +10,24 @@ import HeaderComponent from "../../components/HeaderCompoent/HeaderComponent";
 import AdminUser from "../../components/AdminUser/AdminUser";
 import AdminProduct from "../../components/AdminProduct/AdminProduct";
 import OrderAdmin from "../../components/OrderAdmin/OrderAmin";
+import AdminDoctor from "../../components/AdminDoctor/AdminDoctor";
+import AdminItem from "../../components/AdminItem/AdminItem"
+import AdminMedicine from "../../components/AdminMedicine/AdminMedicine";
+import AdminBooking from "../../components/AdminBooking/AdminBooking"
 import * as OrderService from "../../services/OrderService";
 import * as ProductService from "../../services/ProductService";
 import * as UserService from "../../services/UserService";
-import * as DoctorService from "../../services/DoctorService";
+import * as DoctorService from "../../services/DoctorService"
+import * as ItemService from "../../services/ItemService"
+import * as MedicineService from "../../services/MedicineService";
+import * as BookingService from "../../services/BookingService"
+
 
 import CustomizedContent from "./components/CustomizedContent";
 import { useSelector } from "react-redux";
 import { useQueries } from "@tanstack/react-query";
 import { useMemo } from "react";
 import Loading from "../../components/LoadingComponent/Loading";
-
 
 const AdminPage = () => {
   const user = useSelector((state) => state?.user);
@@ -30,6 +37,9 @@ const AdminPage = () => {
     getItem("Sản phẩm", "products", <AppstoreOutlined />),
     getItem("Đơn hàng", "orders", <ShoppingCartOutlined />),
     getItem("Bác sĩ", "doctors", <UserOutlined />),
+    getItem("Item", "items", <AppstoreOutlined />),
+    getItem("Medicine", "medicines", <AppstoreOutlined />),
+    getItem("Booking", "bookings", <UserOutlined />),
   ];
 
   const [keySelected, setKeySelected] = useState("");
@@ -47,10 +57,23 @@ const AdminPage = () => {
     const res = await UserService.getAllUser(user?.access_token);
     return { data: res?.data, key: "users" };
   };
-  
+
   const getAllDoctor = async () => {
     const res = await DoctorService.getAllDoctor();
     return { data: res?.data, key: "doctors" };
+  };
+
+  const getAllItem = async () => {
+    const res = await ItemService.getAllItem();
+    return { data: res?.data, key: "items" };
+  };
+  const getAllMedicine = async () => {
+    const res = await MedicineService.getAllItem();
+    return { data: res?.data, key: "medicines" };
+  };
+  const getAllBooking = async () => {
+    const res = await BookingService.getAllBooking();
+    return { data: res?.data, key: "bookings" };
   };
 
   const queries = useQueries({
@@ -58,7 +81,10 @@ const AdminPage = () => {
       { queryKey: ["products"], queryFn: getAllProducts, staleTime: 1000 * 60 },
       { queryKey: ["users"], queryFn: getAllUsers, staleTime: 1000 * 60 },
       { queryKey: ["orders"], queryFn: getAllOrder, staleTime: 1000 * 60 },
-      { queryKey: ["doctors"], queryFn: getAllDoctor, staleTime: 1000 * 60},
+      { queryKey: ["doctors"], queryFn: getAllDoctor, staleTime: 1000 * 60 },
+      { queryKey: ["items"], queryFn: getAllItem, staleTime: 1000 * 60 },
+      { queryKey: ["medicines"], queryFn: getAllMedicine, staleTime: 1000 * 60 },
+      { queryKey: ["bookings"], queryFn: getAllBooking, staleTime: 1000 * 60 },
     ],
   });
   const memoCount = useMemo(() => {
@@ -79,6 +105,10 @@ const AdminPage = () => {
     users: ["#e66465", "#9198e5"],
     products: ["#a8c0ff", "#3f2b96"],
     orders: ["#11998e", "#38ef7d"],
+    doctors: ["#a8c0ff", "#3f2b96"],
+    // items: ["#a8c0ff", "#3f2b96"],
+    // medicines: ["#a8c0ff", "#3f2b96"],
+    // bookings: ["#a8c0ff", "#3f2b96"],
   };
 
   const renderPage = (key) => {
@@ -89,7 +119,14 @@ const AdminPage = () => {
         return <AdminProduct />;
       case "orders":
         return <OrderAdmin />;
-      
+      case "doctors":
+        return <AdminDoctor />;
+      case "items":
+        return <AdminItem />;
+      case "medicines":
+        return <AdminMedicine />;
+      case "bookings":
+        return <AdminBooking />;
       default:
         return <></>;
     }

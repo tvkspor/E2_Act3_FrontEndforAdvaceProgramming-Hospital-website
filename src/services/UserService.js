@@ -18,6 +18,22 @@ export const signupUser = async (data) => {
   return res.data;
 };
 
+export const resetPassword = async (email,password, confirmPassword) => {
+  const res = await axios.post(
+    `${process.env.REACT_APP_API_URL}/user/reset-password/${email}`,
+    {email, password, confirmPassword }
+  );
+  return res.data;
+};
+
+export const forgotPassword = async (email) => {
+  const res = await axios.post(
+    `${process.env.REACT_APP_API_URL}/user/forgot-password`,
+    { email }
+  );
+  return res.data;
+};
+
 export const getDetailsUser = async (id, access_token) => {
   const res = await axiosJWT.get(
     `${process.env.REACT_APP_API_URL}/user/get-details/${id}`,
@@ -121,14 +137,18 @@ export const updateUser = async (id, data, access_token) => {
   return res.data;
 };
 
-export const updatetreatmentHistory = async (id, access_token) => {
+export const updatetreatmentHistory = async (id, data) => {
   const res = await axiosJWT.put(
     `${process.env.REACT_APP_API_URL}/user/update-treatmenthistory/${id}`,
-    {
-      headers: {
-        token: `Bearer ${access_token}`,
-      },
-    }
+    data
+  );
+  return res.data;
+};
+
+export const updateComment = async (id, data) => {
+  const res = await axiosJWT.put(
+    `${process.env.REACT_APP_API_URL}/user/update-comment/${id}`,
+    data
   );
   return res.data;
 };
@@ -136,6 +156,14 @@ export const updatetreatmentHistory = async (id, access_token) => {
 export const updateEventData = async (id, data) => {
   const res = await axiosJWT.put(
     `${process.env.REACT_APP_API_URL}/user/update-eventdata/${id}`,
+    data
+  );
+  return res.data;
+};
+
+export const updateProgress = async (id, data) => {
+  const res = await axiosJWT.put(
+    `${process.env.REACT_APP_API_URL}/user/update-progress/${id}`,
     data
   );
   return res.data;

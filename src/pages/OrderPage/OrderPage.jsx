@@ -12,7 +12,6 @@ import {
   WrapperTotal,
 } from "./style";
 import { DeleteOutlined, MinusOutlined, PlusOutlined } from "@ant-design/icons";
-
 import { WrapperInputNumber } from "../../components/ProductDetailsComponent/style";
 import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
 import { useDispatch, useSelector } from "react-redux";
@@ -42,10 +41,8 @@ const OrderPage = () => {
   const [listChecked, setListChecked] = useState([]);
   const [isOpenModalUpdateInfo, setIsOpenModalUpdateInfo] = useState(false);
   const [stateUserDetails, setStateUserDetails] = useState({
-    name: "",
-    phone: "",
-    address: "",
-    city: "",
+    BHXH: "",
+    CCCD: "",
   });
   const navigate = useNavigate();
   const [form] = Form.useForm();
@@ -101,10 +98,9 @@ const OrderPage = () => {
   useEffect(() => {
     if (isOpenModalUpdateInfo) {
       setStateUserDetails({
-        city: user?.city,
         name: user?.name,
-        address: user?.address,
-        phone: user?.phone,
+        BHXH: user?.BHXH,
+        CCCD: user?.CCCD,
       });
     }
   }, [isOpenModalUpdateInfo]);
@@ -172,13 +168,13 @@ const OrderPage = () => {
     setIsOpenModalUpdateInfo(false);
   };
   const handleUpdateInforUser = () => {
-    const { name, address, city, phone } = stateUserDetails;
-    if (name && address && city && phone) {
+    const { name, BHXH, CCCD } = stateUserDetails;
+    if (name && BHXH && CCCD) {
       mutationUpdate.mutate(
         { id: user?.id, token: user?.access_token, ...stateUserDetails },
         {
           onSuccess: () => {
-            dispatch(updateUser({ name, address, city, phone }));
+            dispatch(updateUser({ name, BHXH, CCCD }));
             setIsOpenModalUpdateInfo(false);
           },
         }
@@ -290,10 +286,7 @@ const OrderPage = () => {
             <div style={{ width: "100%" }}>
               <WrapperInfo>
                 <div>
-                  <span>Địa chỉ: </span>
-                  <span style={{ fontWeight: "bold" }}>
-                    {`${user?.address} ${user?.city}`}{" "}
-                  </span>
+                  <span>Thông tin bổ sung (CCCD, BHXH): </span>
                   <span
                     onClick={handleChangeAddress}
                     style={{ color: "#9255FD", cursor: "pointer" }}
@@ -412,39 +405,29 @@ const OrderPage = () => {
               />
             </Form.Item>
             <Form.Item
-              label="City"
-              name="city"
-              rules={[{ required: true, message: "Please input your city!" }]}
+              label="Bảo hiểm xã hội"
+              name="BHXH"
+              rules={[
+                { required: true, message: "Please input your insurance!" },
+              ]}
             >
               <InputComponent
-                value={stateUserDetails["city"]}
+                value={stateUserDetails["BHXH"]}
                 onChange={handleOnchangeDetails}
-                name="city"
+                name="BHXH"
               />
             </Form.Item>
             <Form.Item
-              label="Phone"
-              name="phone"
-              rules={[{ required: true, message: "Please input your  phone!" }]}
+              label="Căn cước công dân"
+              name="CCCD"
+              rules={[
+                { required: true, message: "Please input your credential!" },
+              ]}
             >
               <InputComponent
                 value={stateUserDetails.phone}
                 onChange={handleOnchangeDetails}
-                name="phone"
-              />
-            </Form.Item>
-
-            <Form.Item
-              label="Adress"
-              name="address"
-              rules={[
-                { required: true, message: "Please input your  address!" },
-              ]}
-            >
-              <InputComponent
-                value={stateUserDetails.address}
-                onChange={handleOnchangeDetails}
-                name="address"
+                name="CCCD"
               />
             </Form.Item>
           </Form>

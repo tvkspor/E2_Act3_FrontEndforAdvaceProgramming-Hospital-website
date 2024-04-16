@@ -76,7 +76,7 @@ function BookingPage() {
           />
           <div className="box12">
           <div id="birth-day" onChange={handleOnchangeBirth} className="box1">
-            <input id="birth-day-holder" placeholder="Ngày tháng năm sinh" type="text"  value={birth}/>
+            <input id="birth-day-holder" placeholder="Ngày sinh" type="text"  value={birth}/>
             <input id="birth-day-date" type="date" value={birth}/>
           </div>
           

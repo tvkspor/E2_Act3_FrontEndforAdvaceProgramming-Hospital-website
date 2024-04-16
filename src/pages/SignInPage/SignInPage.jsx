@@ -64,7 +64,7 @@ const SignInPage = () => {
   };
 
   const handleForgotPassw = () => {
-    navigate("/forgotpassword");
+    navigate("/forgot-password");
   };
 
   const handleOnchangeEmail = (value) => {

@@ -36,9 +36,8 @@ const PaymentPage = () => {
   const [isOpenModalUpdateInfo, setIsOpenModalUpdateInfo] = useState(false);
   const [stateUserDetails, setStateUserDetails] = useState({
     name: "",
-    phone: "",
-    address: "",
-    city: "",
+    BHXH: "",
+    CCCD: "",
   });
   const [form] = Form.useForm();
 
@@ -51,10 +50,9 @@ const PaymentPage = () => {
   useEffect(() => {
     if (isOpenModalUpdateInfo) {
       setStateUserDetails({
-        city: user?.city,
         name: user?.name,
-        address: user?.address,
-        phone: user?.phone,
+        BHXH: user?.BHXH,
+        CCCD: user?.CCCD,
       });
     }
   }, [isOpenModalUpdateInfo]);
@@ -94,7 +92,9 @@ const PaymentPage = () => {
       user?.phone &&
       user?.city &&
       priceMemo &&
-      user?.id
+      user?.id &&
+      user?.BHXH &&
+      user?.CCCD
     ) {
       // eslint-disable-next-line no-unused-expressions
       mutationAddOrder.mutate({
@@ -109,6 +109,8 @@ const PaymentPage = () => {
         totalPrice: totalPriceMemo,
         user: user?.id,
         email: user?.email,
+        BHXH: user?.BHXH,
+        CCCD: user?.CCCD,
       });
     }
   };
@@ -194,18 +196,20 @@ const PaymentPage = () => {
     <div style={{ background: "#f5f5fa", with: "100%", height: "100vh" }}>
       <Loading isLoading={isLoadingAddOrder}>
         <div style={{ height: "100%", width: "1270px", margin: "0 auto" }}>
-          <h3>Thanh toán</h3>
+          <h3>
+            Thanh toán (Thanh toán sau khi hoàn thành chương trình điều trị)
+          </h3>
           <div style={{ display: "flex", justifyContent: "center" }}>
             <WrapperLeft>
               <WrapperInfo>
                 <div>
                   <Lable>Chọn phương thức thanh toán</Lable>
                   <WrapperRadio onChange={handlePayment} value={payment}>
-                    <Radio value="later_money">
+                    <Radio value="later_money"> Thanh toán đầy đủ</Radio>
+                    <Radio value="paypal">
                       {" "}
-                      Thanh toán tiền mặt khi nhận hàng
+                      Thanh toán có BHYT(liên hệ bệnh viện)
                     </Radio>
-                    {/* <Radio value="paypal"> Thanh toán tiền bằng paypal</Radio> */}
                   </WrapperRadio>
                 </div>
               </WrapperInfo>
@@ -214,10 +218,8 @@ const PaymentPage = () => {
               <div style={{ width: "100%" }}>
                 <WrapperInfo>
                   <div>
-                    <span>Địa chỉ: </span>
-                    <span style={{ fontWeight: "bold" }}>
-                      {`${user?.address} ${user?.city}`}{" "}
-                    </span>
+                    <span>Thông tin bổ sung(CCCD, BHXH): </span>
+
                     <span
                       onClick={handleChangeAddress}
                       style={{ color: "#9255FD", cursor: "pointer" }}
@@ -349,41 +351,29 @@ const PaymentPage = () => {
                 />
               </Form.Item>
               <Form.Item
-                label="City"
-                name="city"
-                rules={[{ required: true, message: "Please input your city!" }]}
+                label="Bảo hiểm xã hội"
+                name="BHXH"
+                rules={[
+                  { required: true, message: "Please input your insurance!" },
+                ]}
               >
                 <InputComponent
-                  value={stateUserDetails["city"]}
+                  value={stateUserDetails["BHXH"]}
                   onChange={handleOnchangeDetails}
-                  name="city"
+                  name="BHXH"
                 />
               </Form.Item>
               <Form.Item
-                label="Phone"
-                name="phone"
+                label="Căn cước công dân"
+                name="CCCD"
                 rules={[
-                  { required: true, message: "Please input your  phone!" },
+                  { required: true, message: "Please input your credential!" },
                 ]}
               >
                 <InputComponent
                   value={stateUserDetails.phone}
                   onChange={handleOnchangeDetails}
-                  name="phone"
-                />
-              </Form.Item>
-
-              <Form.Item
-                label="Adress"
-                name="address"
-                rules={[
-                  { required: true, message: "Please input your  address!" },
-                ]}
-              >
-                <InputComponent
-                  value={stateUserDetails.address}
-                  onChange={handleOnchangeDetails}
-                  name="address"
+                  name="CCCD"
                 />
               </Form.Item>
             </Form>

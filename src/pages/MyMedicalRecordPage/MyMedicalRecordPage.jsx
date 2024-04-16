@@ -3,15 +3,56 @@ import { useQuery } from "@tanstack/react-query";
 import { Button, Form, Select, Space } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import React, { useRef } from "react";
-import { SearchOutlined } from "@ant-design/icons";
+import { SearchOutlined, PlusOutlined } from "@ant-design/icons";
 import TableUserComponent from "../../components/TableUserComponent/TableUserComponent";
 import * as UserService from "../../services/UserService";
 import { Badge, Calendar } from "antd";
+import { useMutationHooks } from "../../hooks/useMutationHook";
+import DrawerComponent from "../../components/DrawerComponent/DrawerComponent";
 import moment from "moment";
+import Loading from "../../components/LoadingComponent/Loading";
+import { useState, useEffect } from "react";
+import * as message from "../../components/Message/Message";
 
 const MyMedicalRecordPage = () => {
   const user = useSelector((state) => state.user);
+  const [isOpenDrawer, setIsOpenDrawer] = useState(false);
+  const [rowSelected, setRowSelected] = useState("");
+  const [isLoadingUpdate, setIsLoadingUpdate] = useState(false);
   const searchInput = useRef(null);
+  //Form behavior
+  const [form] = Form.useForm();
+  const inittial = () => ({
+    comment: "",
+  });
+  const [stateComment, setStateComment] = useState(inittial());
+  const mutationUpdate = useMutationHooks((data) => {
+    const { id, ...rests } = data;
+    const res = UserService.updateComment(id, { ...rests });
+    return res;
+  });
+  const {
+    data: dataUpdated,
+    isLoading: isLoadingUpdated,
+    isSuccess: isSuccessUpdated,
+    isError: isErrorUpdated,
+  } = mutationUpdate;
+  useEffect(() => {
+    if (isSuccessUpdated && dataUpdated?.status === "OK") {
+      message.success();
+      handleCloseDrawer();
+    } else if (isErrorUpdated) {
+      message.error();
+    }
+  }, [isSuccessUpdated]);
+
+  const handleCloseDrawer = () => {
+    setIsOpenDrawer(false);
+    setStateComment({
+      comment: "",
+    });
+    form.resetFields();
+  };
 
   const getTreatmenthistory = async () => {
     const res = await UserService.getTreatmenthistory(user?.id);
@@ -114,21 +155,36 @@ const MyMedicalRecordPage = () => {
         setTimeout(() => searchInput.current?.select(), 100);
       }
     },
-    // render: (text) =>
-    //   searchedColumn === dataIndex ? (
-    //     // <Highlighter
-    //     //   highlightStyle={{
-    //     //     backgroundColor: '#ffc069',
-    //     //     padding: 0,
-    //     //   }}
-    //     //   searchWords={[searchText]}
-    //     //   autoEscape
-    //     //   textToHighlight={text ? text.toString() : ''}
-    //     // />
-    //   ) : (
-    //     text
-    //   ),
   });
+
+  const handleEvent = () => {
+    setIsOpenDrawer(true);
+  };
+
+  const handleOnchangeDetails = (e) => {
+    setStateComment({
+      ...stateComment,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const renderAction = () => {
+    return (
+      <div>
+        <PlusOutlined
+          style={{ color: "green", fontSize: "30px", cursor: "pointer" }}
+          onClick={handleEvent}
+        />
+      </div>
+    );
+  };
+
+  const onUpdateComment = () => {
+    mutationUpdate.mutate({
+      id: rowSelected,
+      ...stateComment,
+    });
+  };
 
   // Bảng và thông tin hiển thị
   const columns1 = [
@@ -141,6 +197,16 @@ const MyMedicalRecordPage = () => {
       title: "Tiến trình (/100)",
       dataIndex: "progress",
       ...getColumnSearchProps("progress"),
+    },
+    {
+      title: "Tổng tiền(bao gồm thuốc ngoài chương trình)",
+      dataIndex: "totalprice",
+      ...getColumnSearchProps("totalprice"),
+    },
+    {
+      title: "Thêm nhận xét",
+      dataIndex: "action",
+      render: renderAction,
     },
   ];
   const columns2 = [
@@ -192,20 +258,79 @@ const MyMedicalRecordPage = () => {
   };
 
   return (
-    <div>
-      <h1 style={{ color: "#000", fontSize: "14px" }}>
+    <div style={{ padding: "20px" }}>
+      <h1 style={{ color: "#1890ff", fontSize: "24px", marginBottom: "10px" }}>
         Lịch trình điều trị (cập nhật liên tục)
       </h1>
       <Calendar dateCellRender={dateCellRender} />
-      <h1 style={{ color: "#000", fontSize: "14px" }}>Gói chữa bệnh của tôi</h1>
+
+      <DrawerComponent
+        title="Thêm nhận xét"
+        isOpen={isOpenDrawer}
+        onClose={() => setIsOpenDrawer(false)}
+        width="90%"
+      >
+        <Loading isLoading={isLoadingUpdate || isLoadingUpdated}>
+          <Form
+            name="basic"
+            labelCol={{ span: 2 }}
+            wrapperCol={{ span: 22 }}
+            onFinish={onUpdateComment}
+            autoComplete="on"
+            form={form}
+          >
+            <Form.Item
+              label="Nhận xét"
+              name="comment"
+              rules={[{ required: true, message: "Please input day!" }]}
+            >
+              <InputComponent
+                value={stateComment["comment"]}
+                onChange={handleOnchangeDetails}
+                name="comment"
+              />
+            </Form.Item>
+            <Form.Item wrapperCol={{ offset: 20, span: 16 }}>
+              <Button type="primary" htmlType="submit">
+                Cập nhật
+              </Button>
+            </Form.Item>
+          </Form>
+        </Loading>
+      </DrawerComponent>
+      <h1
+        style={{
+          color: "#1890ff",
+          fontSize: "24px",
+          marginBottom: "10px",
+          marginTop: "20px",
+        }}
+      >
+        Gói chữa bệnh của tôi
+      </h1>
+
       <div style={{ marginTop: "20px" }}>
         <TableUserComponent
           columns={columns1}
           isLoading={isLoadingTreatment}
           data={dataTable1}
+          onRow={(record, rowIndex) => {
+            return {
+              onClick: (event) => {
+                setRowSelected(record.product);
+              },
+            };
+          }}
         />
       </div>
-      <h1 style={{ color: "#000", fontSize: "14px" }}>
+      <h1
+        style={{
+          color: "#1890ff",
+          fontSize: "24px",
+          marginBottom: "10px",
+          marginTop: "20px",
+        }}
+      >
         Quản lý lịch trình khám bệnh
       </h1>
       <div style={{ marginTop: "20px" }}>

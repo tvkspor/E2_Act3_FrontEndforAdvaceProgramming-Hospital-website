@@ -20,6 +20,8 @@ import DoctorPage from "../pages/DoctorPage/DoctorPage";
 import MyMedicalRecordPage from "../pages/MyMedicalRecordPage/MyMedicalRecordPage";
 import MedicalEquipment from "../pages/medicalequipment/medicalequipment";
 import MyDoctorPage from "../pages/MyDoctorPage/MyDoctorPage";
+import PassWordReset from "../pages/PasswordReset/PasswordReset";
+
 
 export const routes = [
   {
@@ -98,8 +100,13 @@ export const routes = [
     page: NotFoundPage,
   },
   {
-    path: "/forgotpassword",
+    path: "/forgot-password",
     page: ForgottenPassWordPage,
+    isShowHeader: false,
+  },
+  {
+    path: "/reset-password",
+    page: PassWordReset,
     isShowHeader: false,
   },
   {
