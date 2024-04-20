@@ -129,7 +129,7 @@ const HomePage = () => {
               {sortedItems.map((product) => {
                 return (
                  <CardComponent
-                  // key={product.id}
+                  //key={product._id}
                   countInStock={product.countInStock}
                   description={product.description}
                   image={product.image}
@@ -139,7 +139,7 @@ const HomePage = () => {
                   type={product.type}
                   selled={product.selled}
                   discount={product.discount}
-                  id={product.id}
+                  id={product._id}
                 />
                 );
               })}

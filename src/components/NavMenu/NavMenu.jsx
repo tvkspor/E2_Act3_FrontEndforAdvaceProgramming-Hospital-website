@@ -99,13 +99,23 @@ const Navbar = () => {
       navigate("/");
     } else if (type === "doctor") {
       navigate("/doctor");
-    } else if (type === "doctorpage") {
-      navigate("/my-doctorpage");
+    } else if (type === "orderitems") {
+        navigate("/orderitems");
+      
     } else if (type === "medicalreport") {
-      navigate("/my-medicalrecords");
-    }
-     else if (type === "orderitems") {
-      navigate("/orderitems");
+      navigate("/my-medicalrecords",{
+        state: {
+          id: user?.id,
+          token: user?.access_token,
+        },
+      });
+    } else if (type === "doctorpage") {
+      navigate("/my-doctorpage", {
+        state: {
+          id: user?.id,
+          token: user?.access_token,
+        },
+      });
     } else if (type === "my-order") {
       navigate("/my-order", {
         state: {

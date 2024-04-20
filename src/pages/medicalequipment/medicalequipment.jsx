@@ -1,24 +1,28 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React from "react";
+
 import { useDebounce } from "../../hooks/useDebounce";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import * as ItemService from "../../services/ItemService";
+import * as ItemService from "../../services/ItemService"
 import ItemCardComponent from "../../components/ItemCardComponent/ItemCardComponent";
 import ItemSearchComponent from "../../components/ItemSearchComponent/ItemSearchComponent";
 
-function MedicalEquipment() {
+function MedicalEquipment(){
   const searchItem = useSelector((state) => state?.item?.search);
   const searchDebounce = useDebounce(searchItem, 500);
   const [loading, setLoading] = useState(false);
   const [limit, setLimit] = useState(3);
   const [typeProducts, setTypeProducts] = useState([]);
-  const [sortOrder, setSortOrder] = useState("asc");
-  const [sortBy, setSortBy] = useState("price");
+
+  const [sortOrder, setSortOrder] = useState('asc'); // 'asc' for ascending, 'desc' for descending
 
   const fetchItemAll = async (context) => {
     const limit = context?.queryKey && context?.queryKey[1];
     const search = context?.queryKey && context?.queryKey[2];
     const res = await ItemService.getAllItem(search, limit);
+
 
     return res;
   };
@@ -30,20 +34,6 @@ function MedicalEquipment() {
     }
   };
 
-  useEffect(() => {
-    fetchAllTypeProduct();
-  }, []);
-
-  const sortFunctions = useMemo(() => ({
-    price: (a, b) => (sortOrder === "asc" ? a.price - b.price : b.price - a.price),
-    date: (a, b) => {
-      const dateA = new Date(a.importDate);
-      const dateB = new Date(b.importDate);
-      return sortOrder === "asc" ? dateA - dateB : dateB - dateA;
-    },
-    name: (a, b) => (sortOrder === "asc" ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name)),
-  }), [sortOrder]);
-
   const {
     isLoading,
     data: items,
@@ -54,114 +44,103 @@ function MedicalEquipment() {
     keepPreviousData: true,
   });
 
-  const sortedItems = useMemo(() => {
-    if (!Array.isArray(items?.data)) return [];
-    return [...items.data].sort(sortFunctions[sortBy]);
-  }, [items, sortBy]);
+  const sortedItems = React.useMemo(() => {
+    if (Array.isArray(items?.data)) {
+      return [...items.data].sort((a, b) => {
+        if (sortOrder === 'asc') {
+          return a.price - b.price;
+        } else {
+          return b.price - a.price;
+        }
+      });
+    } else {
+      return [];
+    }
+  }, [items, sortOrder]);  
 
-  const handleSortChange = (criteria) => {
-    setSortBy(criteria);
-  };
-
-  const handleOrderChange = () => {
-    setSortOrder((prevOrder) => (prevOrder === "asc" ? "desc" : "asc"));
-  };
+  useEffect(() => {
+    fetchAllTypeProduct();
+  }, []);
 
   const loadMore = () => {
-    setLimit((prevLimit) => prevLimit + 3); // Increase limit by 3 each time
+    setLimit(prevLimit => prevLimit + 3); // Increase limit by 3 each time
   };
-
   if (isLoading) {
     return <div>Loading...</div>;
   }
-
-  return (
-    <section className="blogs" id="blogs">
+    return (
+      <section className="blogs" id="blogs">
       <h1 className="heading">
         {" "}
         DỤNG CỤ <span>Y TẾ</span>{" "}
       </h1>
-      <ItemSearchComponent />
+      <ItemSearchComponent/>  
+
       <div className="sort-container" style={sortContainerStyle}>
-        <label style={labelStyle}>Sắp xếp theo: </label>
-        <select
-          style={selectStyle}
-          value={sortBy}
-          onChange={(e) => handleSortChange(e.target.value)}
-        >
-          <option value="price">Giá</option>
-          <option value="date">Ngày</option>
-          <option value="name">Tên</option>
+        <label style={labelStyle}>Sắp xếp theo giá: </label>
+        <select style={selectStyle} value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
+          <option value="asc">Tăng dần</option>
+          <option value="desc">Giảm dần</option>
         </select>
-        <button onClick={handleOrderChange}>
-          {sortOrder === "asc" ? "Tăng dần" : "Giảm dần"}
-        </button>
       </div>
+
       <div className="box-container">
-        {sortedItems.map((item) => {
-          return (
-            <ItemCardComponent
-              //</ItemCardComponent>key={item.ID} // Don't forget to add a unique key
-              name={item.name}
-              ID={item.ID}
-              price={item.price}
-              component={item.component}
-              availability={item.availability}
-              importDate={item.importDate}
-              image={item.image}
-            />
-          );
-        })}
+              {sortedItems.map((items)  => {
+                return (
+                  <ItemCardComponent
+                    name={items.name}
+                    price={items.price}
+                    component={items.component}
+                    availability={items.availability}
+                    importDate={items.importDate}
+                    image={items.image}
+                  />
+                );
+              })}
       </div>
-      <div
-        style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}
-      >
-        <button
-          onClick={loadMore}
-          style={{
-            border: "2px solid green",
-            borderRadius: "5px",
-            padding: "10px 20px",
-            color: "green",
-            fontWeight: "bold",
-            transition: "all 0.3s ease",
-            cursor: "pointer",
-          }}
-          onMouseOver={(e) => {
-            e.currentTarget.style.background = "green";
-            e.currentTarget.style.color = "white";
-          }}
-          onMouseOut={(e) => {
-            e.currentTarget.style.background = "transparent";
-            e.currentTarget.style.color = "green";
-          }}
+      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+        <button onClick={loadMore} style={{
+          border: '2px solid green',
+          borderRadius: '5px',
+          padding: '10px 20px',
+          color: 'green',
+          fontWeight: 'bold',
+          transition: 'all 0.3s ease',
+          cursor: 'pointer'
+        }}
+        onMouseOver={(e) => {
+          e.currentTarget.style.background = 'green';
+          e.currentTarget.style.color = 'white';
+        }}
+        onMouseOut={(e) => {
+          e.currentTarget.style.background = 'transparent';
+          e.currentTarget.style.color = 'green';
+        }}
         >
           Load More
         </button>
       </div>
     </section>
-  );
+    );   
 }
-
 const sortContainerStyle = {
-  display: "flex",
-  alignItems: "center",
-  backgroundColor: "#f8f9fa",
-  padding: "10px",
-  borderRadius: "5px",
-  margin: "20px 0",
+  display: 'flex',
+  alignItems: 'center',
+  backgroundColor: '#f8f9fa',
+  padding: '10px',
+  borderRadius: '5px',
+  margin: '20px 0',
 };
 
 const labelStyle = {
-  marginRight: "10px",
-  fontWeight: "bold",
+  marginRight: '10px',
+  fontWeight: 'bold',
 };
 
 const selectStyle = {
-  padding: "5px",
-  border: "none",
-  borderRadius: "5px",
-  boxShadow: "0 0 5px rgba(0, 0, 0, 0.1)",
+  padding: '5px',
+  border: 'none',
+  borderRadius: '5px',
+  boxShadow: '0 0 5px rgba(0, 0, 0, 0.1)',
 };
-
 export default MedicalEquipment;

@@ -1,7 +1,7 @@
 import AdminPage from "../pages/AdminPage/AdminPage";
 import DetailsOrderPage from "../pages/DetailsOrderPage/DetailsOrderPage";
 import Home from "../components/Home/Home";
-import HomePage from "../pages/HomePage/HomePage";
+import Order from "../pages/Order/Order";
 import MyOrderPage from "../pages/MyOrder/MyOrder";
 import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
 import OrderPage from "../pages/OrderPage/OrderPage";
@@ -21,6 +21,8 @@ import MyMedicalRecordPage from "../pages/MyMedicalRecordPage/MyMedicalRecordPag
 import MedicalEquipment from "../pages/medicalequipment/medicalequipment";
 import MyDoctorPage from "../pages/MyDoctorPage/MyDoctorPage";
 import PassWordReset from "../pages/PasswordReset/PasswordReset";
+import medicine from "../pages/medicine/medicine";
+
 
 
 export const routes = [
@@ -132,12 +134,17 @@ export const routes = [
   },
   {
     path: "/orderitems",
-    page: HomePage,
+    page: Order,
     isShowHeader: true,
   },
   {
     path: "/my-doctorpage",
     page: MyDoctorPage,
+    isShowHeader: true,
+  },
+  {
+    path: "/medicine",
+    page: medicine,
     isShowHeader: true,
   },
 ];

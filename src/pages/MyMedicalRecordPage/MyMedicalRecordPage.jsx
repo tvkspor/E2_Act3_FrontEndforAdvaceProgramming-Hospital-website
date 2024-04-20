@@ -13,12 +13,15 @@ import moment from "moment";
 import Loading from "../../components/LoadingComponent/Loading";
 import { useState, useEffect } from "react";
 import * as message from "../../components/Message/Message";
+import { useLocation } from "react-router-dom";
 
 const MyMedicalRecordPage = () => {
   const user = useSelector((state) => state.user);
   const [isOpenDrawer, setIsOpenDrawer] = useState(false);
   const [rowSelected, setRowSelected] = useState("");
   const [isLoadingUpdate, setIsLoadingUpdate] = useState(false);
+  const location = useLocation();
+  const { state } = location;
   const searchInput = useRef(null);
   //Form behavior
   const [form] = Form.useForm();
@@ -55,17 +58,17 @@ const MyMedicalRecordPage = () => {
   };
 
   const getTreatmenthistory = async () => {
-    const res = await UserService.getTreatmenthistory(user?.id);
+    const res = await UserService.getTreatmenthistory(state?.id);
     return res;
   };
 
   const getTreatment = async () => {
-    const res = await UserService.getTreatment(user?.id);
+    const res = await UserService.getTreatment(state?.id);
     return res;
   };
 
   const getEventData = async () => {
-    const res = await UserService.getEventData(user?.id);
+    const res = await UserService.getEventData(state?.id);
     return res;
   };
 
@@ -258,11 +261,13 @@ const MyMedicalRecordPage = () => {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1 style={{ color: "#1890ff", fontSize: "24px", marginBottom: "10px" }}>
-        Lịch trình điều trị (cập nhật liên tục)
+    <section>
+      <h1 className="heading" style={{marginTop: "30px"}}>
+        LỊCH TRÌNH <span>ĐIỀU TRỊ</span>{" "}
       </h1>
-      <Calendar dateCellRender={dateCellRender} />
+      <div style={{ margin: "20px", padding: "10px", borderRadius: "30px" }}>
+        <Calendar style={calendarStyles} dateCellRender={dateCellRender} />
+      </div>
 
       <DrawerComponent
         title="Thêm nhận xét"
@@ -298,18 +303,15 @@ const MyMedicalRecordPage = () => {
           </Form>
         </Loading>
       </DrawerComponent>
-      <h1
-        style={{
-          color: "#1890ff",
-          fontSize: "24px",
-          marginBottom: "10px",
-          marginTop: "20px",
-        }}
-      >
-        Gói chữa bệnh của tôi
-      </h1>
+      <h1 className="heading" style={{marginTop: "30px"}}>
 
-      <div style={{ marginTop: "20px" }}>
+          GÓI <span>CHỮA BỆNH</span>{" "}
+        </h1>
+
+      <div style={{ 
+          margin: "0 auto", width: "70%",
+          borderRadius: "4px",
+          boxShadow: "0 5px 15px rgba(0, 0, 0, 0.35)", }}>
         <TableUserComponent
           columns={columns1}
           isLoading={isLoadingTreatment}
@@ -323,25 +325,39 @@ const MyMedicalRecordPage = () => {
           }}
         />
       </div>
-      <h1
-        style={{
-          color: "#1890ff",
-          fontSize: "24px",
-          marginBottom: "10px",
-          marginTop: "20px",
-        }}
-      >
-        Quản lý lịch trình khám bệnh
-      </h1>
-      <div style={{ marginTop: "20px" }}>
+      <h1 className="heading" style={{marginTop: "30px"}}>
+
+          TIẾN TRÌNH <span>KHÁM BỆNH</span>{" "}
+        </h1>
+        <div style={{ 
+          margin: "0 auto", width: "70%",
+          borderRadius: "4px",
+          boxShadow: "0 5px 15px rgba(0, 0, 0, 0.35)", }}>
+
         <TableUserComponent
           columns={columns2}
           isLoading={isLoadingTreatmenthistory}
           data={dataTable2}
         />
       </div>
-    </div>
+    </section>
   );
+};
+
+const calendarStyles = {
+  width: '70%', // Adjust this value as needed
+  margin: '0 auto', // This will center the calendar
+  border: '1px solid #ddd',
+  borderRadius: '4px',
+  backgroundColor: '#16A085',
+  boxShadow: "0 5px 15px rgba(0, 0, 0, 0.35)",
+};
+
+const headerStyles = {
+  color: '#000',
+  fontSize: '20px', // Increase this value to make the text bigger
+  marginBottom: '10px',
+  textAlign: 'center', // This will center the text
 };
 
 export default MyMedicalRecordPage;

@@ -13,7 +13,7 @@ const ButttonInputSearch = (props) => {
   } = props
 
   return (
-    <div style={{ display: 'flex', }}>
+    <div style={{ display: 'flex' }}>
       <InputComponent
         size={size}
         placeholder={placeholder}
@@ -27,6 +27,8 @@ const ButttonInputSearch = (props) => {
         icon={<SearchOutlined color={colorButton} style={{ color: '#fff' }} />}
         textbutton={textbutton}
         styleTextButton={{ color: colorButton }}
+        onMouseEnter={(e) => { e.target.style.opacity = "0.8"; }}
+        onMouseLeave={(e) => { e.target.style.opacity = "1"; }}
       />
     </div>
   )

@@ -28,6 +28,8 @@ import * as message from "../Message/Message";
 import LikeButtonComponent from "../LikeButtonComponent/LikeButtonComponent";
 import CommentComponent from "../CommentComponent/CommentComponent";
 import { useMemo } from "react";
+import TableUserComponent from "../../components/TableUserComponent/TableUserComponent";
+
 
 const ProductDetailsComponent = ({ idProduct }) => {
   const [numProduct, setNumProduct] = useState(1);
@@ -42,8 +44,12 @@ const ProductDetailsComponent = ({ idProduct }) => {
     setNumProduct(Number(value));
   };
 
+  var newID;
+
+
   const fetchGetDetailsProduct = async (context) => {
     const id = context?.queryKey && context?.queryKey[1];
+    newID =id;
     if (id) {
       const res = await ProductService.getDetailsProduct(id);
       return res.data;
@@ -136,6 +142,31 @@ const ProductDetailsComponent = ({ idProduct }) => {
     }
   };
 
+  const fetchGetComment = async () => {
+    const res = await ProductService.getAllComment(newID);
+    return res;
+  };
+  
+  const queryComment = useQuery({
+    queryKey: "comment",
+    queryFn: fetchGetComment,
+  });
+  const { isLoading: isLoadingComment, data: comment } = queryComment;
+
+
+  const dataTable1 =
+    comment?.data?.length &&
+    comment?.data?.map((comment) => {
+      return { ...comment, key: comment._id };
+    });
+
+  const columns1 = [
+    {
+      title: "Tên nhận xét",
+      dataIndex: "comment",
+    },
+  ];
+
   return (
     <Loading isLoading={isLoading}>
       <Row
@@ -155,51 +186,8 @@ const ProductDetailsComponent = ({ idProduct }) => {
             alt="image prodcut"
             preview={false}
           />
-          <Row style={{ paddingTop: "10px", justifyContent: "space-between" }}>
-            <WrapperStyleColImage span={4} sty>
-              <WrapperStyleImageSmall
-                src={imageProductSmall}
-                alt="image small"
-                preview={false}
-              />
-            </WrapperStyleColImage>
-            <WrapperStyleColImage span={4}>
-              <WrapperStyleImageSmall
-                src={imageProductSmall}
-                alt="image small"
-                preview={false}
-              />
-            </WrapperStyleColImage>
-            <WrapperStyleColImage span={4}>
-              <WrapperStyleImageSmall
-                src={imageProductSmall}
-                alt="image small"
-                preview={false}
-              />
-            </WrapperStyleColImage>
-            <WrapperStyleColImage span={4}>
-              <WrapperStyleImageSmall
-                src={imageProductSmall}
-                alt="image small"
-                preview={false}
-              />
-            </WrapperStyleColImage>
-            <WrapperStyleColImage span={4}>
-              <WrapperStyleImageSmall
-                src={imageProductSmall}
-                alt="image small"
-                preview={false}
-              />
-            </WrapperStyleColImage>
-            <WrapperStyleColImage span={4}>
-              <WrapperStyleImageSmall
-                src={imageProductSmall}
-                alt="image small"
-                preview={false}
-              />
-            </WrapperStyleColImage>
-          </Row>
         </Col>
+
         <Col span={14} style={{ paddingLeft: "10px" }}>
           <WrapperStyleNameProduct>
             {productDetails?.name}
@@ -261,15 +249,20 @@ const ProductDetailsComponent = ({ idProduct }) => {
             ></ButtonComponent>
           </div>
         </Col>
-        <CommentComponent
+        {/* <CommentComponent
           dataHref={
             process.env.REACT_APP_IS_LOCAL
               ? "https://developers.facebook.com/docs/plugins/comments#configurator"
               : window.location.href
           }
           width="1270"
-        />
+        /> */}
       </Row>
+      <TableUserComponent
+          columns={columns1}
+          isLoading={isLoadingComment}
+          data={dataTable1}
+        />
     </Loading>
   );
 };

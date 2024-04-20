@@ -20,6 +20,7 @@ import {
     faChevronRight,
 
 } from "@fortawesome/free-solid-svg-icons";
+import moment from 'moment'
 
 const DoctorCardComponent = (props) => {
     const {
@@ -36,34 +37,54 @@ const DoctorCardComponent = (props) => {
         navigate(`/product-details/${id}`);
     };
     return (
-        // <section className="doctors" id="doctors">
-        // <WrapperDoctorsBoxContainer>
-
-            // <WrapperDoctorsBoxContainerBox>
-            <>
-                <WrapperDoctorsBoxContainerBoxImg src={avatar} alt=""></WrapperDoctorsBoxContainerBoxImg>
-                <WrapperDoctorsBoxContainerBoxH3>{name}</WrapperDoctorsBoxContainerBoxH3>
-                <WrapperDoctorsBoxContainerBoxSpan>{address}</WrapperDoctorsBoxContainerBoxSpan>
-                <WrapperDoctorsBoxContainerBoxShare>
-                    <WrapperDoctorsBoxContainerBoxShareA href="/#"><FacebookOutlined /></WrapperDoctorsBoxContainerBoxShareA>
-                    <WrapperDoctorsBoxContainerBoxShareA href="/#"><TwitterOutlined /></WrapperDoctorsBoxContainerBoxShareA>
-                    <WrapperDoctorsBoxContainerBoxShareA href="/#"><InstagramOutlined /></WrapperDoctorsBoxContainerBoxShareA>
-                    <WrapperDoctorsBoxContainerBoxShareA href="/#"><LinkedinOutlined /></WrapperDoctorsBoxContainerBoxShareA>
-                    {/* <div>
-                        <a href="/#" className="btn">
-                            learn more <span className="fas fa-chevron-right"><FontAwesomeIcon icon={faChevronRight} /></span>
-                        </a>
-
-                        <a href="/#" className="btn">
-                            learn more <span className="fas fa-chevron-right"><FontAwesomeIcon icon={faChevronRight} /></span>
-                        </a>
-                    </div> */}
-                </WrapperDoctorsBoxContainerBoxShare>
-
-                </>
-            // </WrapperDoctorsBoxContainerBox>
-        // </WrapperDoctorsBoxContainer>
-        // </section>
+        <div className="box">
+          <div className="image">
+            <img src={avatar} alt="" style={{width: "100%", height: "20rem", objectFit: "contain"}}/>
+          </div>
+          <div className="content">
+            <h3>{name}</h3>
+            {/* <p>Lorem, ipsum dolor.</p> */}
+            <ul style={{listStyleType: 'disc'}}>
+              {/* <li>
+                <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                  <p>Tình trạng</p>
+                  <p style={{backgroundColor: '#FFAAAA', borderRadius: '10px', color: 'red', fontWeight: 'bold', padding: '10px'}}>{availability}</p>
+                </div>
+              </li> */}
+              <li>
+                <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                  <p>Số điện thoại</p>
+                  <p style={{color: 'black', fontWeight: 'bold'}}>{phone}</p>
+                </div>
+              </li>
+              <li>
+                <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                  <p>Ngày sinh</p>
+                  <p style={{color: 'black', fontWeight: 'bold'}}>
+                  {moment(dateofbirth).format('DD/MM/YYYY')}</p>
+                </div>
+              </li>
+              <li>
+                <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                  <p>Địa chỉ</p>
+                  <p style={{color: 'black', fontWeight: 'bold'}}>{address}</p>
+                </div>
+              </li>
+            <li>
+                <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                  <p>Giới tính</p>
+                  <p style={{color: 'black', fontWeight: 'bold'}}>{sex}</p>
+                </div>
+            </li>
+            <li>
+                <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                  <p>Khoa</p>
+                  <p style={{color: 'black', fontWeight: 'bold'}}>{department}</p>
+                </div>
+            </li>
+            </ul>
+          </div>
+        </div>
     )
 }
 export default DoctorCardComponent;

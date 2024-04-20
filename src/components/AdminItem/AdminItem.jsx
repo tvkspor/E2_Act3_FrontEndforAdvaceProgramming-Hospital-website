@@ -15,6 +15,9 @@ import { useQuery } from '@tanstack/react-query'
 import DrawerComponent from '../DrawerComponent/DrawerComponent'
 import { useSelector } from 'react-redux'
 import ModalComponent from '../ModalComponent/ModalComponent'
+import { DatePicker } from 'antd';
+import moment from 'moment';
+
 
 const AdminItem = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -104,18 +107,31 @@ const AdminItem = () => {
     const fetchGetDetailsItem = async (rowSelected) => {
         const res = await ItemService.getDetailsItem(rowSelected)
         if (res?.data) {
+            let importDate = res?.data?.importDate;
+    
+            // If importDate is a string, convert it to a moment object
+            if (typeof importDate === 'string') {
+                importDate = moment(importDate, 'DD-MM-YYYY');
+            }
+    
+            // If importDate is a Date, convert it to a moment object
+            if (importDate instanceof Date) {
+                importDate = moment(importDate);
+            }
+    
             setStateItemDetails({
                 name: res?.data?.name,
                 price: res?.data?.price,
                 component: res?.data?.component,
                 availability: res?.data?.availability,
                 ID: res?.data?.ID,
-                importDate: res?.data?.importDate,
+                importDate: importDate,
                 image: res?.data?.image,
             })
         }
         setIsLoadingUpdate(false)
     }
+    
 
     useEffect(() => {
         if (!isModalOpen) {
@@ -267,30 +283,26 @@ const AdminItem = () => {
             },
         },
         {
-            title: 'Rating',
-            dataIndex: 'rating',
-            sorter: (a, b) => a.rating - b.rating,
+            title: 'ImportDate',
+            dataIndex: 'importDate',
+            sorter: (a, b) => moment(a.importDate).unix() - moment(b.importDate).unix(),
+            render: (importDate) => moment(importDate).format('DD-MM-YYYY')
+        },        
+        {
+            title: 'Availability',
+            dataIndex: 'availability',
             filters: [
                 {
-                    text: '>= 3',
-                    value: '>=',
+                    text: 'Available',
+                    value: 'Available',
                 },
                 {
-                    text: '<= 3',
-                    value: '<=',
+                    text: 'Unavailable',
+                    value: 'Unavailable',
                 }
             ],
-            onFilter: (value, record) => {
-                if (value === '>=') {
-                    return Number(record.rating) >= 3
-                }
-                return Number(record.rating) <= 3
-            },
-        },
-        {
-            title: 'Type',
-            dataIndex: 'type',
-        },
+            onFilter: (value, record) => record.availability.indexOf(value) === 0,
+        },        
         {
             title: 'Action',
             dataIndex: 'action',
@@ -386,16 +398,25 @@ const AdminItem = () => {
             availability: stateItem.availability,
             ID: stateItem.ID,
             type: stateItem.type === 'add_type' ? stateItem.newType : stateItem.type,
-            importDate: stateItem.importDate,
+            importDate: moment(stateItem.importDate, 'DD-MM-YYYY'),
             image: stateItem.image
             // discount: stateItem.discount
         }
         mutation.mutate(params, {
-            onSettled: () => {
-                queryItem.refetch()
+            onSettled: (data, error) => {
+                queryItem.refetch();
+                if (error) {
+                    // Show error message
+                    console.error(error);
+                } else {
+                    // Show success message
+                    console.log('Item created successfully!');
+                }
             }
-        })
+        })        
     }
+    
+    
 
     const handleOnchange = (e) => {
         setStateItem({
@@ -405,11 +426,19 @@ const AdminItem = () => {
     }
 
     const handleOnchangeDetails = (e) => {
+        let value = e.target.value;
+    
+        // If the value is a moment object, convert it to a string
+        if (moment.isMoment(value)) {
+            value = value.format('DD-MM-YYYY');
+        }
+    
         setStateItemDetails({
             ...stateItemDetails,
-            [e.target.name]: e.target.value
+            [e.target.name]: value
         })
     }
+    
 
     const handleOnchangeAvatar = async ({ fileList }) => {
         const file = fileList[0]
@@ -447,6 +476,18 @@ const AdminItem = () => {
         })
     }
 
+    const handleDateChange = (date, dateString) => {
+        // Update stateItem with the selected date
+        setStateItem({ ...stateItem, importDate: dateString });
+    };    
+
+    const handleDateChangeDetails = (date, dateString) => {
+        // Update stateItemDetails with the selected date
+        setStateItemDetails({ ...stateItemDetails, importDate: dateString });
+    };    
+
+
+
     return (
         <div>
             <WrapperHeader>Quản lý sản phẩm</WrapperHeader>
@@ -477,36 +518,6 @@ const AdminItem = () => {
                             <InputComponent value={stateItem['name']} onChange={handleOnchange} name="name" />
                         </Form.Item>
 
-                        {/* <Form.Item
-              label="Type"
-              name="type"
-              rules={[{ required: true, message: 'Please input your type!' }]}
-            >
-              <Select
-                name="type"
-                // defaultValue="lucy"
-                // style={{ width: 120 }}
-                value={stateItem.type}
-                onChange={handleChangeSelect}
-                options={renderOptions(typeItem?.data?.data)}
-                />
-            </Form.Item>
-            {stateItem.type === 'add_type' && (
-              <Form.Item
-                label='New type'
-                name="newType"
-                rules={[{ required: true, message: 'Please input your type!' }]}
-              >
-                <InputComponent value={stateItem.newType} onChange={handleOnchange} name="newType" />
-              </Form.Item>
-            )} */}
-                        {/* <Form.Item
-              label="Count inStock"
-              name="countInStock"
-              rules={[{ required: true, message: 'Please input your count inStock!' }]}
-            >
-              <InputComponent value={stateItem.countInStock} onChange={handleOnchange} name="countInStock" />
-            </Form.Item> */}
                         <Form.Item
                             label="Price"
                             name="price"
@@ -533,14 +544,21 @@ const AdminItem = () => {
                             name="id"
                             rules={[{ required: true, message: 'Please input your id!' }]}
                         >
-                            <InputComponent value={stateItem.id} onChange={handleOnchange} name="id" />
+                            <InputComponent value={stateItem.ID} onChange={handleOnchange} name="id" />
                         </Form.Item>
-                        <Form.Item
+                        {/* <Form.Item
                             label="ImportDate"
                             name="importDate"
                             rules={[{ required: true, message: 'Please input your date' }]}
                         >
                             <InputComponent value={stateItem.importDate} onChange={handleOnchange} name="importDate" />
+                        </Form.Item> */}
+                        <Form.Item
+                            label="ImportDate"
+                            name="importDate"
+                            rules={[{ required: true, message: 'Please input your date' }]}
+                        >
+                            <DatePicker onChange={handleDateChange} />
                         </Form.Item>
                         <Form.Item
                             label="Image"
@@ -586,21 +604,14 @@ const AdminItem = () => {
                         >
                             <InputComponent value={stateItemDetails['name']} onChange={handleOnchangeDetails} name="name" />
                         </Form.Item>
-                        {/* 
-            <Form.Item
-              label="Type"
-              name="type"
-              rules={[{ required: true, message: 'Please input your type!' }]}
-            >
-              <InputComponent value={stateItemDetails['type']} onChange={handleOnchangeDetails} name="type" />
-            </Form.Item> */}
                         <Form.Item
                             label="ImportDate"
                             name="importDate"
                             rules={[{ required: true, message: 'Please input your importDate!' }]}
                         >
-                            <InputComponent value={stateItemDetails.importDate} onChange={handleOnchangeDetails} name="importDate" />
+                            <DatePicker onChange={handleDateChangeDetails} />
                         </Form.Item>
+
                         <Form.Item
                             label="Price"
                             name="price"

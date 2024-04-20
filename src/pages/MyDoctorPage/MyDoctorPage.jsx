@@ -20,6 +20,7 @@ import * as message from "../../components/Message/Message";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import DrawerComponent from "../../components/DrawerComponent/DrawerComponent";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 
 const MyDoctorPage = () => {
   const [rowSelected, setRowSelected] = useState("");
@@ -30,6 +31,9 @@ const MyDoctorPage = () => {
   const [isLoadingUpdate, setIsLoadingUpdate] = useState(false);
   const user = useSelector((state) => state?.user);
   const queryClient = useQueryClient();
+  const location = useLocation();
+  const { state } = location;
+
   const searchInput = useRef(null);
   const inittial = () => ({
     day: "",
@@ -208,7 +212,7 @@ const MyDoctorPage = () => {
   };
 
   const getDoctorcourse = async () => {
-    const res = await UserService.getDoctorcourse(user?.id);
+    const res = await UserService.getDoctorcourse(state?.id);
     return res;
   };
 

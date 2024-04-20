@@ -62,6 +62,7 @@ section.ant-layout {
 
 section:nth-child(even) {
     background: #f0f0f0;
+    /* background: linear-gradient(to right, #e2e2e2, #c9d6ff); */
 }
 
 .heading{
@@ -622,6 +623,17 @@ section:nth-child(even) {
   .notes-month section {
     font-size: 28px;
   } */
+
+  .ant-picker-calendar-header{
+    padding: 1.5rem 9%
+  }
+  .ant-picker-calendar .ant-picker-panel .ant-picker-body{
+    padding: 1.5rem 5%
+  }
+  /* .ant-spin-container{
+    padding: 1.5rem
+  } */
+
 
 @media (max-width:991px) {
     html {

@@ -247,6 +247,10 @@ const DoctorPage = () => {
                                             avatar={doctor.avatar}
                                             name={doctor.name}
                                             address={doctor.address}
+                                            department={doctor.department}
+                                            sex={doctor.sex}
+                                            dateofbirth={doctor.dateofbirth}
+                                            phone={doctor.phone}
                                         />
                                     </WrapperDoctorsBoxContainerBox>
                                 );
