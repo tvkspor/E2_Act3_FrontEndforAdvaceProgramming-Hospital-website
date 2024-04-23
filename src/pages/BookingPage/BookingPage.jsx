@@ -3,6 +3,8 @@ import booking from "../../assets/images/booking.jpg";
 import { useMutationHooks } from "../../hooks/useMutationHook";
 import * as UserService from "../../services/UserService";
 import * as BookingService from "../../services/BookingService";
+import * as message from "../../components/Message/Message";
+
 
 function BookingPage() {
   const [name, setName] = useState("");
@@ -52,6 +54,7 @@ function BookingPage() {
   }
   const handleBooking = () => {
     mutation.mutate({ name, sex, birth, cccd, address, number, email, date, session, symptom });
+    message.success("Đặt khám thành công!");
   };
 
 
@@ -73,19 +76,21 @@ function BookingPage() {
             className="box"
             value={name}
             onChange={handleOnchangeName}
+            required
           />
           <div className="box12">
           <div id="birth-day" onChange={handleOnchangeBirth} className="box1">
-            <input id="birth-day-holder" placeholder="Ngày sinh" type="text"  value={birth}/>
-            <input id="birth-day-date" type="date" value={birth}/>
+            Ngày sinh <br/>
+            <input id="birth-day-date" type="date" value={birth} required/>
           </div>
           
           <select
             className="box2"
             value={sex}
             onChange={handleOnchangeSex}
+            required
           >
-            <option value="">Chọn giới tính</option>
+            <option value="" disabled>Chọn giới tính</option>
             <option value="true">Nam</option>
             <option value="false">Nữ</option>
           </select>
@@ -96,6 +101,7 @@ function BookingPage() {
             className="box"
             value={cccd}
             onChange={handleOnchangeCccd}
+            required
           />
           <input
             type="text"
@@ -103,6 +109,7 @@ function BookingPage() {
             className="box"
             value={address}
             onChange={handleOnchangeAddress}
+            required
           />
           <input
             type="number"
@@ -110,6 +117,7 @@ function BookingPage() {
             className="box"
             value={number}
             onChange={handleOnchangeNumber}
+            required
           />
           <input
             type="email"
@@ -117,18 +125,20 @@ function BookingPage() {
             className="box"
             value={email}
             onChange={handleOnchangeEmail}
+            required
           />
           <div className="box12">
           <div id="birth-day" onChange={handleOnchangeDate} className="box1">
-            <input id="date-text" placeholder="Ngày khám" type="text"  value={date}/>
-            <input id="date-date" type="date" value={date}/>
+            Ngày khám <br/>
+            <input id="date-date" type="date" value={date}required/>
           </div>
           <select
             className="box2"
             value={session}
             onChange={handleOnchangeSession}
+            required
           >
-            <option value="">Chọn buổi khám</option>
+            <option value="" disabled>Chọn buổi khám</option>
             <option value="true">Sáng</option>
             <option value="false">Chiều</option>
           </select>
@@ -139,6 +149,7 @@ function BookingPage() {
             className="box"
             value={symptom}
             onChange={handleOnchangeSymptom}
+            required
           />
           <input type="submit" value="Đặt ngay" className="btn" />
         </form>

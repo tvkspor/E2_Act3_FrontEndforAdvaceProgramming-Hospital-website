@@ -34,12 +34,12 @@ const AdminPage = () => {
 
   const items = [
     getItem("Người dùng", "users", <UserOutlined />),
-    getItem("Sản phẩm", "products", <AppstoreOutlined />),
-    getItem("Đơn hàng", "orders", <ShoppingCartOutlined />),
+    getItem("Liệu trình", "products", <AppstoreOutlined />),
+    getItem("Đơn khám", "orders", <ShoppingCartOutlined />),
     getItem("Bác sĩ", "doctors", <UserOutlined />),
-    getItem("Item", "items", <AppstoreOutlined />),
-    getItem("Medicine", "medicines", <AppstoreOutlined />),
-    getItem("Booking", "bookings", <UserOutlined />),
+    getItem("Thiết bị", "items", <AppstoreOutlined />),
+    getItem("Thuốc", "medicines", <AppstoreOutlined />),
+    getItem("Đặt khám", "bookings", <UserOutlined />),
   ];
 
   const [keySelected, setKeySelected] = useState("");
@@ -150,20 +150,10 @@ const AdminPage = () => {
           onClick={handleOnCLick}
         />
         <div style={{ flex: 1, padding: "15px 0 15px 15px" }}>
-          <Loading
-            isLoading={
-              memoCount &&
-              Object.keys(memoCount) &&
-              Object.keys(memoCount).length !== 3
-            }
-          >
-            {!keySelected && (
-              <CustomizedContent
-                data={memoCount}
-                colors={COLORS}
-                setKeySelected={setKeySelected}
-              />
-            )}
+          <Loading isLoading={false}>
+
+            
+            
           </Loading>
           {renderPage(keySelected)}
         </div>

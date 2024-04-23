@@ -32,7 +32,7 @@ const AdminItem = () => {
         price: "",
         component: "",
         availability: "",
-        ID: "",
+
         image: "",
         importDate: "",
     })
@@ -47,7 +47,7 @@ const AdminItem = () => {
                 price,
                 component,
                 availability,
-                ID,
+
                 importDate,
                 image,
             } = data
@@ -56,7 +56,7 @@ const AdminItem = () => {
                 price,
                 component,
                 availability,
-                ID,
+
                 importDate,
                 image
             })
@@ -124,7 +124,7 @@ const AdminItem = () => {
                 price: res?.data?.price,
                 component: res?.data?.component,
                 availability: res?.data?.availability,
-                ID: res?.data?.ID,
+
                 importDate: importDate,
                 image: res?.data?.image,
             })
@@ -255,14 +255,24 @@ const AdminItem = () => {
 
 
     const columns = [
+        // {
+        //     title: 'Name',
+        //     dataIndex: 'name',
+        //     sorter: (a, b) => a.name.length - b.name.length,
+        //     ...getColumnSearchProps('name')
+        // },
         {
-            title: 'Name',
-            dataIndex: 'name',
-            sorter: (a, b) => a.name.length - b.name.length,
-            ...getColumnSearchProps('name')
-        },
+            title: "Tên thiết bị",
+            dataIndex: "name",
+            sorter: (a, b) => {
+              const firstCharA = a.name.charAt(0).toLowerCase();
+              const firstCharB = b.name.charAt(0).toLowerCase();
+              return firstCharA.localeCompare(firstCharB);
+            },
+            ...getColumnSearchProps("name"),
+          },
         {
-            title: 'Price',
+            title: 'Giá',
             dataIndex: 'price',
             sorter: (a, b) => a.price - b.price,
             filters: [
@@ -283,13 +293,23 @@ const AdminItem = () => {
             },
         },
         {
-            title: 'ImportDate',
+            title: "Thành phần",
+            dataIndex: "component",
+            sorter: (a, b) => {
+              const firstCharA = a.name.charAt(0).toLowerCase();
+              const firstCharB = b.name.charAt(0).toLowerCase();
+              return firstCharA.localeCompare(firstCharB);
+            },
+            ...getColumnSearchProps("component"),
+          },
+        {
+            title: 'Ngày nhập',
             dataIndex: 'importDate',
             sorter: (a, b) => moment(a.importDate).unix() - moment(b.importDate).unix(),
             render: (importDate) => moment(importDate).format('DD-MM-YYYY')
         },        
         {
-            title: 'Availability',
+            title: 'Số lượng',
             dataIndex: 'availability',
             filters: [
                 {
@@ -304,7 +324,7 @@ const AdminItem = () => {
             onFilter: (value, record) => record.availability.indexOf(value) === 0,
         },        
         {
-            title: 'Action',
+            title: 'Chỉnh sửa',
             dataIndex: 'action',
             render: renderAction
         },
@@ -346,7 +366,7 @@ const AdminItem = () => {
             price: "",
             component: "",
             availability: "",
-            ID: "",
+
             importDate: "",     
             image: "",
             
@@ -383,7 +403,7 @@ const AdminItem = () => {
             price: "",
             component: "",
             availability: "",
-            ID: "",
+
             importDate: "",
             image: "",
         })
@@ -396,7 +416,7 @@ const AdminItem = () => {
             price: stateItem.price,
             component: stateItem.component,
             availability: stateItem.availability,
-            ID: stateItem.ID,
+
             type: stateItem.type === 'add_type' ? stateItem.newType : stateItem.type,
             importDate: moment(stateItem.importDate, 'DD-MM-YYYY'),
             image: stateItem.image
@@ -476,11 +496,12 @@ const AdminItem = () => {
         })
     }
 
-    const handleDateChange = (date, dateString) => {
-        // Update stateItem with the selected date
-        setStateItem({ ...stateItem, importDate: dateString });
-    };    
-
+    const handleDateChange = (date) => {
+        // Format the date to 'DD-MM-YYYY' format and update stateItem
+        const formattedDate = date.format('DD-MM-YYYY');
+        setStateItem({ ...stateItem, importDate: formattedDate });
+    };
+    
     const handleDateChangeDetails = (date, dateString) => {
         // Update stateItemDetails with the selected date
         setStateItemDetails({ ...stateItemDetails, importDate: dateString });
@@ -490,7 +511,7 @@ const AdminItem = () => {
 
     return (
         <div>
-            <WrapperHeader>Quản lý sản phẩm</WrapperHeader>
+            <WrapperHeader>Quản lý thiết bị</WrapperHeader>
             <div style={{ marginTop: '10px' }}>
                 <Button 
                 style={{
@@ -514,38 +535,38 @@ const AdminItem = () => {
                 <Loading isLoading={isLoading}>
 
                     <Form name="basic" labelCol={{ span: 6 }} wrapperCol={{ span: 18 }} onFinish={onFinish} autoComplete="on" form={form}>
-                        <Form.Item label="Name" name="name" rules={[{ required: true, message: 'Please input your name!' }]}>
+                        <Form.Item label="Tên thiết bị" name="name" rules={[{ required: true, message: 'Please input your name!' }]}>
                             <InputComponent value={stateItem['name']} onChange={handleOnchange} name="name" />
                         </Form.Item>
 
                         <Form.Item
-                            label="Price"
+                            label="Giá"
                             name="price"
                             rules={[{ required: true, message: 'Please input your price!' }]}
                         >
                             <InputComponent value={stateItem.price} onChange={handleOnchange} name="price" />
                         </Form.Item>
                         <Form.Item
-                            label="Component"
+                            label="Thành phần"
                             name="component"
                             rules={[{ required: true, message: 'Please input your component!' }]}
                         >
                             <InputComponent value={stateItem.component} onChange={handleOnchange} name="component" />
                         </Form.Item>
                         <Form.Item
-                            label="Availability"
+                            label="Tình trạng"
                             name="availability"
                             rules={[{ required: true, message: 'Please input your availability!' }]}
                         >
                             <InputComponent value={stateItem.availability} onChange={handleOnchange} name="availability" />
                         </Form.Item>
-                        <Form.Item
+                        {/* <Form.Item
                             label="ID"
                             name="id"
                             rules={[{ required: true, message: 'Please input your id!' }]}
                         >
                             <InputComponent value={stateItem.ID} onChange={handleOnchange} name="id" />
-                        </Form.Item>
+                        </Form.Item> */}
                         {/* <Form.Item
                             label="ImportDate"
                             name="importDate"
@@ -554,14 +575,14 @@ const AdminItem = () => {
                             <InputComponent value={stateItem.importDate} onChange={handleOnchange} name="importDate" />
                         </Form.Item> */}
                         <Form.Item
-                            label="ImportDate"
+                            label="Ngày nhập"
                             name="importDate"
                             rules={[{ required: true, message: 'Please input your date' }]}
                         >
                             <DatePicker onChange={handleDateChange} />
                         </Form.Item>
                         <Form.Item
-                            label="Image"
+                            label="Hình ảnh"
                             name="image"
                             rules={[{ required: true, message: 'Please input your image!' }]}
                         >
@@ -598,14 +619,14 @@ const AdminItem = () => {
                         form={form}
                     >
                         <Form.Item
-                            label="Name"
+                            label="Tên thiết bị"
                             name="name"
                             rules={[{ required: true, message: 'Please input your name!' }]}
                         >
                             <InputComponent value={stateItemDetails['name']} onChange={handleOnchangeDetails} name="name" />
                         </Form.Item>
                         <Form.Item
-                            label="ImportDate"
+                            label="Ngày nhập"
                             name="importDate"
                             rules={[{ required: true, message: 'Please input your importDate!' }]}
                         >
@@ -613,35 +634,35 @@ const AdminItem = () => {
                         </Form.Item>
 
                         <Form.Item
-                            label="Price"
+                            label="Giá"
                             name="price"
                             rules={[{ required: true, message: 'Please input your price!' }]}
                         >
                             <InputComponent value={stateItemDetails.price} onChange={handleOnchangeDetails} name="price" />
                         </Form.Item>
                         <Form.Item
-                            label="Component"
+                            label="Thành phần"
                             name="component"
                             rules={[{ required: true, message: 'Please input your component!' }]}
                         >
                             <InputComponent value={stateItemDetails.component} onChange={handleOnchangeDetails} name="component" />
                         </Form.Item>
                         <Form.Item
-                            label="Availability"
+                            label="Tình trạng"
                             name="availability"
                             rules={[{ required: true, message: 'Please input your availability!' }]}
                         >
                             <InputComponent value={stateItemDetails.availability} onChange={handleOnchangeDetails} name="availability" />
                         </Form.Item>
-                        <Form.Item
+                        {/* <Form.Item
                             label="ID"
                             name="id"
                             rules={[{ required: true, message: 'Please input your id!' }]}
                         >
                             <InputComponent value={stateItemDetails.id} onChange={handleOnchangeDetails} name="id" />
-                        </Form.Item>
+                        </Form.Item> */}
                         <Form.Item
-                            label="Image"
+                            label="Hình ảnh"
                             name="image"
                             rules={[{ required: true, message: 'Please input your image!' }]}
                         >

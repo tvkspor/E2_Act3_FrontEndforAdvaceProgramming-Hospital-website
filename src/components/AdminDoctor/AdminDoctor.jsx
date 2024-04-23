@@ -142,19 +142,19 @@ const AdminDoctor = () => {
         const res = await DoctorService.getAllDoctor();
         return res;
     };
-    const fetchAllTypeDoctor = async () => {
-        const res = await DoctorService.getAllTypeDoctor();
-        return res;
-    };
+    // const fetchAllTypeDoctor = async () => {
+    //     const res = await DoctorService.getAllTypeDoctor();
+    //     return res;
+    // };
 
     const queryDoctor = useQuery({
         queryKey: ["doctors"],
         queryFn: getAllDoctors,
     });
-    const TypeDoctor = useQuery({
-        queryKey: ["type-doctor"],
-        queryFn: fetchAllTypeDoctor,
-    });
+    // const TypeDoctor = useQuery({
+    //     queryKey: ["type-doctor"],
+    //     queryFn: fetchAllTypeDoctor,
+    // });
     const { isLoading: isLoadingDoctors, data: doctors } = queryDoctor;
 
     const fetchGetDetailsDoctor = async (rowSelected) => {
@@ -167,7 +167,7 @@ const AdminDoctor = () => {
                 avatar: res?.data?.avatar,
                 dateofbirth: res?.data?.dateofbirth,
                 sex: res?.data?.sex,
-                department: res?.data?.department
+                department: res?.data?.department,
             });
         }
         setIsLoadingUpdate(false);
@@ -311,30 +311,44 @@ const AdminDoctor = () => {
 
     // Bảng và thông tin hiển thị
     const columns = [
+        // {
+        //     title: "Name",
+        //     dataIndex: "name",
+        //     sorter: (a, b) => a.name.length - b.name.length,
+        //     ...getColumnSearchProps("name"),
+        // },
         {
-            title: "Name",
+            title: "Tên bác sĩ",
             dataIndex: "name",
-            sorter: (a, b) => a.name.length - b.name.length,
+            sorter: (a, b) => {
+              const firstCharA = a.name.charAt(0).toLowerCase();
+              const firstCharB = b.name.charAt(0).toLowerCase();
+              return firstCharA.localeCompare(firstCharB);
+            },
             ...getColumnSearchProps("name"),
-        },
+          },
         {
-            title: "Phone",
+            title: "Số điện thoại",
             dataIndex: "phone",
         },
         {
-            title: "Address",
+            title: "Địa chỉ",
             dataIndex: "address",
         },
         {
-            title: "Dateofbirth",
+            title: "Ngày sinh",
             dataIndex: "dateofbirth",
         },
         {
-            title: "Sex",
+            title: "Chuyên khoa",
+            dataIndex: "department",
+        },
+        {
+            title: "Giới tính",
             dataIndex: "sex",
         },
         {
-            title: "Action",
+            title: "Chỉnh sửa",
             dataIndex: "action",
             render: renderAction,
         },
@@ -396,7 +410,7 @@ const AdminDoctor = () => {
             avatar: stateDoctor.avatar,
             dateofbirth: stateDoctor.dateofbirth,
             sex: stateDoctor.sex,
-            department: stateDoctor.depar
+            department: stateDoctor.department,
         };
         mutation.mutate(params, {
             onSettled: () => {
@@ -461,7 +475,7 @@ const AdminDoctor = () => {
     return (
         <div>
             {/*Hiển thị phần quản lí sản phẩm */}
-            <WrapperHeader>Quản lý sản phẩm</WrapperHeader>
+            <WrapperHeader>Quản lý bác sĩ</WrapperHeader>
 
             {/* Nút bấm */}
             <div style={{ marginTop: "10px" }}>
@@ -513,7 +527,7 @@ const AdminDoctor = () => {
                         form={form}
                     >
                         <Form.Item
-                            label="Name"
+                            label="Tên bác sĩ"
                             name="name"
                             rules={[{ required: true, message: "Please input your name!" }]}
                         >
@@ -524,7 +538,7 @@ const AdminDoctor = () => {
                             />
                         </Form.Item>
                         <Form.Item
-                            label="Phone"
+                            label="Số điện thoại"
                             name="phone"
                             rules={[{ required: true, message: "Please input your phone!" }]}
                         >
@@ -535,7 +549,7 @@ const AdminDoctor = () => {
                             />
                         </Form.Item>
                         <Form.Item
-                            label="Department"
+                            label="Chuyên khoa"
                             name="department"
                             rules={[{ required: true, message: "Please input your department!" }]}
                         >
@@ -546,7 +560,7 @@ const AdminDoctor = () => {
                             />
                         </Form.Item>
                         <Form.Item
-                            label="Address"
+                            label="Địa chỉ"
                             name="address"
                             rules={[
                                 { required: true, message: "Please input your count address!" },
@@ -559,7 +573,7 @@ const AdminDoctor = () => {
                             />
                         </Form.Item>
                         <Form.Item
-                            label="Dateofbirth "
+                            label="Ngày sinh"
                             name="dateofbirth"
                             rules={[
                                 { required: true, message: "Please input your dateofbirth!" },
@@ -572,7 +586,7 @@ const AdminDoctor = () => {
                             />
                         </Form.Item>
                         <Form.Item
-                            label="Sex"
+                            label="Giới tính"
                             name="sex"
                             rules={[
                                 {
@@ -588,7 +602,7 @@ const AdminDoctor = () => {
                             />
                         </Form.Item>
                         <Form.Item
-                            label="Avatar"
+                            label="Hình ảnh"
                             name="avatar"
                             rules={[
                                 { required: true, message: "Please input your count avatar!" },
@@ -636,7 +650,7 @@ const AdminDoctor = () => {
                         form={form}
                     >
                         <Form.Item
-                            label="Name"
+                            label="Tên bác sĩ"
                             name="name"
                             rules={[{ required: true, message: "Please input your name!" }]}
                         >
@@ -647,7 +661,7 @@ const AdminDoctor = () => {
                             />
                         </Form.Item>
                         <Form.Item
-                            label="Phone"
+                            label="Số điện thoại"
                             name="phone"
                             rules={[{ required: true, message: "Please input your phone!" }]}
                         >
@@ -658,7 +672,7 @@ const AdminDoctor = () => {
                             />
                         </Form.Item>
                         <Form.Item
-                            label="Department"
+                            label="Chuyên khoa"
                             name="department"
                             rules={[{ required: true, message: "Please input your department!" }]}
                         >
@@ -669,7 +683,7 @@ const AdminDoctor = () => {
                             />
                         </Form.Item>
                         <Form.Item
-                            label="Address"
+                            label="Địa chỉ"
                             name="address"
                             rules={[
                                 { required: true, message: "Please input your count address!" },
@@ -682,7 +696,7 @@ const AdminDoctor = () => {
                             />
                         </Form.Item>
                         <Form.Item
-                            label="Dateofbirth"
+                            label="Ngày sinh"
                             name="dateofbirth"
                             rules={[
                                 { required: true, message: "Please input your dateofbirth!" },
@@ -695,7 +709,7 @@ const AdminDoctor = () => {
                             />
                         </Form.Item>
                         <Form.Item
-                            label="Sex"
+                            label="Giới tính"
                             name="sex"
                             rules={[
                                 {
@@ -711,7 +725,7 @@ const AdminDoctor = () => {
                             />
                         </Form.Item>
                         <Form.Item
-                            label="Avatar"
+                            label="Hình ảnh"
                             name="avatar"
                             rules={[
                                 { required: true, message: "Please input your count avatar!" },

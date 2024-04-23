@@ -14,7 +14,7 @@ import SignInPage from "../pages/SignInPage/SignInPage";
 import SignUpPage from "../pages/SignUpPage/SignUpPage";
 import TypeProductPage from "../pages/TypeProductPage/TypeProductPage";
 import ForgottenPassWordPage from "../pages/ForgottenPassWord/ForgottenPassWordPage";
-import KhoaPage from "../pages/KhoaPage/KhoaPage";
+import Specialist from "../pages/Specialist/Specialist";
 import BookingPage from "../pages/BookingPage/BookingPage";
 import DoctorPage from "../pages/DoctorPage/DoctorPage";
 import MyMedicalRecordPage from "../pages/MyMedicalRecordPage/MyMedicalRecordPage";
@@ -113,7 +113,7 @@ export const routes = [
   },
   {
     path: "/specialist",
-    page: KhoaPage,
+    page: Specialist,
     isShowHeader: true,
   },
 
