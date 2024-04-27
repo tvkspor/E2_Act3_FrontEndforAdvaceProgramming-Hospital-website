@@ -150,11 +150,11 @@ const Navbar = () => {
           Lịch trình làm việc
         </WrapperPopup>
       )}
-      {!user?.isDoctor && !user?.isAdmin && (
+      {/* {!user?.isDoctor && !user?.isAdmin && (
         <WrapperPopup onClick={() => handleClickNavigate(`my-order`)}>
           Đơn hàng của tôi
         </WrapperPopup>
-      )}
+      )} */}
       {!user?.isDoctor && !user?.isAdmin && (
         <WrapperPopup onClick={() => handleClickNavigate("medicalreport")}>
           Hồ sơ bệnh án
@@ -206,10 +206,10 @@ const Navbar = () => {
                   <Menu.Item key="home" onClick={() => navigate("/")}>Trang chủ</Menu.Item>
                   <Menu.Item key="specialist" onClick={() => navigate("/specialist")}>Chuyên Khoa</Menu.Item>
                   <Menu.Item key="expert" onClick={() => navigate("/doctor")}>Chuyên gia</Menu.Item>
-                  <Menu.Item key="news">Tin tức</Menu.Item>
-                  <Menu.Item key="book" onClick={() => navigate("/booking")}>Đặt khám</Menu.Item>
+                  {/* <Menu.Item key="news">Tin tức</Menu.Item> */}
+                  {/* <Menu.Item key="book" onClick={() => navigate("/booking")}>Đặt khám</Menu.Item> */}
                   {!isHiddenCart && <Menu.Item key="bill" onClick={() => navigate("/orderitems")}>Liệu trình</Menu.Item>}
-                  <Menu.Item key="contact">Liên Hệ</Menu.Item>
+                  {/* <Menu.Item key="contact">Liên Hệ</Menu.Item> */}
                   <Menu.Item key="login" onClick={handleNavigateLogin}>
                     <Loading isLoading={loading}>
                       <WrapperAccount>
@@ -262,6 +262,14 @@ const Navbar = () => {
                       </WrapperAccount>
                     </Loading>{" "}
                   </Menu.Item>
+                  {user?.access_token && <Menu.Item key="profile" onClick={() => handleClickNavigate("profile")}>Thông tin người dùng</Menu.Item>}
+                  {user?.access_token && !user?.isDoctor && !user?.isAdmin && <Menu.Item key="detail" onClick={() => handleClickNavigate("medicalreport")}>Hồ sơ bệnh án</Menu.Item>}
+                  {user?.access_token && !user?.isDoctor && !user?.isAdmin && <Menu.Item key="booking" onClick={() => handleClickNavigate("booking")}>Đặt khám</Menu.Item>}
+                  {user?.isDoctor && <Menu.Item key="scheduler" onClick={() => handleClickNavigate("doctorpage")}>Lịch trình làm việc</Menu.Item>}
+                  {user?.isAdmin && <Menu.Item key="manage" onClick={() => handleClickNavigate("admin")}>Quản lí hệ thống</Menu.Item>}
+                  {user?.access_token && <Menu.Item key="logout" onClick={() => handleClickNavigate()}>Đăng xuất</Menu.Item>}
+
+                  {!isHiddenCart &&
                   
                   <MenuItem key="badge"> 
                   <div
@@ -275,7 +283,7 @@ const Navbar = () => {
                     </Badge>
                     <WrapperTextSmall>Giỏ hàng</WrapperTextSmall>
                   </div>
-                  </MenuItem>
+                  </MenuItem>}
                 </Menu>
               </Drawer>
             </div>
@@ -296,18 +304,18 @@ const Navbar = () => {
               >
                 Chuyên gia
               </Menu.Item>
-              <Menu.Item key="news">Tin tức</Menu.Item>
-              {!isHiddenCart &&<Menu.Item
+              {/* <Menu.Item key="news">Tin tức</Menu.Item> */}
+              {/* {!isHiddenCart &&<Menu.Item
                 key="book"
                 onClick={() => handleClickNavigate("booking")}
               >
                 Đặt khám
-              </Menu.Item>}
+              </Menu.Item>} */}
               {!isHiddenCart && <Menu.Item key="bill"
               onClick={() => handleClickNavigate("orderitems")}
               >
                 Liệu trình</Menu.Item>}
-              <Menu.Item key="contact">Liên Hệ</Menu.Item>
+              {/* <Menu.Item key="contact">Liên Hệ</Menu.Item> */}
 
               <Menu.Item key="login">
                 <Loading isLoading={loading}>

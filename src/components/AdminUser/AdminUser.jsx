@@ -228,27 +228,38 @@ const AdminUser = () => {
   });
 
   const columns = [
+    // {
+    //   title: "Name",
+    //   dataIndex: "name",
+    //   sorter: (a, b) => a.name.length - b.name.length,
+    //   ...getColumnSearchProps("name"),
+    // },
     {
-      title: "Name",
+      title: "Tên người dùng",
       dataIndex: "name",
-      sorter: (a, b) => a.name.length - b.name.length,
+      sorter: (a, b) => {
+        const firstCharA = a.name.charAt(0).toLowerCase();
+        const firstCharB = b.name.charAt(0).toLowerCase();
+        return firstCharA.localeCompare(firstCharB);
+      },
       ...getColumnSearchProps("name"),
     },
+    
     {
-      title: "TreatmentCourse",
+      title: "Gói điều trị",
       dataIndex: "treatmentcourse",
       render: (treatmentcourse) => (
         <ul>
           {treatmentcourse.map((item, index) => (
             <li key={index}>
-              Course: {item.nametreatment}, Progress: {item.progress}
+              Gói: {item.nametreatment}, Tiến độ: {item.progress}
             </li>
           ))}
         </ul>
       ),
     },
     {
-      title: "Action",
+      title: "Chỉnh sửa",
       dataIndex: "action",
       render: renderAction,
     },

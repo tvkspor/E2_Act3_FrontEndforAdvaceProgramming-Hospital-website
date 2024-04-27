@@ -551,12 +551,16 @@ const MyDoctorPage = () => {
   const PowdersNames = Powders?.data?.data?.map((medicine) => medicine.name);
 
   return (
-    <div>
+    <section>
       {/*Hiển thị phần quản lí sản phẩm */}
-      <WrapperHeader>Quản lý bệnh nhân đang điều trị</WrapperHeader>
+      {/* <WrapperHeader>Quản lý bệnh nhân đang điều trị</WrapperHeader> */}
+      <h1 className="heading">
+          {" "}
+          <span>QUẢN LÍ</span> BỆNH NHÂN{" "}
+        </h1>
 
       {/* Bảng hiển thị sản phẩm */}
-      <div style={{ marginTop: "20px" }}>
+      <div style={{ marginTop: "20px", boxShadow: "0 5px 15px rgba(0, 0, 0, 0.35)" }}>
         <TableUserComponent
           columns={columns}
           isLoading={isLoadingDoctorcourse}
@@ -817,7 +821,7 @@ const MyDoctorPage = () => {
           </Form>
         </Loading>
       </DrawerComponent>
-    </div>
+    </section>
   );
 };
 

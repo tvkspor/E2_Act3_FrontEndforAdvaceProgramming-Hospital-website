@@ -118,10 +118,14 @@ const ProfilePage = () => {
     });
   };
   return (
-    <div style={{ width: "1270px", margin: "0 auto", height: "500px" }}>
-      <WrapperHeader>Thông tin người dùng</WrapperHeader>
+    <div>
+      {/* <WrapperHeader>Thông tin người dùng</WrapperHeader> */}
+      <h1 className="heading">
+          {" "}
+          <span>THÔNG TIN</span> NGƯỜI DÙNG{" "}
+        </h1>
       <Loading isLoading={isLoading}>
-        <WrapperContentProfile>
+        <WrapperContentProfile style={{boxShadow: "0 5px 15px rgba(0, 0, 0, 0.35)"}}>
           <WrapperInput>
             <WrapperLabel htmlFor="name">Họ và tên</WrapperLabel>
             <InputForm

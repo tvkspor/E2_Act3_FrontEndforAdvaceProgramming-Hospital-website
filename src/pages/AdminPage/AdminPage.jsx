@@ -33,12 +33,12 @@ const AdminPage = () => {
 
   const items = [
     getItem("Người dùng", "users", <UserOutlined />),
-    getItem("Sản phẩm", "products", <AppstoreOutlined />),
-    getItem("Đơn hàng", "orders", <ShoppingCartOutlined />),
+    getItem("Liệu trình", "products", <AppstoreOutlined />),
+    getItem("Đơn khám", "orders", <ShoppingCartOutlined />),
     getItem("Bác sĩ", "doctors", <UserOutlined />),
-    getItem("Item", "items", <AppstoreOutlined />),
-    getItem("Medicine", "medicines", <AppstoreOutlined />),
-    getItem("Booking", "bookings", <UserOutlined />),
+    getItem("Thiết bị", "items", <AppstoreOutlined />),
+    getItem("Thuốc", "medicines", <AppstoreOutlined />),
+    getItem("Đặt khám", "bookings", <UserOutlined />),
   ];
 
   const [keySelected, setKeySelected] = useState("");

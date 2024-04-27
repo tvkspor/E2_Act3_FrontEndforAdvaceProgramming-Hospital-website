@@ -312,12 +312,22 @@ const AdminMedicine = () => {
 
     // Bảng và thông tin hiển thị
     const columns = [
+        // {
+        //     title: "Name",
+        //     dataIndex: "name",
+        //     sorter: (a, b) => a.name.length - b.name.length,
+        //     ...getColumnSearchProps("name"),
+        // },
         {
             title: "Name",
             dataIndex: "name",
-            sorter: (a, b) => a.name.length - b.name.length,
+            sorter: (a, b) => {
+              const firstCharA = a.name.charAt(0).toLowerCase();
+              const firstCharB = b.name.charAt(0).toLowerCase();
+              return firstCharA.localeCompare(firstCharB);
+            },
             ...getColumnSearchProps("name"),
-        },
+          },
         {
             title: "Price",
             dataIndex: "price",
@@ -482,7 +492,7 @@ const AdminMedicine = () => {
     return (
         <div>
             {/*Hiển thị phần quản lí sản phẩm */}
-            <WrapperHeader>Quản lý sản phẩm</WrapperHeader>
+            <WrapperHeader>Quản lý thuốc</WrapperHeader>
 
             {/* Nút bấm */}
             <div style={{ marginTop: "10px" }}>

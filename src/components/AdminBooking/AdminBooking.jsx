@@ -170,10 +170,10 @@ const AdminBooking = () => {
                     style={{ color: "red", fontSize: "30px", cursor: "pointer" }}
                     onClick={() => setIsModalOpenDelete(true)}
                 />
-                <EditOutlined
+                {/* <EditOutlined
                     style={{ color: "orange", fontSize: "30px", cursor: "pointer" }}
                     onClick={handleDetailsBooking}
-                />
+                /> */}
             </div>
         );
     };
@@ -190,61 +190,89 @@ const AdminBooking = () => {
     // Bảng và thông tin hiển thị
     const columns = [
         {
-            title: "Date",
+            title: "Ngày hẹn",
             dataIndex: "date",
+            sorter: (a, b) => moment(a.date).unix() - moment(b.date).unix(),
+            render: (date) => moment(date).format('DD-MM-YYYY')
+        },
+        {
+            title: "Tên bệnh nhân",
+            dataIndex: "detailed",
+            render: (detailed) => (
+                <>
+                    {detailed.map((item, index) => (
+                        <div key={index}>
+                            {item.name}
+                        </div>
+                    ))}
+                </>
+            ),
         },
         {
             title: "CCCD",
             dataIndex: "detailed",
             render: (detailed) => (
-                <ul>
+                <>
                     {detailed.map((item, index) => (
-                        <li key={index}>
-                            CCCD: {item.cccd}
-                        </li>
+                        <div key={index}>
+                            {item.cccd}
+                        </div>
                     ))}
-                </ul>
+                </>
             ),
         },
         {
-            title: "Session",
+            title: "Số điện thoại",
             dataIndex: "detailed",
             render: (detailed) => (
-                <ul>
+                <>
                     {detailed.map((item, index) => (
-                        <li>{item.session ? "Buổi sáng" : "Buổi chiều"}</li>
+                        <div key={index}>
+                            {item.number}
+                        </div>
                     ))}
-                </ul>
+                </>
             ),
         },
         {
-            title: "Symptom",
+            title: "Buổi khám",
             dataIndex: "detailed",
             render: (detailed) => (
-                <ul>
+                <>
                     {detailed.map((item, index) => (
-                        <li key={index}>
-                            Triệu chứng: {item.symptom}
-                        </li>
+                        <div>{item.session ? "Buổi sáng" : "Buổi chiều"}</div>
                     ))}
-                </ul>
+                </>
             ),
         },
         {
-            title: "Order",
+            title: "Triệu chứng",
             dataIndex: "detailed",
             render: (detailed) => (
-                <ul>
+                <>
                     {detailed.map((item, index) => (
-                        <li key={index}>
-                            Số thứ tự: {item.stt}
-                        </li>
+                        <div key={index}>
+                            {item.symptom}
+                        </div>
                     ))}
-                </ul>
+                </>
             ),
         },
         {
-            title: "Action",
+            title: "Số thứ tự",
+            dataIndex: "detailed",
+            render: (detailed) => (
+                <>
+                    {detailed.map((item, index) => (
+                        <div key={index}>
+                            {item.stt}
+                        </div>
+                    ))}
+                </>
+            ),
+        },
+        {
+            title: "Huỷ khám",
             dataIndex: "action",
             render: renderAction,
         },
@@ -254,7 +282,7 @@ const AdminBooking = () => {
         bookings?.data?.map((booking) => {
             return {
                 ...booking, key: booking._id,
-                date: moment(user.date).format('DD/MM/YYYY'),
+                date: moment(booking.date).format('DD/MM/YYYY'),
             };
 
         });
@@ -363,10 +391,10 @@ const AdminBooking = () => {
     return (
         <div>
             {/*Hiển thị phần quản lí sản phẩm */}
-            <WrapperHeader>Quản lý book</WrapperHeader>
+            <WrapperHeader>Quản lý đặt khám</WrapperHeader>
 
             {/* Nút bấm */}
-            <div style={{ marginTop: "10px" }}>
+            {/* <div style={{ marginTop: "10px" }}>
                 <Button
                     style={{
                         height: "60px",
@@ -378,7 +406,7 @@ const AdminBooking = () => {
                 >
                     <PlusOutlined style={{ fontSize: "30px" }} />
                 </Button>
-            </div>
+            </div> */}
 
             {/* Bảng hiển thị bác sĩ */}
             <div style={{ marginTop: "20px" }}>
