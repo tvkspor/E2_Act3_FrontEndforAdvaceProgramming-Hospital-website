@@ -288,7 +288,7 @@ const Navbar = () => {
               </Drawer>
             </div>
           ) : (
-            <Menu mode="horizontal" className="rightMenu">
+            <Menu mode="horizontal" className="rightMenu" style={{paddingLeft: "0.1rem"}}>
               <Menu.Item key="home" onClick={() => handleClickNavigate("/")}>
                 Trang chủ
               </Menu.Item>
