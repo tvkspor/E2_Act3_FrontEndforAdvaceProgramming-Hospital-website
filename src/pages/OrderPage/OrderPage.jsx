@@ -379,7 +379,7 @@ const OrderPage = () => {
         </div>
       </div>
       <ModalComponent
-        title="Cập nhật thông tin giao hàng"
+        title="Cập nhật thông tin người dùng"
         open={isOpenModalUpdateInfo}
         onCancel={handleCancleUpdate}
         onOk={handleUpdateInforUser}

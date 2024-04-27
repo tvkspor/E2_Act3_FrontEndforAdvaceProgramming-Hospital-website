@@ -11,17 +11,16 @@ import AdminUser from "../../components/AdminUser/AdminUser";
 import AdminProduct from "../../components/AdminProduct/AdminProduct";
 import OrderAdmin from "../../components/OrderAdmin/OrderAmin";
 import AdminDoctor from "../../components/AdminDoctor/AdminDoctor";
-import AdminItem from "../../components/AdminItem/AdminItem"
+import AdminItem from "../../components/AdminItem/AdminItem";
 import AdminMedicine from "../../components/AdminMedicine/AdminMedicine";
-import AdminBooking from "../../components/AdminBooking/AdminBooking"
+import AdminBooking from "../../components/AdminBooking/AdminBooking";
 import * as OrderService from "../../services/OrderService";
 import * as ProductService from "../../services/ProductService";
 import * as UserService from "../../services/UserService";
-import * as DoctorService from "../../services/DoctorService"
-import * as ItemService from "../../services/ItemService"
+import * as DoctorService from "../../services/DoctorService";
+import * as ItemService from "../../services/ItemService";
 import * as MedicineService from "../../services/MedicineService";
-import * as BookingService from "../../services/BookingService"
-
+import * as BookingService from "../../services/BookingService";
 
 import CustomizedContent from "./components/CustomizedContent";
 import { useSelector } from "react-redux";
@@ -83,7 +82,11 @@ const AdminPage = () => {
       { queryKey: ["orders"], queryFn: getAllOrder, staleTime: 1000 * 60 },
       { queryKey: ["doctors"], queryFn: getAllDoctor, staleTime: 1000 * 60 },
       { queryKey: ["items"], queryFn: getAllItem, staleTime: 1000 * 60 },
-      { queryKey: ["medicines"], queryFn: getAllMedicine, staleTime: 1000 * 60 },
+      {
+        queryKey: ["medicines"],
+        queryFn: getAllMedicine,
+        staleTime: 1000 * 60,
+      },
       { queryKey: ["bookings"], queryFn: getAllBooking, staleTime: 1000 * 60 },
     ],
   });
@@ -150,13 +153,7 @@ const AdminPage = () => {
           onClick={handleOnCLick}
         />
         <div style={{ flex: 1, padding: "15px 0 15px 15px" }}>
-          <Loading
-            isLoading={
-              memoCount &&
-              Object.keys(memoCount) &&
-              Object.keys(memoCount).length !== 3
-            }
-          >
+          <Loading isLoading={false}>
             {!keySelected && (
               <CustomizedContent
                 data={memoCount}

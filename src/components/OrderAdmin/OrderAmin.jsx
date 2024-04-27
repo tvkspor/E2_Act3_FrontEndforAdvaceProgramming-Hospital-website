@@ -336,9 +336,24 @@ const OrderAdmin = () => {
     const res = await DoctorService.getAllDoctorCardiology();
     return res;
   };
-
   const fetchAllDoctorNervesurgery = async () => {
     const res = await DoctorService.getAllDoctorNervesurgery();
+    return res;
+  };
+  const fetchAllDoctorIntensivecare = async () => {
+    const res = await DoctorService.getAllDoctorIntensivecare();
+    return res;
+  };
+  const fetchAllDoctorMusculoskeletal = async () => {
+    const res = await DoctorService.getAllDoctorMusculoskeletal();
+    return res;
+  };
+  const fetchAllDoctorOtorhinology = async () => {
+    const res = await DoctorService.getAllDoctorOtorhinology();
+    return res;
+  };
+  const fetchAllDoctorPediatrics = async () => {
+    const res = await DoctorService.getAllDoctorPediatrics();
     return res;
   };
 
@@ -356,6 +371,38 @@ const OrderAdmin = () => {
     queryFn: fetchAllDoctorNervesurgery,
   });
   const doctorNervesugeryNames = DoctorNervesurgery?.data?.data?.map(
+    (doctor) => doctor.name
+  );
+
+  const DoctorIntensivecare = useQuery({
+    queryKey: ["doctor3"],
+    queryFn: fetchAllDoctorIntensivecare,
+  });
+  const doctorIntensivecareNames = DoctorIntensivecare?.data?.data?.map(
+    (doctor) => doctor.name
+  );
+
+  const DoctorMusculoskeletal = useQuery({
+    queryKey: ["doctor4"],
+    queryFn: fetchAllDoctorMusculoskeletal,
+  });
+  const doctorMusculoskeletalNames = DoctorMusculoskeletal?.data?.data?.map(
+    (doctor) => doctor.name
+  );
+
+  const DoctorOtorhinology = useQuery({
+    queryKey: ["doctor5"],
+    queryFn: fetchAllDoctorOtorhinology,
+  });
+  const doctorOtorhinologyNames = DoctorOtorhinology?.data?.data?.map(
+    (doctor) => doctor.name
+  );
+
+  const DoctorPediatrics = useQuery({
+    queryKey: ["doctor6"],
+    queryFn: fetchAllDoctorPediatrics,
+  });
+  const doctorPediatricsNames = DoctorPediatrics?.data?.data?.map(
     (doctor) => doctor.name
   );
 
@@ -440,6 +487,76 @@ const OrderAdmin = () => {
                   value={stateOrderDetails["Name"]}
                   onChange={handleChangeSelect}
                   options={renderOptions(doctorCardiologyNames)}
+                />
+              </Form.Item>
+            )}
+            {stateOrderDetails.type === "intensive care" && (
+              <Form.Item
+                label="Bác sĩ"
+                name="doctor"
+                rules={[{ required: true, message: "Please choose doctor!" }]}
+              >
+                <Select
+                  name="doctor"
+                  value={stateOrderDetails["Name"]}
+                  onChange={handleChangeSelect}
+                  options={renderOptions(doctorIntensivecareNames)}
+                />
+              </Form.Item>
+            )}
+            {stateOrderDetails.type === "musculoskeletal" && (
+              <Form.Item
+                label="Bác sĩ"
+                name="doctor"
+                rules={[{ required: true, message: "Please choose doctor!" }]}
+              >
+                <Select
+                  name="doctor"
+                  value={stateOrderDetails["Name"]}
+                  onChange={handleChangeSelect}
+                  options={renderOptions(doctorMusculoskeletalNames)}
+                />
+              </Form.Item>
+            )}
+            {stateOrderDetails.type === "otorhinology" && (
+              <Form.Item
+                label="Bác sĩ"
+                name="doctor"
+                rules={[{ required: true, message: "Please choose doctor!" }]}
+              >
+                <Select
+                  name="doctor"
+                  value={stateOrderDetails["Name"]}
+                  onChange={handleChangeSelect}
+                  options={renderOptions(doctorOtorhinologyNames)}
+                />
+              </Form.Item>
+            )}
+            {stateOrderDetails.type === "otorhinology" && (
+              <Form.Item
+                label="Bác sĩ"
+                name="doctor"
+                rules={[{ required: true, message: "Please choose doctor!" }]}
+              >
+                <Select
+                  name="doctor"
+                  value={stateOrderDetails["Name"]}
+                  onChange={handleChangeSelect}
+                  options={renderOptions(doctorOtorhinologyNames)}
+                />
+              </Form.Item>
+            )}
+            {stateOrderDetails.type === "pediatrics" && (
+              <Form.Item
+                label="Bác sĩ"
+                name="doctor"
+                rules={[{ required: true, message: "Please choose doctor!" }]}
+              >
+                <Select
+                  name="doctor"
+                  value={stateOrderDetails["Name"]}
+                  onChange={handleChangeSelect}
+                  options={renderOptions(doctorPediatricsNames)}
                 />
               </Form.Item>
             )}

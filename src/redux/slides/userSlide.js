@@ -36,6 +36,8 @@ export const userSlide = createSlice({
         refreshToken = "",
         sex = "",
         dateofbirth = "",
+        BHXH = "",
+        CCCD = "",
         eventData = [],
       } = action.payload;
       state.name = name ? name : state.name;
@@ -52,6 +54,8 @@ export const userSlide = createSlice({
       state.sex = sex ? sex : state.sex;
       state.dateofbirth = dateofbirth ? dateofbirth : state.dateofbirth;
       state.eventData = eventData ? eventData : state.eventData;
+      state.BHXH = BHXH ? BHXH : state.BHXH;
+      state.CCCD = CCCD ? CCCD : state.CCCD;
     },
     resetUser: (state) => {
       window.localStorage.clear();
@@ -68,6 +72,8 @@ export const userSlide = createSlice({
       state.refreshToken = "";
       state.sex = "";
       state.dateofbirth = "";
+      state.BHXH = "";
+      state.CCCD = "";
     },
   },
 });
