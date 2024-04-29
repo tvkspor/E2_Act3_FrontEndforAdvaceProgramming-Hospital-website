@@ -8,15 +8,19 @@ import { useQuery } from "@tanstack/react-query";
 import * as ItemService from "../../services/ItemService"
 import ItemCardComponent from "../../components/ItemCardComponent/ItemCardComponent";
 import ItemSearchComponent from "../../components/ItemSearchComponent/ItemSearchComponent";
+import GojoLoader from '../../components/GojoLoader/GojoLoader';
 
-function MedicalEquipment(){
+
+function MedicalEquipment() {
   const searchItem = useSelector((state) => state?.item?.search);
   const searchDebounce = useDebounce(searchItem, 500);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [limit, setLimit] = useState(3);
   const [typeProducts, setTypeProducts] = useState([]);
 
   const [sortOrder, setSortOrder] = useState('asc'); // 'asc' for ascending, 'desc' for descending
+  const [sortType, setSortType] = useState('price'); // 'price', 'date', 'name'
+
 
   const fetchItemAll = async (context) => {
     const limit = context?.queryKey && context?.queryKey[1];
@@ -47,56 +51,92 @@ function MedicalEquipment(){
   const sortedItems = React.useMemo(() => {
     if (Array.isArray(items?.data)) {
       return [...items.data].sort((a, b) => {
+        let compareA, compareB;
+
+        switch (sortType) {
+          case 'price':
+            compareA = a.price;
+            compareB = b.price;
+            break;
+          case 'date':
+            compareA = new Date(a.importDate);
+            compareB = new Date(b.importDate);
+            break;
+          case 'name':
+            compareA = a.name;
+            compareB = b.name;
+            break;
+          default:
+            compareA = a.price;
+            compareB = b.price;
+        }
+
         if (sortOrder === 'asc') {
-          return a.price - b.price;
+          return compareA > compareB ? 1 : -1;
         } else {
-          return b.price - a.price;
+          return compareA < compareB ? 1 : -1;
         }
       });
     } else {
       return [];
     }
-  }, [items, sortOrder]);  
+  }, [items, sortOrder, sortType]);
 
   useEffect(() => {
     fetchAllTypeProduct();
+  }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 3000); // 3000 milliseconds = 3 seconds
+
+    // Cleanup function to clear the timeout in case the component unmounts before the timeout finishes
+    return () => clearTimeout(timer);
   }, []);
 
   const loadMore = () => {
     setLimit(prevLimit => prevLimit + 3); // Increase limit by 3 each time
   };
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <GojoLoader />;
   }
-    return (
-      <section className="blogs" id="blogs">
+  return (
+    <section className="blogs" id="blogs">
       <h1 className="heading">
         {" "}
         DỤNG CỤ <span>Y TẾ</span>{" "}
       </h1>
-      <ItemSearchComponent/>  
+      <ItemSearchComponent />
 
       <div className="sort-container" style={sortContainerStyle}>
-        <label style={labelStyle}>Sắp xếp theo giá: </label>
+        <label style={labelStyle}>Sắp xếp theo: </label>
+        <select style={selectStyle} value={sortType} onChange={(e) => setSortType(e.target.value)}>
+          <option value="price">Giá</option>
+          <option value="date">Ngày</option>
+          <option value="name">Tên</option>
+        </select>
+        <label style={labelStyle}>Thứ tự: </label>
         <select style={selectStyle} value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
           <option value="asc">Tăng dần</option>
           <option value="desc">Giảm dần</option>
         </select>
       </div>
 
+
       <div className="box-container">
-              {sortedItems.map((items)  => {
-                return (
-                  <ItemCardComponent
-                    name={items.name}
-                    price={items.price}
-                    component={items.component}
-                    availability={items.availability}
-                    importDate={items.importDate}
-                    image={items.image}
-                  />
-                );
-              })}
+        {sortedItems.map((items) => {
+          return (
+            <ItemCardComponent
+              name={items.name}
+              price={items.price}
+              component={items.component}
+              availability={items.availability}
+              importDate={items.importDate}
+              image={items.image}
+            />
+          );
+        })}
       </div>
       <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
         <button onClick={loadMore} style={{
@@ -108,20 +148,20 @@ function MedicalEquipment(){
           transition: 'all 0.3s ease',
           cursor: 'pointer'
         }}
-        onMouseOver={(e) => {
-          e.currentTarget.style.background = 'green';
-          e.currentTarget.style.color = 'white';
-        }}
-        onMouseOut={(e) => {
-          e.currentTarget.style.background = 'transparent';
-          e.currentTarget.style.color = 'green';
-        }}
+          onMouseOver={(e) => {
+            e.currentTarget.style.background = 'green';
+            e.currentTarget.style.color = 'white';
+          }}
+          onMouseOut={(e) => {
+            e.currentTarget.style.background = 'transparent';
+            e.currentTarget.style.color = 'green';
+          }}
         >
           Load More
         </button>
       </div>
     </section>
-    );   
+  );
 }
 const sortContainerStyle = {
   display: 'flex',

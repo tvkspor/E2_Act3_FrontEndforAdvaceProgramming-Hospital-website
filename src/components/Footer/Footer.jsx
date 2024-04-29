@@ -46,36 +46,44 @@ import bg_ta2 from "../../assets/images/bg_ta2.jpg"
 
 function Footer() {
     return (
-    <section className="footer">
+    <section className="footer" style={{backgroundColor: 'rgba(207, 232, 213, 0.8)' }}>
             <div className="box-container">
             <div className="box">
-                <h3>our services</h3>
-                <a href="#">
+                <h3>SERVICES</h3>
+                <a href="/">
                 {" "}
-                <i className="fas fa-chevron-right"><FontAwesomeIcon icon={faChevronRight}/></i> dental care{" "}
+                <i className="fas fa-chevron-right"><FontAwesomeIcon icon={faChevronRight}/></i> Home{" "}
                 </a>
-                <a href="#">
+                <a href="/order">
                 {" "}
-                <i className="fas fa-chevron-right"><FontAwesomeIcon icon={faChevronRight}/></i> message therapy{" "}
+                <i className="fas fa-chevron-right"><FontAwesomeIcon icon={faChevronRight}/></i> Order{" "}
                 </a>
-                <a href="#">
+                <a href="/my-medicalrecords">
                 {" "}
-                <i className="fas fa-chevron-right"><FontAwesomeIcon icon={faChevronRight}/></i> cardioloty{" "}
+                <i className="fas fa-chevron-right"><FontAwesomeIcon icon={faChevronRight}/></i> Medicalrecords{" "}
                 </a>
-                <a href="#">
+                <a href="/booking">
                 {" "}
-                <i className="fas fa-chevron-right"><FontAwesomeIcon icon={faChevronRight}/></i> diagnosis{" "}
+                <i className="fas fa-chevron-right"><FontAwesomeIcon icon={faChevronRight}/></i> Booking{" "}
                 </a>
-                <a href="#">
+                <a href="/medicalequipment">
                 {" "}
-                <i className="fas fa-chevron-right"><FontAwesomeIcon icon={faChevronRight}/></i> ambulance service{" "}
+                <i className="fas fa-chevron-right"><FontAwesomeIcon icon={faChevronRight}/></i> Medicalequipment{" "}
+                </a>
+                <a href="/orderitems">
+                {" "}
+                <i className="fas fa-chevron-right"><FontAwesomeIcon icon={faChevronRight}/></i> Order-Items{" "}
+                </a>
+                <a href="/medicine">
+                {" "}
+                <i className="fas fa-chevron-right"><FontAwesomeIcon icon={faChevronRight}/></i> Medicine{" "}
                 </a>
             </div>
             <div className="box">
-                <h3>contact info</h3>
+                <h3>CONTACT INFORMATION</h3>
                 <a href="#">
                 {" "}
-                <i className="fas fa-phone"><FontAwesomeIcon icon={faPhone}/></i> +115{" "}
+                <i className="fas fa-phone"><FontAwesomeIcon icon={faPhone}/></i> +84 012345678{" "}
                 </a>
                 <a href="#">
                 {" "}
@@ -91,7 +99,7 @@ function Footer() {
                 </a>
             </div>
             <div className="box">
-                <h3>follow us</h3>
+                <h3>FOLLOW US</h3>
                 <a href="https://www.facebook.com/profile.php?id=61558353060924">
                 {" "}
                 <i className="fab fa-facebook-f"><FontAwesomeIcon icon={faFacebookF}/></i> Fanpage{" "}

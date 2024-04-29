@@ -634,7 +634,6 @@ section:nth-child(even) {
     padding: 1.5rem
   } */
 
-
 @media (max-width:991px) {
     html {
         font-size: 55%;
