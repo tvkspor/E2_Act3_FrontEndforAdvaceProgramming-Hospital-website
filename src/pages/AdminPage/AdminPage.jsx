@@ -154,13 +154,13 @@ const AdminPage = () => {
         />
         <div style={{ flex: 1, padding: "15px 0 15px 15px" }}>
           <Loading isLoading={false}>
-            {!keySelected && (
-              <CustomizedContent
-                data={memoCount}
-                colors={COLORS}
-                setKeySelected={setKeySelected}
-              />
-            )}
+            {!keySelected 
+              // (<CustomizedContent
+              //   data={memoCount}
+              //   colors={COLORS}
+              //   setKeySelected={setKeySelected}
+              // />)
+            }
           </Loading>
           {renderPage(keySelected)}
         </div>

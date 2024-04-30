@@ -189,11 +189,11 @@ const OrderPage = () => {
     });
   };
   return (
-    <div style={{ background: "#f5f5fa", with: "100%", height: "100vh" }}>
+    <div style={{ background: "#f5f5fa", with: "100%", height: "100%" }}>
       <div style={{ height: "100%", width: "1270px", margin: "0 auto" }}>
         <div style={{ display: "flex", justifyContent: "center" }}>
           <WrapperLeft>
-            <h4>Thông tin đặt dịch vụ</h4>
+            <h1>Thông tin đặt dịch vụ</h1>
             <WrapperStyleHeader>
               <span style={{ display: "inline-block", width: "390px" }}>
                 <span> Tất cả: {order?.orderItems?.length} sản phẩm</span>
@@ -283,7 +283,7 @@ const OrderPage = () => {
             </WrapperListOrder>
           </WrapperLeft>
           <WrapperRight>
-            <div style={{ width: "100%" }}>
+            <div style={{ width: "100%"}}>
               <WrapperInfo>
                 <div>
                   <span>Thông tin bổ sung (CCCD, BHXH): </span>
@@ -367,6 +367,7 @@ const OrderPage = () => {
                 width: "320px",
                 border: "none",
                 borderRadius: "4px",
+                
               }}
               textbutton={"Mua hàng"}
               styleTextButton={{
@@ -379,7 +380,7 @@ const OrderPage = () => {
         </div>
       </div>
       <ModalComponent
-        title="Cập nhật thông tin người dùng"
+        title="Cập nhật thông tin giao hàng"
         open={isOpenModalUpdateInfo}
         onCancel={handleCancleUpdate}
         onOk={handleUpdateInforUser}

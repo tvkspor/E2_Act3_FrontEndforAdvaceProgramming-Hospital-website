@@ -50,3 +50,11 @@ export const booking = async (data) => {
         throw error; // Re-throw the error for further handling
     }
 }
+export const deleteManyBooking = async (data, access_token,) => {
+    const res = await axiosJWT.post(`${process.env.REACT_APP_API_URL}/booking/delete-many`, data, {
+        headers: {
+            token: `Bearer ${access_token}`,
+        }
+    })
+    return res.data
+}

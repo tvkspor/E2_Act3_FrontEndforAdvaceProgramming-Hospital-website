@@ -170,6 +170,7 @@ const ProductDetailsComponent = ({ idProduct }) => {
   return (
     <Loading isLoading={isLoading}>
       <Row
+        gutter={[18,18]}
         style={{
           padding: "16px",
           background: "#fff",
@@ -177,7 +178,7 @@ const ProductDetailsComponent = ({ idProduct }) => {
           height: "100%",
         }}
       >
-        <Col
+        <Col sm={10} xs={20}
           span={10}
           style={{ borderRight: "1px solid #e5e5e5", paddingRight: "8px" }}
         >
@@ -188,7 +189,10 @@ const ProductDetailsComponent = ({ idProduct }) => {
           />
         </Col>
 
-        <Col span={14} style={{ paddingLeft: "10px" }}>
+        <Col sm={14} xs={9}
+          span={14} 
+          style={{ paddingLeft: "10px" }}
+        >
           <WrapperStyleNameProduct>
             {productDetails?.name}
           </WrapperStyleNameProduct>

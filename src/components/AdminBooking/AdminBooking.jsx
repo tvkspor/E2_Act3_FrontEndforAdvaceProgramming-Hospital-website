@@ -111,6 +111,11 @@ const AdminBooking = () => {
         return res;
     });
     const { data, isLoading, isSuccess, isError } = mutation;
+    const mutationDeletedMany = useMutationHooks((data) => {
+        const { token, ...ids } = data;
+        const res = BookingService.deleteManyBooking(ids, token);
+        return res;
+    });
 
     const {
         data: dataDeleted,
@@ -118,6 +123,12 @@ const AdminBooking = () => {
         isSuccess: isSuccessDelected,
         isError: isErrorDeleted,
     } = mutationDeleted;
+    const {
+        data: dataDeletedMany,
+        isLoading: isLoadingDeletedMany,
+        isSuccess: isSuccessDelectedMany,
+        isError: isErrorDeletedMany,
+    } = mutationDeletedMany;
 
     useEffect(() => {
         if (isSuccess && data?.status === "OK") {
@@ -387,7 +398,16 @@ const AdminBooking = () => {
             avatar: file.preview,
         });
     };
-
+    const handleDelteManyBookings = (ids) => {
+        mutationDeletedMany.mutate(
+            { ids: ids, token: user?.access_token },
+            {
+                onSettled: () => {
+                    queryBooking.refetch();
+                },
+            }
+        );
+    };
     return (
         <div>
             {/*Hiển thị phần quản lí sản phẩm */}
@@ -412,6 +432,7 @@ const AdminBooking = () => {
             <div style={{ marginTop: "20px" }}>
                 <TableComponent
                     columns={columns}
+                    handleDelteMany={handleDelteManyBookings}
                     isLoading={isLoadingBookings}
                     data={dataTable}
                     onRow={(record, rowIndex) => {

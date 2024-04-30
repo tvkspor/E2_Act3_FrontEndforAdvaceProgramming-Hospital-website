@@ -44,8 +44,7 @@ const AdminItem = () => {
     component: "",
     availability: "",
     image: "",
-    importDate: "",
-    description: "",
+    importDate: new Date("2024-04-14"),
   });
   const [stateItem, setStateItem] = useState(inittial());
   const [stateItemDetails, setStateItemDetails] = useState(inittial());
@@ -53,7 +52,7 @@ const AdminItem = () => {
   const [form] = Form.useForm();
 
   const mutation = useMutationHooks((data) => {
-    const { name, price, component, availability, importDate, image, description } = data;
+    const { name, price, component, availability, importDate, image } = data;
     const res = ItemService.createItem({
       name,
       price,
@@ -61,7 +60,6 @@ const AdminItem = () => {
       availability,
       importDate,
       image,
-      description,
     });
     return res;
   });
@@ -91,26 +89,13 @@ const AdminItem = () => {
   const fetchGetDetailsItem = async (rowSelected) => {
     const res = await ItemService.getDetailsItem(rowSelected);
     if (res?.data) {
-      let importDate = res?.data?.importDate;
-
-      // If importDate is a string, convert it to a moment object
-      if (typeof importDate === 'string') {
-        importDate = moment(importDate, 'DD-MM-YYYY');
-      }
-
-      // If importDate is a Date, convert it to a moment object
-      if (importDate instanceof Date) {
-        importDate = moment(importDate);
-      }
-
       setStateItemDetails({
         name: res?.data?.name,
         price: res?.data?.price,
         component: res?.data?.component,
         availability: res?.data?.availability,
-        importDate: importDate,
+        importDate: res?.data?.importDate,
         image: res?.data?.image,
-        description: res?.data?.description,
       });
     }
     setIsLoadingUpdate(false);
@@ -379,9 +364,8 @@ const AdminItem = () => {
       price: "",
       component: "",
       availability: "",
-      importDate: "",
+      importDate: new Date("2024-04-14"),
       image: "",
-      description: "",
     });
     form.resetFields();
   };
@@ -417,9 +401,8 @@ const AdminItem = () => {
       price: "",
       component: "",
       availability: "",
-      importDate: "",
+      importDate: new Date("2024-04-14"),
       image: "",
-      description: "",
     });
     form.resetFields();
   };
@@ -431,9 +414,8 @@ const AdminItem = () => {
       component: stateItem.component,
       availability: stateItem.availability,
       type: stateItem.type === "add_type" ? stateItem.newType : stateItem.type,
-      importDate: moment(stateItem.importDate, 'DD-MM-YYYY'),
+      importDate: stateItem.importDate,
       image: stateItem.image,
-      description: stateItem.description,
       // discount: stateItem.discount
     };
     mutation.mutate(params, {
@@ -460,16 +442,11 @@ const AdminItem = () => {
   const handleOnchangeDetails = (e) => {
     let value = e.target.value;
 
-    // If the value is a moment object, convert it to a string
-    if (moment.isMoment(value)) {
-      value = value.format('DD-MM-YYYY');
-    }
-
     setStateItemDetails({
       ...stateItemDetails,
-      [e.target.name]: value
-    })
-  }
+      [e.target.name]: value,
+    });
+  };
 
   const handleOnchangeAvatar = async ({ fileList }) => {
     const file = fileList[0];
@@ -512,14 +489,12 @@ const AdminItem = () => {
 
   const handleDateChange = (date) => {
     // Format the date to 'DD-MM-YYYY' format and update stateItem
-    const formattedDate = date.format('DD-MM-YYYY');
-    setStateItem({ ...stateItem, importDate: formattedDate });
+    setStateItem({ ...stateItem, importDate: date });
   };
 
-
-  const handleDateChangeDetails = (date, dateString) => {
+  const handleDateChangeDetails = (date) => {
     // Update stateItemDetails with the selected date
-    setStateItemDetails({ ...stateItemDetails, importDate: dateString });
+    setStateItemDetails({ ...stateItemDetails, importDate: date });
   };
 
   return (
@@ -618,26 +593,13 @@ const AdminItem = () => {
                 name="availability"
               />
             </Form.Item>
-            <Form.Item
+            {/* <Form.Item
               label="Ngày nhập"
               name="importDate"
               rules={[{ required: true, message: "Please input your date" }]}
             >
-              <DatePicker onChange={handleDateChange} />
-            </Form.Item>
-            <Form.Item
-              label="Mô tả"
-              name="description"
-              rules={[
-                { required: true, message: "Please input your description!" },
-              ]}
-            >
-              <InputComponent
-                value={stateItem.description}
-                onChange={handleOnchange}
-                name="description"
-              />
-            </Form.Item>
+              <DatePicker format={dateFormatList} onChange={handleDateChange} />
+            </Form.Item> */}
             <Form.Item
               label="Hình ảnh"
               name="image"
@@ -683,14 +645,14 @@ const AdminItem = () => {
             autoComplete="on"
             form={form}
           >
-            {/* <WrapperInput>
+            <WrapperInput>
               <WrapperLabel>Ngày nhập</WrapperLabel>
               <DatePicker
-                defaultValue={moment(stateItemDetails.importDate)}
+                //defaultValue={moment(stateItemDetails.importDate)}
                 format={dateFormatList}
                 onChange={handleDateChangeDetails}
               />
-            </WrapperInput> */}
+            </WrapperInput>
             <Form.Item
               label="Tên thiết bị"
               name="name"
@@ -702,13 +664,19 @@ const AdminItem = () => {
                 name="name"
               />
             </Form.Item>
-            <Form.Item
-              label="ImportDate"
+            {/* <Form.Item
+              label="Ngày nhập"
               name="importDate"
-              rules={[{ required: true, message: 'Please input your importDate!' }]}
+              rules={[
+                { required: true, message: "Please input your importDate!" },
+              ]}
             >
-              <DatePicker onChange={handleDateChangeDetails} />
-            </Form.Item>
+              <DatePicker
+                defaultValue={moment(stateItemDetails.importDate)}
+                format={dateFormatList}
+                onChange={handleDateChangeDetails}
+              />
+            </Form.Item> */}
 
             <Form.Item
               label="Giá"
