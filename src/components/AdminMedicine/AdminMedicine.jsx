@@ -21,6 +21,8 @@ import { useQuery } from "@tanstack/react-query";
 import DrawerComponent from "../DrawerComponent/DrawerComponent";
 import { useSelector } from "react-redux";
 import ModalComponent from "../ModalComponent/ModalComponent";
+import moment from 'moment';
+import { DatePicker } from 'antd';
 
 const AdminMedicine = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -161,6 +163,17 @@ const AdminMedicine = () => {
     const fetchGetDetailsMedicine = async (rowSelected) => {
         const res = await MedicineService.getDetailsItem(rowSelected);
         if (res?.data) {
+            let selled = res?.data?.selled;
+    
+            // If selled is a string, convert it to a moment object
+            if (typeof selled === 'string') {
+                selled = moment(selled, 'DD-MM-YYYY');
+            }
+    
+            // If importDate is a Date, convert it to a moment object
+            if (selled instanceof Date) {
+                selled = moment(selled);
+            }
             setStateMedicineDetails({
                 name: res?.data?.name,
                 image: res?.data?.image,
@@ -168,7 +181,7 @@ const AdminMedicine = () => {
                 price: res?.data?.price,
                 countInStock: res?.data?.countInStock,
                 description: res?.data?.description,
-                selled: res?.data?.selled,
+                selled: selled,
             });
         }
         setIsLoadingUpdate(false);
@@ -312,22 +325,12 @@ const AdminMedicine = () => {
 
     // Bảng và thông tin hiển thị
     const columns = [
-        // {
-        //     title: "Name",
-        //     dataIndex: "name",
-        //     sorter: (a, b) => a.name.length - b.name.length,
-        //     ...getColumnSearchProps("name"),
-        // },
         {
             title: "Name",
             dataIndex: "name",
-            sorter: (a, b) => {
-              const firstCharA = a.name.charAt(0).toLowerCase();
-              const firstCharB = b.name.charAt(0).toLowerCase();
-              return firstCharA.localeCompare(firstCharB);
-            },
+            sorter: (a, b) => a.name.length - b.name.length,
             ...getColumnSearchProps("name"),
-          },
+        },
         {
             title: "Price",
             dataIndex: "price",
@@ -358,9 +361,11 @@ const AdminMedicine = () => {
             dataIndex: "description",
         },
         {
-            title: "Selled",
-            dataIndex: "selled",
-        },
+            title: 'Expiry',
+            dataIndex: 'selled',
+            sorter: (a, b) => moment(a.selled).unix() - moment(b.selled).unix(),
+            render: (selled) => moment(selled).format('DD-MM-YYYY')
+        }, 
         {
             title: "Action",
             dataIndex: "action",
@@ -427,7 +432,7 @@ const AdminMedicine = () => {
             price: stateMedicine.price,
             countInStock: stateMedicine.countInStock,
             description: stateMedicine.description,
-            selled: stateMedicine.selled,
+            selled: moment(stateMedicine.selled, 'DD-MM-YYYY'),
         };
         mutation.mutate(params, {
             onSettled: () => {
@@ -444,6 +449,13 @@ const AdminMedicine = () => {
     };
 
     const handleOnchangeDetails = (e) => {
+        let value = e.target.value;
+    
+        // If the value is a moment object, convert it to a string
+        if (moment.isMoment(value)) {
+            value = value.format('DD-MM-YYYY');
+        }
+
         setStateMedicineDetails({
             ...stateMedicineDetails,
             [e.target.name]: e.target.value,
@@ -489,10 +501,22 @@ const AdminMedicine = () => {
         });
     };
 
+    const handleDateChange = (date) => {
+        // Format the date to 'DD-MM-YYYY' format and update stateItem
+        const formattedDate = date.format('DD-MM-YYYY');
+        setStateMedicine({ ...stateMedicine, selled: formattedDate });
+    };
+    
+
+    const handleDateChangeDetails = (date, dateString) => {
+        // Update stateItemDetails with the selected date
+        setStateMedicineDetails({ ...stateMedicineDetails, selled: dateString });
+    };    
+
     return (
         <div>
             {/*Hiển thị phần quản lí sản phẩm */}
-            <WrapperHeader>Quản lý thuốc</WrapperHeader>
+            <WrapperHeader>Quản lý sản phẩm</WrapperHeader>
 
             {/* Nút bấm */}
             <div style={{ marginTop: "10px" }}>
@@ -622,17 +646,11 @@ const AdminMedicine = () => {
                             />
                         </Form.Item>
                         <Form.Item
-                            label="Selled"
+                            label="Expiry"
                             name="selled"
-                            rules={[
-                                { required: true, message: "Please input your count selled!" },
-                            ]}
+                            rules={[{ required: true, message: 'Please input your date' }]}
                         >
-                            <InputComponent
-                                value={stateMedicine.selled}
-                                onChange={handleOnchange}
-                                name="selled"
-                            />
+                            <DatePicker onChange={handleDateChange} />
                         </Form.Item>
                         <Form.Item
                             label="Image"
@@ -747,19 +765,12 @@ const AdminMedicine = () => {
                             />
                         </Form.Item>
                         <Form.Item
-                            label="Selled"
+                            label="Expiry"
                             name="selled"
-                            rules={[
-                                { required: true, message: "Please input your count selled!" },
-                            ]}
+                            rules={[{ required: true, message: 'Please input your expiry!' }]}
                         >
-                            <InputComponent
-                                value={stateMedicineDetails.selled}
-                                onChange={handleOnchangeDetails}
-                                name="selled"
-                            />
+                            <DatePicker onChange={handleDateChangeDetails} />
                         </Form.Item>
-
                         <Form.Item
                             label="Image"
                             name="image"

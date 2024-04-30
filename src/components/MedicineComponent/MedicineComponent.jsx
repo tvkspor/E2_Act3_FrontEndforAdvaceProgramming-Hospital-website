@@ -7,6 +7,7 @@ import {
   faCalendar,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
+import moment from "moment";
 
 const MedicineComponent = (props) => {
   const {
@@ -46,8 +47,9 @@ const MedicineComponent = (props) => {
               </li>
               <li>
                 <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                  <p>Số lượng đã bán</p>
-                  <p style={{color: 'black'}}>{selled}</p>
+                  <p>Hạn sử dụng</p>
+                  <p style={{color: 'black', fontWeight: 'bold'}}>
+                  {moment(selled).format('DD/MM/YYYY')}</p>
                 </div>
               </li>
               <li>

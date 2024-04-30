@@ -1,13 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import ButttonInputSearch from "../ButtonInputSearch/ButttonInputSearch";
-import hinh1 from "../../assets/images/maydohuyetap.webp"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faChevronRight,
-  faCalendar,
-  faUser,
-} from "@fortawesome/free-solid-svg-icons";
 import { searchMedicine } from "../../redux/slides/medicineSlide";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
