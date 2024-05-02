@@ -1,4 +1,4 @@
-import { Button, Form, Select, Space } from "antd";
+import { Button, Form, Select, Space, DatePicker } from "antd";
 import {
   PlusOutlined,
   DeleteOutlined,
@@ -6,7 +6,7 @@ import {
   SearchOutlined,
 } from "@ant-design/icons";
 import React, { useRef } from "react";
-import { WrapperHeader, WrapperUploadFile } from "./style";
+import { WrapperHeader, WrapperUploadFile, WrapperLabel, WrapperInput } from "./style";
 import TableComponent from "../TableComponent/TableComponent";
 import { useState } from "react";
 import InputComponent from "../InputComponent/InputComponent";
@@ -23,6 +23,7 @@ import ModalComponent from "../ModalComponent/ModalComponent";
 import moment from "moment";
 
 const AdminDoctor = () => {
+  const dateFormatList = ["DD/MM/YYYY", "DD/MM/YY"];
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [rowSelected, setRowSelected] = useState("");
   const [isOpenDrawer, setIsOpenDrawer] = useState(false);
@@ -347,7 +348,7 @@ const AdminDoctor = () => {
       phone: "",
       address: "",
       avatar: "",
-      dateofbirth: "",
+      dateofbirth: new Date("2024-04-14"),
       sex: "",
       department: "",
     });
@@ -375,7 +376,7 @@ const AdminDoctor = () => {
       phone: "",
       address: "",
       avatar: "",
-      dateofbirth: "",
+      dateofbirth: new Date("2024-04-14"),
       sex: "",
       department: "",
     });
@@ -450,6 +451,11 @@ const AdminDoctor = () => {
       ...stateDoctor,
       department: value,
     });
+  };
+
+  const handleDateChangeDetails = (date) => {
+    // Update stateItemDetails with the selected date
+    setStateDoctorDetails({ ...stateDoctorDetails, dateofbirth: date });
   };
 
   return (
@@ -631,6 +637,14 @@ const AdminDoctor = () => {
             autoComplete="on"
             form={form}
           >
+            <WrapperInput>
+              <WrapperLabel>Ngày sinh</WrapperLabel>
+              <DatePicker
+                //defaultValue={moment(stateItemDetails.importDate)}
+                format={dateFormatList}
+                onChange={handleDateChangeDetails}
+              />
+            </WrapperInput>
             <Form.Item
               label="Name"
               name="name"
@@ -679,7 +693,7 @@ const AdminDoctor = () => {
                 name="address"
               />
             </Form.Item>
-            <Form.Item
+            {/* <Form.Item
               label="Dateofbirth"
               name="dateofbirth"
               rules={[
@@ -691,7 +705,8 @@ const AdminDoctor = () => {
                 onChange={handleOnchangeDetails}
                 name="dateofbirth"
               />
-            </Form.Item>
+            </Form.Item> */}
+
             <Form.Item
               label="Sex"
               name="sex"

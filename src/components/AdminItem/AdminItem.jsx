@@ -45,6 +45,7 @@ const AdminItem = () => {
     availability: "",
     image: "",
     importDate: new Date("2024-04-14"),
+    description: "",
   });
   const [stateItem, setStateItem] = useState(inittial());
   const [stateItemDetails, setStateItemDetails] = useState(inittial());
@@ -52,7 +53,7 @@ const AdminItem = () => {
   const [form] = Form.useForm();
 
   const mutation = useMutationHooks((data) => {
-    const { name, price, component, availability, importDate, image } = data;
+    const { name, price, component, availability, importDate, image, description } = data;
     const res = ItemService.createItem({
       name,
       price,
@@ -60,6 +61,7 @@ const AdminItem = () => {
       availability,
       importDate,
       image,
+      description,
     });
     return res;
   });
@@ -96,6 +98,7 @@ const AdminItem = () => {
         availability: res?.data?.availability,
         importDate: res?.data?.importDate,
         image: res?.data?.image,
+        description: res?.data?.description,
       });
     }
     setIsLoadingUpdate(false);
@@ -366,6 +369,7 @@ const AdminItem = () => {
       availability: "",
       importDate: new Date("2024-04-14"),
       image: "",
+      description: "",
     });
     form.resetFields();
   };
@@ -403,6 +407,7 @@ const AdminItem = () => {
       availability: "",
       importDate: new Date("2024-04-14"),
       image: "",
+      description: "",
     });
     form.resetFields();
   };
@@ -416,6 +421,7 @@ const AdminItem = () => {
       type: stateItem.type === "add_type" ? stateItem.newType : stateItem.type,
       importDate: stateItem.importDate,
       image: stateItem.image,
+      description: stateItem.description,
       // discount: stateItem.discount
     };
     mutation.mutate(params, {
@@ -593,6 +599,19 @@ const AdminItem = () => {
                 name="availability"
               />
             </Form.Item>
+            <Form.Item
+              label="Mô tả"
+              name="description"
+              rules={[
+                { required: true, message: "Please input your description!" },
+              ]}
+            >
+              <InputComponent
+                value={stateItem.description}
+                onChange={handleOnchange}
+                name="description"
+              />
+            </Form.Item>
             {/* <Form.Item
               label="Ngày nhập"
               name="importDate"
@@ -713,6 +732,19 @@ const AdminItem = () => {
                 value={stateItemDetails.availability}
                 onChange={handleOnchangeDetails}
                 name="availability"
+              />
+            </Form.Item>
+            <Form.Item
+              label="Mô tả"
+              name="description"
+              rules={[
+                { required: true, message: "Please input your description!" },
+              ]}
+            >
+              <InputComponent
+                value={stateItemDetails.description}
+                onChange={handleOnchangeDetails}
+                name="description"
               />
             </Form.Item>
             {/* <Form.Item

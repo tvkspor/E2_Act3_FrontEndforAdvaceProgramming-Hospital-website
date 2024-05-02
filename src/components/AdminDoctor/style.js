@@ -18,3 +18,16 @@ export const WrapperUploadFile = styled(Upload)`
         display: none;
     }
 `
+export const WrapperLabel = styled.label`
+  color: #000;
+  font-size: 12px;
+  line-height: 30px;
+  width: 80px;
+  text-align: left;
+`;
+
+export const WrapperInput = styled.div`
+  display: flex;
+  align-items: cemter;
+  gap: 20px;
+`;

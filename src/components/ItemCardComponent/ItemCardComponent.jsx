@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import hinh1 from "../../assets/images/maydohuyetap.webp"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronRight,
@@ -22,6 +21,7 @@ const ItemCardComponent = (props) => {
   } = props;
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleDetailsClick = () => {
     // Open the modal
@@ -33,16 +33,6 @@ const ItemCardComponent = (props) => {
     setIsModalOpen(false);
   };
 
-  // const handleClickNavigate = (type) => {
-  //   if (type === "Learn more") {
-  //     navigate("/item-details");
-
-  //   } else {
-  //     handleLogout();
-  //     navigate("/");
-  //   }
-  //   setIsOpenPopup(false);
-  // };
   return (
     <div className="box-container">
       <div className="box">
@@ -101,30 +91,49 @@ const ItemCardComponent = (props) => {
           {/* Modal */}
           {isModalOpen && (
             <div className="modal" style={{
-              position: 'fixed', /* Stay in place */
-              zIndex: 1, /* Sit on top */
+              position: 'fixed',
+              zIndex: 1,
               left: 0,
               top: 0,
-              width: '100%', /* Full width */
-              height: '100%', /* Full height */
-              overflow: 'auto', /* Enable scroll if needed */
-              backgroundColor: 'rgba(0,0,0,0.4)', /* Black w/ opacity */
+              width: '100%',
+              height: '100%',
+              overflow: 'auto',
+              backgroundColor: 'rgba(0,0,0,0.4)',
             }}>
               <div className="modal-content" style={{
+                margin: '2% auto',
                 backgroundColor: '#fefefe',
-                margin: '15% auto', /* 15% from the top and centered */
                 padding: '20px',
                 border: '1px solid #888',
-                width: '80%', /* Could be more or less, depending on screen size */
-              }}>
-                <h2>Item Details</h2>
-                <p>Name: {name}</p>
-                <p>Price: {price}</p>
-                <p>Availability: {availability}</p>
-                <p>Component: {component}</p>
-                <p>Import Date: {moment(importDate).format('DD/MM/YYYY')}</p>
-                <p>Description: {description}</p>
-                <button onClick={closeModal}>Close</button>
+                width: '80%',
+                position: 'relative',
+              }}>               <button
+                onClick={closeModal}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+                style={{
+                  position: 'absolute',
+                  right: '10px',
+                  top: '10px',
+                  background: isHovered ? 'red' : 'none',
+                  border: `1px solid ${isHovered ? 'red' : 'black'}`,
+                  borderRadius: '5px',
+                  fontSize: '20px',
+                  cursor: 'pointer',
+                  color: 'black',
+                  padding: '2px 5px',
+                }}
+              >
+                  X
+                </button>
+                <h2>Chi tiết sản phẩm</h2>
+                <img src={image}></img>
+                <p>Tên thiết bị: {name}</p>
+                <p>Giá: {price}</p>
+                <p>Tình trạng: {availability}</p>
+                <p>Thành phần: {component}</p>
+                <p>Ngày nhập: {moment(importDate).format('DD/MM/YYYY')}</p>
+                <p>Mô tả: {description}</p>
               </div>
             </div>
           )}

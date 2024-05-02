@@ -134,6 +134,7 @@ function MedicalEquipment() {
               availability={items.availability}
               importDate={items.importDate}
               image={items.image}
+              description={items.description}
             />
           );
         })}
