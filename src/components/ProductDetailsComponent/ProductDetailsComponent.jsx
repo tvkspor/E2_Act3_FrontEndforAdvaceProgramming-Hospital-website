@@ -213,7 +213,14 @@ const ProductDetailsComponent = ({ idProduct }) => {
             {/* <span>Giao đến </span>
             <span className="address">{user?.address}</span> -
             <span className="change-address">Đổi địa chỉ</span> */}
-            <span> {productDetails?.description}</span>
+            <div>
+              {productDetails?.description.split("\\").map((line, index) => (
+                <React.Fragment key={index}>
+                  {line}
+                  <br />
+                </React.Fragment>
+              ))}
+            </div>
           </WrapperAddressProduct>
 
           <div style={{ display: "flex", aliggItems: "center", gap: "12px" }}>
