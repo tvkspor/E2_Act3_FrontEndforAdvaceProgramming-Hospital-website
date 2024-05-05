@@ -326,13 +326,13 @@ const AdminMedicine = () => {
     // Bảng và thông tin hiển thị
     const columns = [
         {
-            title: "Name",
+            title: "Tên",
             dataIndex: "name",
             sorter: (a, b) => a.name.length - b.name.length,
             ...getColumnSearchProps("name"),
         },
         {
-            title: "Price",
+            title: "Giá",
             dataIndex: "price",
             sorter: (a, b) => a.price - b.price,
             filters: [
@@ -353,21 +353,21 @@ const AdminMedicine = () => {
             },
         },
         {
-            title: "Type",
+            title: "Loại",
             dataIndex: "type",
         },
         {
-            title: "Description",
+            title: "Mô tả",
             dataIndex: "description",
         },
         {
-            title: 'Expiry',
+            title: 'Hết hạn',
             dataIndex: 'selled',
             // sorter: (a, b) => moment(a.selled).unix() - moment(b.selled).unix(),
             render: (selled) => moment(selled).format('DD-MM-YYYY')
         },
         {
-            title: "Action",
+            title: "Hành động",
             dataIndex: "action",
             render: renderAction,
         },
@@ -516,7 +516,7 @@ const AdminMedicine = () => {
     return (
         <div>
             {/*Hiển thị phần quản lí sản phẩm */}
-            <WrapperHeader>Quản lý sản phẩm</WrapperHeader>
+            <WrapperHeader>Quản lý thuốc</WrapperHeader>
 
             {/* Nút bấm */}
             <div style={{ marginTop: "10px" }}>
@@ -553,7 +553,7 @@ const AdminMedicine = () => {
             {/* Bảng để nhập sản phẩm */}
             <ModalComponent
                 forceRender
-                title="Tạo sản phẩm"
+                title="Tạo thêm thuốc"
                 open={isModalOpen}
                 onCancel={handleCancel}
                 footer={null}
@@ -604,7 +604,7 @@ const AdminMedicine = () => {
                             </Form.Item>
                         )}
                         <Form.Item
-                            label="Số lượng tồn kho"
+                            label="Tồn kho"
                             name="countInStock"
                             rules={[
                                 { required: true, message: "Please input your count inStock!" },
@@ -686,7 +686,7 @@ const AdminMedicine = () => {
             </ModalComponent>
 
             <DrawerComponent
-                title="Chi tiết sản phẩm"
+                title="Chi tiết về thuốc"
                 isOpen={isOpenDrawer}
                 onClose={() => setIsOpenDrawer(false)}
                 width="90%"

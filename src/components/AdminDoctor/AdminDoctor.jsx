@@ -1,4 +1,4 @@
-import { Button, Form, Select, Space } from "antd";
+import { Button, Form, Select, Space, DatePicker } from "antd";
 import {
   PlusOutlined,
   DeleteOutlined,
@@ -6,7 +6,7 @@ import {
   SearchOutlined,
 } from "@ant-design/icons";
 import React, { useRef } from "react";
-import { WrapperHeader, WrapperUploadFile } from "./style";
+import { WrapperHeader, WrapperUploadFile, WrapperLabel, WrapperInput } from "./style";
 import TableComponent from "../TableComponent/TableComponent";
 import { useState } from "react";
 import InputComponent from "../InputComponent/InputComponent";
@@ -23,6 +23,7 @@ import ModalComponent from "../ModalComponent/ModalComponent";
 import moment from "moment";
 
 const AdminDoctor = () => {
+  const dateFormatList = ["DD/MM/YYYY", "DD/MM/YY"];
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [rowSelected, setRowSelected] = useState("");
   const [isOpenDrawer, setIsOpenDrawer] = useState(false);
@@ -319,30 +320,30 @@ const AdminDoctor = () => {
   // Bảng và thông tin hiển thị
   const columns = [
     {
-      title: "Name",
+      title: "Tên bác sĩ",
       dataIndex: "name",
       sorter: (a, b) => a.name.length - b.name.length,
       ...getColumnSearchProps("name"),
     },
     {
-      title: "Phone",
+      title: "Số điện thoại",
       dataIndex: "phone",
     },
     {
-      title: "Address",
+      title: "Địa chỉ",
       dataIndex: "address",
     },
     {
-      title: "Dateofbirth",
+      title: "Ngày sinh",
       dataIndex: "dateofbirth",
       render: (dateofbirth) => moment(dateofbirth).format("DD-MM-YYYY"),
     },
     {
-      title: "Sex",
+      title: "Giới tính",
       dataIndex: "sex",
     },
     {
-      title: "Action",
+      title: "Hành động",
       dataIndex: "action",
       render: renderAction,
     },
@@ -361,7 +362,7 @@ const AdminDoctor = () => {
       phone: "",
       address: "",
       avatar: "",
-      dateofbirth: "",
+      dateofbirth: new Date("2024-04-14"),
       sex: "",
       department: "",
     });
@@ -389,7 +390,7 @@ const AdminDoctor = () => {
       phone: "",
       address: "",
       avatar: "",
-      dateofbirth: "",
+      dateofbirth: new Date("2024-04-14"),
       sex: "",
       department: "",
     });
@@ -466,10 +467,22 @@ const AdminDoctor = () => {
     });
   };
 
+  const handleChangeSelectDetails = (value) => {
+    setStateDoctorDetails({
+      ...stateDoctorDetails,
+      department: value,
+    });
+  };
+
+  const handleDateChangeDetails = (date) => {
+    // Update stateItemDetails with the selected date
+    setStateDoctorDetails({ ...stateDoctorDetails, dateofbirth: date });
+  };
+
   return (
     <div>
       {/*Hiển thị phần quản lí sản phẩm */}
-      <WrapperHeader>Quản lý sản phẩm</WrapperHeader>
+      <WrapperHeader>Quản lý bác sĩ</WrapperHeader>
 
       {/* Nút bấm */}
       <div style={{ marginTop: "10px" }}>
@@ -506,7 +519,7 @@ const AdminDoctor = () => {
       {/* Bảng để nhập sản phẩm */}
       <ModalComponent
         forceRender
-        title="Tạo sản phẩm"
+        title="Thêm bác sĩ"
         open={isModalOpen}
         onCancel={handleCancel}
         footer={null}
@@ -521,7 +534,7 @@ const AdminDoctor = () => {
             form={form}
           >
             <Form.Item
-              label="Name"
+              label="Tên bác sĩ"
               name="name"
               rules={[{ required: true, message: "Please input your name!" }]}
             >
@@ -532,7 +545,7 @@ const AdminDoctor = () => {
               />
             </Form.Item>
             <Form.Item
-              label="Phone"
+              label="Số điện thoại"
               name="phone"
               rules={[{ required: true, message: "Please input your phone!" }]}
             >
@@ -543,7 +556,7 @@ const AdminDoctor = () => {
               />
             </Form.Item>
             <Form.Item
-              label="Department"
+              label="Chuyên Khoa"
               name="department"
               rules={[
                 { required: true, message: "Please input your department!" },
@@ -557,7 +570,7 @@ const AdminDoctor = () => {
               />
             </Form.Item>
             <Form.Item
-              label="Address"
+              label="Địa chỉ"
               name="address"
               rules={[
                 { required: true, message: "Please input your count address!" },
@@ -570,7 +583,7 @@ const AdminDoctor = () => {
               />
             </Form.Item>
             <Form.Item
-              label="Sex"
+              label="Giới tính"
               name="sex"
               rules={[
                 {
@@ -586,7 +599,7 @@ const AdminDoctor = () => {
               />
             </Form.Item>
             <Form.Item
-              label="Avatar"
+              label="Ảnh đại diện"
               name="avatar"
               rules={[
                 { required: true, message: "Please input your count avatar!" },
@@ -633,8 +646,16 @@ const AdminDoctor = () => {
             autoComplete="on"
             form={form}
           >
+            <WrapperInput>
+              <WrapperLabel>Ngày sinh</WrapperLabel>
+              <DatePicker
+                //defaultValue={moment(stateDoctorDetails.dateofbirth)}
+                format={dateFormatList}
+                onChange={handleDateChangeDetails}
+              />
+            </WrapperInput>
             <Form.Item
-              label="Name"
+              label="Tên"
               name="name"
               rules={[{ required: true, message: "Please input your name!" }]}
             >
@@ -645,7 +666,7 @@ const AdminDoctor = () => {
               />
             </Form.Item>
             <Form.Item
-              label="Phone"
+              label="Số điện thoại"
               name="phone"
               rules={[{ required: true, message: "Please input your phone!" }]}
             >
@@ -656,20 +677,21 @@ const AdminDoctor = () => {
               />
             </Form.Item>
             <Form.Item
-              label="Department"
+              label="Chuyên Khoa"
               name="department"
               rules={[
                 { required: true, message: "Please input your department!" },
               ]}
             >
-              <InputComponent
-                value={stateDoctorDetails.department}
-                onChange={handleOnchangeDetails}
+              <Select
                 name="department"
+                value={stateDoctorDetails.department}
+                onChange={handleChangeSelectDetails}
+                options={renderOptions2()}
               />
             </Form.Item>
             <Form.Item
-              label="Address"
+              label="Địa chỉ"
               name="address"
               rules={[
                 { required: true, message: "Please input your count address!" },
@@ -681,7 +703,7 @@ const AdminDoctor = () => {
                 name="address"
               />
             </Form.Item>
-            <Form.Item
+            {/* <Form.Item
               label="Dateofbirth"
               name="dateofbirth"
               rules={[
@@ -693,9 +715,9 @@ const AdminDoctor = () => {
                 onChange={handleOnchangeDetails}
                 name="dateofbirth"
               />
-            </Form.Item>
+            </Form.Item> */}
             <Form.Item
-              label="Sex"
+              label="Giới tính"
               name="sex"
               rules={[
                 {
@@ -711,7 +733,7 @@ const AdminDoctor = () => {
               />
             </Form.Item>
             <Form.Item
-              label="Avatar"
+              label="Ảnh đại diện"
               name="avatar"
               rules={[
                 { required: true, message: "Please input your count avatar!" },

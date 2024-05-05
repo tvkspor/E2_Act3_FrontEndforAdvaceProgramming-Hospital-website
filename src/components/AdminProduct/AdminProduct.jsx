@@ -317,13 +317,13 @@ const AdminProduct = () => {
   // Bảng và thông tin hiển thị
   const columns = [
     {
-      title: "Name",
+      title: "Tên liệu trình",
       dataIndex: "name",
       sorter: (a, b) => a.name.length - b.name.length,
       ...getColumnSearchProps("name"),
     },
     {
-      title: "Price",
+      title: "Giá",
       dataIndex: "price",
       sorter: (a, b) => a.price - b.price,
       filters: [
@@ -344,7 +344,7 @@ const AdminProduct = () => {
       },
     },
     {
-      title: "Rating",
+      title: "Đánh giá",
       dataIndex: "rating",
       sorter: (a, b) => a.rating - b.rating,
       filters: [
@@ -365,11 +365,11 @@ const AdminProduct = () => {
       },
     },
     {
-      title: "Type",
+      title: "Loại",
       dataIndex: "type",
     },
     {
-      title: "Action",
+      title: "Hành động",
       dataIndex: "action",
       render: renderAction,
     },
@@ -501,7 +501,7 @@ const AdminProduct = () => {
   return (
     <div>
       {/*Hiển thị phần quản lí sản phẩm */}
-      <WrapperHeader>Quản lý sản phẩm</WrapperHeader>
+      <WrapperHeader>Quản lý liệu trình</WrapperHeader>
 
       {/* Nút bấm */}
       <div style={{ marginTop: "10px" }}>
@@ -538,7 +538,7 @@ const AdminProduct = () => {
       {/* Bảng để nhập sản phẩm */}
       <ModalComponent
         forceRender
-        title="Tạo sản phẩm"
+        title="Tạo liệu trình"
         open={isModalOpen}
         onCancel={handleCancel}
         footer={null}
@@ -553,7 +553,7 @@ const AdminProduct = () => {
             form={form}
           >
             <Form.Item
-              label="Name"
+              label="Tên liệu trình"
               name="name"
               rules={[{ required: true, message: "Please input your name!" }]}
             >
@@ -564,7 +564,7 @@ const AdminProduct = () => {
               />
             </Form.Item>
             <Form.Item
-              label="Type"
+              label="Loại"
               name="type"
               rules={[{ required: true, message: "Please input your type!" }]}
             >
@@ -577,7 +577,7 @@ const AdminProduct = () => {
             </Form.Item>
             {stateProduct.type === "add_type" && (
               <Form.Item
-                label="New type"
+                label="Thêm loại"
                 name="newType"
                 rules={[{ required: true, message: "Please input your type!" }]}
               >
@@ -589,7 +589,7 @@ const AdminProduct = () => {
               </Form.Item>
             )}
             <Form.Item
-              label="Count inStock"
+              label="Tồn kho"
               name="countInStock"
               rules={[
                 { required: true, message: "Please input your count inStock!" },
@@ -602,7 +602,7 @@ const AdminProduct = () => {
               />
             </Form.Item>
             <Form.Item
-              label="Price"
+              label="Giá"
               name="price"
               rules={[
                 { required: true, message: "Please input your count price!" },
@@ -615,7 +615,7 @@ const AdminProduct = () => {
               />
             </Form.Item>
             <Form.Item
-              label="Description"
+              label="Mô tả"
               name="description"
               rules={[
                 {
@@ -631,7 +631,7 @@ const AdminProduct = () => {
               />
             </Form.Item>
             <Form.Item
-              label="Rating"
+              label="Đánh giá"
               name="rating"
               rules={[
                 { required: true, message: "Please input your count rating!" },
@@ -644,7 +644,7 @@ const AdminProduct = () => {
               />
             </Form.Item>
             <Form.Item
-              label="Discount"
+              label="Giảm giá"
               name="discount"
               rules={[
                 {
@@ -660,7 +660,7 @@ const AdminProduct = () => {
               />
             </Form.Item>
             <Form.Item
-              label="Image"
+              label="Hình ảnh"
               name="image"
               rules={[
                 { required: true, message: "Please input your count image!" },
@@ -693,7 +693,7 @@ const AdminProduct = () => {
       </ModalComponent>
 
       <DrawerComponent
-        title="Chi tiết sản phẩm"
+        title="Chi tiết liệu trình"
         isOpen={isOpenDrawer}
         onClose={() => setIsOpenDrawer(false)}
         width="90%"
@@ -708,7 +708,7 @@ const AdminProduct = () => {
             form={form}
           >
             <Form.Item
-              label="Name"
+              label="Tên liệu trình"
               name="name"
               rules={[{ required: true, message: "Please input your name!" }]}
             >
@@ -719,7 +719,7 @@ const AdminProduct = () => {
               />
             </Form.Item>
             <Form.Item
-              label="Type"
+              label="Loại"
               name="type"
               rules={[{ required: true, message: "Please input your type!" }]}
             >
@@ -730,7 +730,7 @@ const AdminProduct = () => {
               />
             </Form.Item>
             <Form.Item
-              label="Count inStock"
+              label="Tồn kho"
               name="countInStock"
               rules={[
                 { required: true, message: "Please input your count inStock!" },
@@ -743,7 +743,7 @@ const AdminProduct = () => {
               />
             </Form.Item>
             <Form.Item
-              label="Price"
+              label="Giá"
               name="price"
               rules={[
                 { required: true, message: "Please input your count price!" },
@@ -756,7 +756,7 @@ const AdminProduct = () => {
               />
             </Form.Item>
             <Form.Item
-              label="Description"
+              label="Mô tả"
               name="description"
               rules={[
                 {
@@ -772,7 +772,7 @@ const AdminProduct = () => {
               />
             </Form.Item>
             <Form.Item
-              label="Rating"
+              label="Đánh giá"
               name="rating"
               rules={[
                 { required: true, message: "Please input your count rating!" },
@@ -785,7 +785,7 @@ const AdminProduct = () => {
               />
             </Form.Item>
             <Form.Item
-              label="Discount"
+              label="Giảm giá"
               name="discount"
               rules={[
                 {
@@ -801,7 +801,7 @@ const AdminProduct = () => {
               />
             </Form.Item>
             <Form.Item
-              label="Image"
+              label="Hình ảnh"
               name="image"
               rules={[
                 { required: true, message: "Please input your count image!" },
