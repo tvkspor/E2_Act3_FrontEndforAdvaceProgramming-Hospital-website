@@ -532,20 +532,6 @@ const OrderAdmin = () => {
                 />
               </Form.Item>
             )}
-            {stateOrderDetails.type === "otorhinology" && (
-              <Form.Item
-                label="Bác sĩ"
-                name="doctor"
-                rules={[{ required: true, message: "Please choose doctor!" }]}
-              >
-                <Select
-                  name="doctor"
-                  value={stateOrderDetails["Name"]}
-                  onChange={handleChangeSelect}
-                  options={renderOptions(doctorOtorhinologyNames)}
-                />
-              </Form.Item>
-            )}
             {stateOrderDetails.type === "pediatrics" && (
               <Form.Item
                 label="Bác sĩ"
