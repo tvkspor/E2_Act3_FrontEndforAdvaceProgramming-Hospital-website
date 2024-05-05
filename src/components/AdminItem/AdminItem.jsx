@@ -302,6 +302,7 @@ const AdminItem = () => {
       title: "Ngày nhập",
       dataIndex: "importDate",
       //sorter: (a, b) => a.importDate.unix() - b.importDate.unix(),
+      sorter: (a, b) => moment(a.importDate).unix() - moment(b.importDate).unix(),
       render: (importDate) => moment(importDate).format("DD-MM-YYYY"),
     },
     {
@@ -309,12 +310,12 @@ const AdminItem = () => {
       dataIndex: "availability",
       filters: [
         {
-          text: "Available",
-          value: "Available",
+          text: "Còn hàng",
+          value: "Còn hàng",
         },
         {
-          text: "Unavailable",
-          value: "Unavailable",
+          text: "Hết hàng",
+          value: "Hết hàng",
         },
       ],
       onFilter: (value, record) => record.availability.indexOf(value) === 0,

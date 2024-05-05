@@ -103,6 +103,8 @@ const AdminDoctor = () => {
       "musculoskeletal",
       "nerve surgery",
       "pediatrics",
+      "otorhinology",
+
     ];
     return defaultOptions.map((option) => ({
       value: option,
@@ -326,8 +328,40 @@ const AdminDoctor = () => {
       ...getColumnSearchProps("name"),
     },
     {
+      title: "Khoa",
+      dataIndex: "department",
+      filters: [
+        {
+          text: "intensive care",
+          value: "intensive care",
+        },
+        {
+          text: "otorhinology",
+          value: "otorhinology",
+        },
+        {
+          text: "cardiology",
+          value: "cardiology",
+        },
+        {
+          text: "nerve surgery",
+          value: "nerve surgery",
+        },
+        {
+          text: "musculoskeletal",
+          value: "musculoskeletal",
+        },
+        {
+          text: "pediatrics",
+          value: "pediatrics",
+        },
+      ],
+      onFilter: (value, record) => record.department.indexOf(value) === 0,
+    },
+    {
       title: "Số điện thoại",
       dataIndex: "phone",
+      ...getColumnSearchProps("phone"),
     },
     {
       title: "Địa chỉ",
@@ -336,14 +370,26 @@ const AdminDoctor = () => {
     {
       title: "Ngày sinh",
       dataIndex: "dateofbirth",
+      sorter: (a, b) => moment(a.dateofbirth).unix() - moment(b.dateofbirth).unix(),
       render: (dateofbirth) => moment(dateofbirth).format("DD-MM-YYYY"),
     },
     {
       title: "Giới tính",
       dataIndex: "sex",
+      filters: [
+        {
+          text: "nam",
+          value: "nam",
+        },
+        {
+          text: "nữ",
+          value: "nữ",
+        },
+      ],
+      onFilter: (value, record) => record.sex.indexOf(value) === 0,
     },
     {
-      title: "Hành động",
+      title: "Chỉnh sửa",
       dataIndex: "action",
       render: renderAction,
     },

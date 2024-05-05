@@ -355,19 +355,44 @@ const AdminMedicine = () => {
         {
             title: "Loại",
             dataIndex: "type",
+            filters: [
+                {
+                  text: "Bột",
+                  value: "Bột",
+                },
+                {
+                  text: "Viên Nén",
+                  value: "Viên Nén",
+                },
+                {
+                    text: "Gel",
+                    value: "Gel",
+                },
+                {
+                text: "Dung Dịch",
+                value: "Dung Dịch",
+                },
+              ],
+              onFilter: (value, record) => record.type.indexOf(value) === 0,
         },
         {
             title: "Mô tả",
             dataIndex: "description",
         },
         {
+            title: "Hàng tồn",
+            dataIndex: "countInStock",
+            sorter: (a, b) => a.countInStock - b.countInStock,
+        },
+        {
             title: 'Hạn sử dụng',
             dataIndex: 'selled',
             // sorter: (a, b) => moment(a.selled).unix() - moment(b.selled).unix(),
+            sorter: (a, b) => moment(a.selled).unix() - moment(b.selled).unix(),
             render: (selled) => moment(selled).format('DD-MM-YYYY')
         },
         {
-            title: "Action",
+            title: "Chỉnh sửa",
             dataIndex: "action",
             render: renderAction,
         },
