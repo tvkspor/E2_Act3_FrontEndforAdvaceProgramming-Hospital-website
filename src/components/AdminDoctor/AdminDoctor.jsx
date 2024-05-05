@@ -677,7 +677,7 @@ const AdminDoctor = () => {
               />
             </Form.Item>
             <Form.Item
-              label="Chuyên Khoa"
+              label="Khoa"
               name="department"
               rules={[
                 { required: true, message: "Please input your department!" },
