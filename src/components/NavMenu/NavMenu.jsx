@@ -102,7 +102,14 @@ const Navbar = () => {
     } else if (type === "orderitems") {
         navigate("/orderitems");
       
-    } else if (type === "medicalreport") {
+    }
+    else if (type === "medicalequipment") {
+        navigate("/medicalequipment");
+    }
+    else if (type === "medicine") {
+      navigate("/medicine");
+    }
+    else if (type === "medicalreport") {
       navigate("/my-medicalrecords",{
         state: {
           id: user?.id,
@@ -165,6 +172,10 @@ const Navbar = () => {
           Đặt khám
         </WrapperPopup>
       )}
+      {(user?.isAdmin || user?.isDoctor) && 
+      <WrapperPopup onClick={() => handleClickNavigate("medicalequipment")}>Thiết bị</WrapperPopup>}
+      {(user?.isAdmin || user?.isDoctor) && 
+      <WrapperPopup onClick={() => handleClickNavigate("medicine")}>Thuốc</WrapperPopup>}
 
       <WrapperPopup onClick={() => handleClickNavigate()}>
         Đăng xuất
@@ -267,6 +278,8 @@ const Navbar = () => {
                   {user?.access_token && !user?.isDoctor && !user?.isAdmin && <Menu.Item key="booking" onClick={() => handleClickNavigate("booking")}>Đặt khám</Menu.Item>}
                   {user?.isDoctor && <Menu.Item key="scheduler" onClick={() => handleClickNavigate("doctorpage")}>Lịch trình làm việc</Menu.Item>}
                   {user?.isAdmin && <Menu.Item key="manage" onClick={() => handleClickNavigate("admin")}>Quản lí hệ thống</Menu.Item>}
+                  {(user?.isAdmin || user?.isDoctor) && <Menu.Item key="medicalequipment" onClick={() => handleClickNavigate("medicalequipment")}>Thiết bị</Menu.Item>}
+                  {(user?.isAdmin || user?.isDoctor) && <Menu.Item key="medicine" onClick={() => handleClickNavigate("medicine")}>Thuốc</Menu.Item>}
                   {user?.access_token && <Menu.Item key="logout" onClick={() => handleClickNavigate()}>Đăng xuất</Menu.Item>}
 
                   {!isHiddenCart &&
@@ -316,7 +329,7 @@ const Navbar = () => {
               >
                 Liệu trình</Menu.Item>}
               {/* <Menu.Item key="contact">Liên Hệ</Menu.Item> */}
-
+              
               <Menu.Item key="login">
                 <Loading isLoading={loading}>
                   <WrapperAccount>
