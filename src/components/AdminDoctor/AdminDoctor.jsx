@@ -36,7 +36,7 @@ const AdminDoctor = () => {
     phone: "",
     address: "",
     avatar: "",
-    dateofbirth: "",
+    dateofbirth: new Date("2024-04-14"),
     sex: "",
     department: "",
   });
@@ -524,6 +524,11 @@ const AdminDoctor = () => {
     // Update stateItemDetails with the selected date
     setStateDoctorDetails({ ...stateDoctorDetails, dateofbirth: date });
   };
+  const handleDateChange = (date) => {
+    // Format the date to 'DD-MM-YYYY' format and update stateItem
+    // const formattedDate = date.format('DD-MM-YYYY');
+    setStateDoctor({ ...stateDoctor, dateofbirth: date });
+};
 
   return (
     <div>
@@ -645,6 +650,21 @@ const AdminDoctor = () => {
               />
             </Form.Item>
             <Form.Item
+                            label="Ngày sinh"
+                            name="dateofbirth"
+                            rules={[
+                                { required: true, message: "Please input your date!" },
+                            ]}
+                        >
+                            <WrapperInput>
+                                <DatePicker
+                                    //defaultValue={moment(stateItemDetails.importDate)}
+                                    format={dateFormatList}
+                                    onChange={handleDateChange}
+                                />
+                            </WrapperInput>
+                        </Form.Item>
+            <Form.Item
               label="Ảnh đại diện"
               name="avatar"
               rules={[
@@ -692,14 +712,14 @@ const AdminDoctor = () => {
             autoComplete="on"
             form={form}
           >
-            <WrapperInput>
+            {/* <WrapperInput>
               <WrapperLabel>Ngày sinh</WrapperLabel>
               <DatePicker
                 //defaultValue={moment(stateDoctorDetails.dateofbirth)}
                 format={dateFormatList}
                 onChange={handleDateChangeDetails}
               />
-            </WrapperInput>
+            </WrapperInput> */}
             <Form.Item
               label="Tên"
               name="name"
@@ -778,6 +798,21 @@ const AdminDoctor = () => {
                 name="sex"
               />
             </Form.Item>
+            <Form.Item
+                            label="Ngày sinh"
+                            name="dateofbirth"
+                            rules={[
+                                { required: false, message: "Please input your date!" },
+                            ]}
+                        >
+                            <WrapperInput>
+                                <DatePicker
+                                    //defaultValue={moment(stateItemDetails.importDate)}
+                                    format={dateFormatList}
+                                    onChange={handleDateChangeDetails}
+                                />
+                            </WrapperInput>
+                        </Form.Item>
             <Form.Item
               label="Ảnh đại diện"
               name="avatar"

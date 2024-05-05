@@ -18,10 +18,10 @@ export const signupUser = async (data) => {
   return res.data;
 };
 
-export const resetPassword = async (email,password, confirmPassword) => {
+export const resetPassword = async (email,password, confirmPassword,token) => {
   const res = await axios.post(
     `${process.env.REACT_APP_API_URL}/user/reset-password/${email}`,
-    {email, password, confirmPassword }
+    {email, password, confirmPassword, token }
   );
   return res.data;
 };

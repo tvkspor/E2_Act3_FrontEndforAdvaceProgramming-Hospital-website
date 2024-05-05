@@ -40,6 +40,9 @@ export const WrapperPriceTextProduct = styled.h1`
 `
 
 export const WrapperAddressProduct = styled.div`
+    font-size: 15px;
+    text-overflow: ellipsisl;
+    padding-bottom: 20px;
     span.address {
         text-decoration: underline;
         font-size: 15px;

@@ -1,7 +1,9 @@
-import { Checkbox, Form } from "antd";
+import { Form, Popover } from "antd";
 import React, { useEffect, useState } from "react";
 import {
   CustomCheckbox,
+  WrapperTitle,
+  WrapperHeader,
   WrapperCountOrder,
   WrapperInfo,
   WrapperItemOrder,
@@ -11,8 +13,7 @@ import {
   WrapperStyleHeader,
   WrapperTotal,
 } from "./style";
-import { DeleteOutlined, MinusOutlined, PlusOutlined } from "@ant-design/icons";
-import { WrapperInputNumber } from "../../components/ProductDetailsComponent/style";
+import { DeleteOutlined } from "@ant-design/icons";
 import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -32,7 +33,6 @@ import Loading from "../../components/LoadingComponent/Loading";
 import * as message from "../../components/Message/Message";
 import { updateUser } from "../../redux/slides/userSlide";
 import { useNavigate } from "react-router-dom";
-import StepComponent from "../../components/StepConponent/StepComponent";
 
 const OrderPage = () => {
   const order = useSelector((state) => state.order);
@@ -59,33 +59,33 @@ const OrderPage = () => {
     }
   };
 
-  const handleChangeCount = (type, idProduct, limited) => {
-    if (type === "increase") {
-      if (!limited) {
-        dispatch(increaseAmount({ idProduct }));
-      }
-    } else {
-      if (!limited) {
-        dispatch(decreaseAmount({ idProduct }));
-      }
-    }
-  };
+  // const handleChangeCount = (type, idProduct, limited) => {
+  //   if (type === "increase") {
+  //     if (!limited) {
+  //       dispatch(increaseAmount({ idProduct }));
+  //     }
+  //   } else {
+  //     if (!limited) {
+  //       dispatch(decreaseAmount({ idProduct }));
+  //     }
+  //   }
+  // };
 
   const handleDeleteOrder = (idProduct) => {
     dispatch(removeOrderProduct({ idProduct }));
   };
 
-  const handleOnchangeCheckAll = (e) => {
-    if (e.target.checked) {
-      const newListChecked = [];
-      order?.orderItems?.forEach((item) => {
-        newListChecked.push(item?.product);
-      });
-      setListChecked(newListChecked);
-    } else {
-      setListChecked([]);
-    }
-  };
+  // const handleOnchangeCheckAll = (e) => {
+  //   if (e.target.checked) {
+  //     const newListChecked = [];
+  //     order?.orderItems?.forEach((item) => {
+  //       newListChecked.push(item?.product);
+  //     });
+  //     setListChecked(newListChecked);
+  //   } else {
+  //     setListChecked([]);
+  //   }
+  // };
 
   useEffect(() => {
     dispatch(selectedOrder({ listChecked }));
@@ -132,7 +132,7 @@ const OrderPage = () => {
   }, [priceMemo, priceDiscountMemo]);
 
   const handleRemoveAllOrder = () => {
-    if (listChecked?.length > 1) {
+    if (listChecked?.length >= 1) {
       dispatch(removeAllOrderProduct({ listChecked }));
     }
   };
@@ -142,7 +142,7 @@ const OrderPage = () => {
       message.error("Vui lòng chọn sản phẩm");
     } else if (order?.orderItemsSlected?.length >= 2) {
       message.error("Vui lòng chọn một sản phẩm");
-    } else if (!user.name || !user.BHXH || !user.CCCD) {
+    } else if (!user?.phone || !user.address || !user.name || !user.city) {
       setIsOpenModalUpdateInfo(true);
     } else {
       navigate("/payment");
@@ -155,7 +155,7 @@ const OrderPage = () => {
     return res;
   });
 
-  const { isLoading, data } = mutationUpdate;
+  const { isLoading } = mutationUpdate;
 
   const handleCancleUpdate = () => {
     setStateUserDetails({
@@ -189,11 +189,17 @@ const OrderPage = () => {
     });
   };
   return (
-    <div style={{ background: "#f5f5fa", with: "100%", height: "100vh" }}>
+    <div style={{ background: "#f5f5fa", with: "100%", height: "100%" }}>
       <div style={{ height: "100%", width: "1270px", margin: "0 auto" }}>
         <div style={{ display: "flex", justifyContent: "center" }}>
           <WrapperLeft>
-            <h4>Thông tin đặt dịch vụ</h4>
+            <h1 className="heading" 
+              style={{ 
+                marginTop: "30px",
+                background: "rgba(217, 238, 211, 0.656)"
+              }}>
+              THÔNG TIN <span>DỊCH VỤ</span>{" "}
+            </h1>
             <WrapperStyleHeader>
               <span style={{ display: "inline-block", width: "390px" }}>
                 <span> Tất cả: {order?.orderItems?.length} sản phẩm</span>
@@ -209,7 +215,7 @@ const OrderPage = () => {
                 <span>Đơn giá</span>
                 <span>Thành tiền</span>
                 <DeleteOutlined
-                  style={{ cursor: "pointer" }}
+                  style={{ cursor: "pointer",color: "red",fontSize: "35px" }}
                   onClick={handleRemoveAllOrder}
                 />
               </div>
@@ -239,16 +245,18 @@ const OrderPage = () => {
                           objectFit: "cover",
                         }}
                       />
-                      <div
-                        style={{
-                          width: 260,
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          whiteSpace: "nowrap",
-                        }}
-                      >
-                        {order?.name}
-                      </div>
+                      <Popover content={order?.name} title="Tên dịch vụ">
+                        <div
+                          style={{
+                            width: 260,
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                          }}
+                        >
+                          {order?.name}
+                        </div>
+                      </Popover>
                     </div>
                     <div
                       style={{
@@ -273,7 +281,7 @@ const OrderPage = () => {
                         {convertPrice(order?.price * order?.amount)}
                       </span>
                       <DeleteOutlined
-                        style={{ cursor: "pointer" }}
+                        style={{ cursor: "pointer", color : "red", fontSize: "30px"}}
                         onClick={() => handleDeleteOrder(order?.product)}
                       />
                     </div>
@@ -283,7 +291,7 @@ const OrderPage = () => {
             </WrapperListOrder>
           </WrapperLeft>
           <WrapperRight>
-            <div style={{ width: "100%" }}>
+            <div style={{ width: "100%"}}>
               <WrapperInfo>
                 <div>
                   <span>Thông tin bổ sung (CCCD, BHXH): </span>
@@ -364,11 +372,12 @@ const OrderPage = () => {
               styleButton={{
                 background: "rgb(255, 57, 69)",
                 height: "48px",
-                width: "320px",
+                width: "380px",
                 border: "none",
                 borderRadius: "4px",
+
               }}
-              textbutton={"Mua hàng"}
+              textbutton={"ĐẶT DỊCH VỤ"}
               styleTextButton={{
                 color: "#fff",
                 fontSize: "15px",
@@ -379,7 +388,7 @@ const OrderPage = () => {
         </div>
       </div>
       <ModalComponent
-        title="Cập nhật thông tin người dùng"
+        title={<WrapperTitle>Cập nhật thông tin bệnh nhân</WrapperTitle>}
         open={isOpenModalUpdateInfo}
         onCancel={handleCancleUpdate}
         onOk={handleUpdateInforUser}

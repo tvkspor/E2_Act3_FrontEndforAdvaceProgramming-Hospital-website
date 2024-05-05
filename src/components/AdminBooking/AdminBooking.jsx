@@ -11,7 +11,6 @@ import TableComponent from "../TableComponent/TableComponent";
 import { useState } from "react";
 import InputComponent from "../InputComponent/InputComponent";
 import { getBase64, renderOptions } from "../../utils";
-import * as DoctorService from "../../services/DoctorService";
 import * as BookingService from "../../services/BookingService"
 import { useMutationHooks } from "../../hooks/useMutationHook";
 import Loading from "../../components/LoadingComponent/Loading";

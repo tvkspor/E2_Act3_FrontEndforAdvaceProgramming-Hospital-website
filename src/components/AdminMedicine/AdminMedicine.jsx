@@ -165,15 +165,6 @@ const AdminMedicine = () => {
         if (res?.data) {
             let selled = res?.data?.selled;
 
-            // // If selled is a string, convert it to a moment object
-            // if (typeof selled === 'string') {
-            //     selled = moment(selled, 'DD-MM-YYYY');
-            // }
-
-            // // If importDate is a Date, convert it to a moment object
-            // if (selled instanceof Date) {
-            //     selled = moment(selled);
-            // }
             setStateMedicineDetails({
                 name: res?.data?.name,
                 image: res?.data?.image,
@@ -307,20 +298,6 @@ const AdminMedicine = () => {
                 setTimeout(() => searchInput.current?.select(), 100);
             }
         },
-        // render: (text) =>
-        //   searchedColumn === dataIndex ? (
-        //     // <Highlighter
-        //     //   highlightStyle={{
-        //     //     backgroundColor: '#ffc069',
-        //     //     padding: 0,
-        //     //   }}
-        //     //   searchWords={[searchText]}
-        //     //   autoEscape
-        //     //   textToHighlight={text ? text.toString() : ''}
-        //     // />
-        //   ) : (
-        //     text
-        //   ),
     });
 
     // Bảng và thông tin hiển thị
@@ -357,23 +334,23 @@ const AdminMedicine = () => {
             dataIndex: "type",
             filters: [
                 {
-                  text: "Bột",
-                  value: "Bột",
+                    text: "Bột",
+                    value: "Bột",
                 },
                 {
-                  text: "Viên Nén",
-                  value: "Viên Nén",
+                    text: "Viên Nén",
+                    value: "Viên Nén",
                 },
                 {
                     text: "Gel",
                     value: "Gel",
                 },
                 {
-                text: "Dung Dịch",
-                value: "Dung Dịch",
+                    text: "Dung Dịch",
+                    value: "Dung Dịch",
                 },
-              ],
-              onFilter: (value, record) => record.type.indexOf(value) === 0,
+            ],
+            onFilter: (value, record) => record.type.indexOf(value) === 0,
         },
         {
             title: "Mô tả",

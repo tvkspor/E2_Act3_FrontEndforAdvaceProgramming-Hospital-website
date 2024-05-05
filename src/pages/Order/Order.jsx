@@ -22,7 +22,7 @@ import Home from "../../components/Home/Home";
 import ProductSearchComponent from "../../components/ProductSearchComponent/ProductSearchComponent";
 
 
-const HomePage = () => {
+const Order = () => {
   const searchProduct = useSelector((state) => state?.product?.search);
   const searchDebounce = useDebounce(searchProduct, 500);
   const [loading, setLoading] = useState(false);
@@ -170,4 +170,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default Order;

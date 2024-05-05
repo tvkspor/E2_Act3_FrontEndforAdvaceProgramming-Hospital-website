@@ -18,18 +18,21 @@ const PasswordReset = () => {
 
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [email, setEmail] = useState(""); // Thêm state để lưu email
+  const [email, setEmail] = useState("");
+  const [token, setToken] = useState("");
 
   const mutation = useMutationHooks((data) => UserService.resetPassword(data));
 
-  const { isLoading, isSuccess, isError, errorMessage } = mutation;
+  const { isLoading, isError, errorMessage } = mutation;
 
   useEffect(() => {
     // Lấy giá trị của tham số token từ URL khi component được tạo
     const searchParams = new URLSearchParams(location.search);
     const tokenParam = searchParams.get("token");
     const email = tokenParam.split("=")[1];
+    const token = tokenParam.split("=")[0];
     setEmail(email);
+    setToken(token);
   }, [location.search]);
   const handleOnchangePassword = (value) => {
     setPassword(value);
@@ -47,7 +50,7 @@ const PasswordReset = () => {
     }
     try {
       // Gọi hàm resetPassword với tham số email
-      await resetPassword(email, password, confirmPassword);
+      await resetPassword(email, password, confirmPassword,token);
       message.success("Thay đổi thành công!");
       navigate("/sign-in");
     } catch (error) {

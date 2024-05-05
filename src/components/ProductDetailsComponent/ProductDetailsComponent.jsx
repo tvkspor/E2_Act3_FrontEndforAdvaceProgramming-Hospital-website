@@ -169,6 +169,9 @@ const ProductDetailsComponent = ({ idProduct }) => {
 
   return (
     <Loading isLoading={isLoading}>
+      <h1 className="heading" style={{ marginTop: "30px" }}>
+              CHI TIẾT <span>DỊCH VỤ</span>{" "}
+            </h1>
       <Row
         gutter={[18,18]}
         style={{
@@ -213,14 +216,7 @@ const ProductDetailsComponent = ({ idProduct }) => {
             {/* <span>Giao đến </span>
             <span className="address">{user?.address}</span> -
             <span className="change-address">Đổi địa chỉ</span> */}
-            <div>
-              {productDetails?.description.split("\\").map((line, index) => (
-                <React.Fragment key={index}>
-                  {line}
-                  <br />
-                </React.Fragment>
-              ))}
-            </div>
+            <span> {productDetails?.description}</span>
           </WrapperAddressProduct>
 
           <div style={{ display: "flex", aliggItems: "center", gap: "12px" }}>
@@ -246,18 +242,6 @@ const ProductDetailsComponent = ({ idProduct }) => {
                 <div style={{ color: "red" }}>San pham het hang</div>
               )}
             </div>
-            <ButtonComponent
-              size={40}
-              styleButton={{
-                background: "#fff",
-                height: "48px",
-                width: "220px",
-                border: "1px solid rgb(13, 92, 182)",
-                borderRadius: "4px",
-              }}
-              textbutton={"Mua trả sau"}
-              styleTextButton={{ color: "rgb(13, 92, 182)", fontSize: "15px" }}
-            ></ButtonComponent>
           </div>
         </Col>
         {/* <CommentComponent
