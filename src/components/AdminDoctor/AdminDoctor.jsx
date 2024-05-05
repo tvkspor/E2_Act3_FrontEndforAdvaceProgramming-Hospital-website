@@ -570,19 +570,6 @@ const AdminDoctor = () => {
               />
             </Form.Item>
             <Form.Item
-              label="Dateofbirth "
-              name="dateofbirth"
-              rules={[
-                { required: true, message: "Please input your dateofbirth!" },
-              ]}
-            >
-              <InputComponent
-                value={stateDoctor.dateofbirth}
-                onChange={handleOnchange}
-                name="dateofbirth"
-              />
-            </Form.Item>
-            <Form.Item
               label="Sex"
               name="sex"
               rules={[
