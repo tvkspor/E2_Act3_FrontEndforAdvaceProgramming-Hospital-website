@@ -326,7 +326,7 @@ const AdminMedicine = () => {
     // Bảng và thông tin hiển thị
     const columns = [
         {
-            title: "Tên",
+            title: "Tên thuốc",
             dataIndex: "name",
             sorter: (a, b) => a.name.length - b.name.length,
             ...getColumnSearchProps("name"),
@@ -361,13 +361,13 @@ const AdminMedicine = () => {
             dataIndex: "description",
         },
         {
-            title: 'Hết hạn',
+            title: 'Hạn sử dụng',
             dataIndex: 'selled',
             // sorter: (a, b) => moment(a.selled).unix() - moment(b.selled).unix(),
             render: (selled) => moment(selled).format('DD-MM-YYYY')
         },
         {
-            title: "Hành động",
+            title: "Action",
             dataIndex: "action",
             render: renderAction,
         },
@@ -508,15 +508,16 @@ const AdminMedicine = () => {
     };
 
 
-    const handleDateChangeDetails = (date, dateString) => {
+    const handleDateChangeDetails = (date) => {
         // Update stateItemDetails with the selected date
         setStateMedicineDetails({ ...stateMedicineDetails, selled: date });
     };
 
+
     return (
         <div>
             {/*Hiển thị phần quản lí sản phẩm */}
-            <WrapperHeader>Quản lý thuốc</WrapperHeader>
+            <WrapperHeader>Quản lý sản phẩm</WrapperHeader>
 
             {/* Nút bấm */}
             <div style={{ marginTop: "10px" }}>
@@ -553,7 +554,7 @@ const AdminMedicine = () => {
             {/* Bảng để nhập sản phẩm */}
             <ModalComponent
                 forceRender
-                title="Tạo thêm thuốc"
+                title="Tạo sản phẩm"
                 open={isModalOpen}
                 onCancel={handleCancel}
                 footer={null}
@@ -592,7 +593,7 @@ const AdminMedicine = () => {
                         </Form.Item>
                         {stateMedicine.type === "add_type" && (
                             <Form.Item
-                                label="Thêm Loại"
+                                label="Thêm loại"
                                 name="newType"
                                 rules={[{ required: true, message: "Please input your type!" }]}
                             >
@@ -604,7 +605,7 @@ const AdminMedicine = () => {
                             </Form.Item>
                         )}
                         <Form.Item
-                            label="Tồn kho"
+                            label="Số hàng tồn"
                             name="countInStock"
                             rules={[
                                 { required: true, message: "Please input your count inStock!" },
@@ -645,13 +646,21 @@ const AdminMedicine = () => {
                                 name="description"
                             />
                         </Form.Item>
-                        {/* <Form.Item
-                            label="Hết hạn"
+                        <Form.Item
+                            label="Hạn sử dụng"
                             name="selled"
-                            rules={[{ required: true, message: 'Please input your date' }]}
+                            rules={[
+                                { required: true, message: "Please input your date!" },
+                            ]}
                         >
-                            <DatePicker onChange={handleDateChange} />
-                        </Form.Item> */}
+                            <WrapperInput>
+                                <DatePicker
+                                    //defaultValue={moment(stateItemDetails.importDate)}
+                                    format={dateFormatList}
+                                    onChange={handleDateChange}
+                                />
+                            </WrapperInput>
+                        </Form.Item>
                         <Form.Item
                             label="Hình ảnh"
                             name="image"
@@ -686,7 +695,7 @@ const AdminMedicine = () => {
             </ModalComponent>
 
             <DrawerComponent
-                title="Chi tiết về thuốc"
+                title="Chi tiết sản phẩm"
                 isOpen={isOpenDrawer}
                 onClose={() => setIsOpenDrawer(false)}
                 width="90%"
@@ -700,14 +709,6 @@ const AdminMedicine = () => {
                         autoComplete="on"
                         form={form}
                     >
-                        <WrapperInput>
-                            <WrapperLabel>Ngày hết hạn</WrapperLabel>
-                            <DatePicker
-                                //defaultValue={moment(stateItemDetails.importDate)}
-                                format={dateFormatList}
-                                onChange={handleDateChangeDetails}
-                            />
-                        </WrapperInput>
                         <Form.Item
                             label="Tên thuốc"
                             name="name"
@@ -772,13 +773,21 @@ const AdminMedicine = () => {
                                 name="description"
                             />
                         </Form.Item>
-                        {/* <Form.Item
-                            label="Expiry"
+                        <Form.Item
+                            label="Hạn sử dụng"
                             name="selled"
-                            rules={[{ required: true, message: 'Please input your expiry!' }]}
+                            rules={[
+                                { required: true, message: "Please input your date!" },
+                            ]}
                         >
-                            <DatePicker onChange={handleDateChangeDetails} />
-                        </Form.Item> */}
+                            <WrapperInput>
+                                <DatePicker
+                                    //defaultValue={moment(stateItemDetails.importDate)}
+                                    format={dateFormatList}
+                                    onChange={handleDateChangeDetails}
+                                />
+                            </WrapperInput>
+                        </Form.Item>
                         <Form.Item
                             label="Hình ảnh"
                             name="image"
