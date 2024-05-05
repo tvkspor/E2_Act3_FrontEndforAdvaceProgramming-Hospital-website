@@ -26,10 +26,10 @@ import {
 // import KhoaNhi from "./components/KhoaNhi";
 // import KhoaTimMach from "./components/KhoaTimMach";
 
-function KhoaPage() {
+function Specialist() {
     return (
         <>
-            <PageTitle className="page-title" style={{backgroundImage: `url(${background})`}}>
+            <PageTitle className="page-title" style={{backgroundImage: `url(${background})`, marginTop: '20px       '}}>
                 <AutoContainer className="auto-container">
                     <TitleOuter className="title-outer">
                         <PageTitleh1>CHUYÊN KHOA</PageTitleh1>
@@ -44,73 +44,96 @@ function KhoaPage() {
                         <div className="box-container">
                             <div className="box">
                                 <div className="image">
-                                    <a href="/chuyen-khoa/khoa-tim-mach-1"><img src={logo} alt="Khoa Tim M&#x1EA1;ch" style={{width: "100%", height: "100%", objectFit: "contain"}}/></a>
+                                    {/* <a href="/chuyen-khoa/khoa-tim-mach-1"> */}
+                                        <img src={logo} alt="" style={{width: "100%", height: "100%", objectFit: "contain"}}/>
+                                        {/* </a> */}
                                 </div>
                                 <div className="content">
                                     <span className="icon flaticon-heart-2"></span>
-                                    <h4><a href="/chuyen-khoa/khoa-tim-mach-1">Khoa tim mạch - Cardiology </a></h4>
+
+                                        <h1>Khoa tim mạch - Cardiology </h1>
+
                                         
-                                    <Text className="text"></Text>
+                                    <Text className="text">
+                                    Đội ngũ hàng đầu, dịch vụ tiên tiến, chăm sóc tim chuyên nghiệp.
+                                    </Text>
                                     <span className="icon-right flaticon-heart-2"></span>
                                 </div>
                             </div>
                             <div className="box">
                                 <div className="image">
-                                    <a href="/chuyen-khoa/khoa-ngoai-than-kinh-2"><img src={KhoaNgoaiTK} alt="" style={{width: "100%", height: "100%", objectFit: "contain"}}/></a>
+                                    {/* <a href="/chuyen-khoa/khoa-ngoai-than-kinh-2"> */}
+                                        <img src={KhoaNgoaiTK} alt="" style={{width: "100%", height: "100%", objectFit: "contain"}}/>
+                                        {/* </a> */}
                                 </div>
                                 <div className="content">
                                     <span className="icon flaticon-heart-2"></span>
-                                    <h4><a href="/chuyen-khoa/khoa-tim-mach-1">Khoa thần kinh - Nerve surgery</a></h4>
+                                    <h1>Khoa thần kinh - Nerve surgery</h1>
                                         
-                                    <Text className="text">L&#xE0; m&#x1ED9;t trong nh&#x1EEF;ng chuy&#xEA;n khoa s&#xE2;u ph&#xE1;t tri&#x1EC3;n m&#x1EA1;nh c&#x1EE7;a b&#x1EC7;nh vi&#x1EC7;n Tri&#x1EC1;u An</Text>
+                                    <Text className="text">
+                                    Chuyên môn cao, công nghệ hiện đại, hỗ trợ đồng hành trong khôi phục sức khỏe.
+
+                                    </Text>
                                     <span className="icon-right flaticon-brain"></span>
                                 </div>
                             </div>
                             <div className="box">
                                 <div className="image">
-                                    <a href="/chuyen-khoa/khoa-noi-tong-hop-3"><img src={Noi2} alt="Khoa N&#x1ED9;i T&#x1ED5;ng H&#x1EE3;p" style={{width: "100%", height: "100%", objectFit: "contain"}}/></a>
+                                    {/* <a href="/chuyen-khoa/khoa-noi-tong-hop-3"> */}
+                                        <img src={Noi2} alt="" style={{width: "100%", height: "100%", objectFit: "contain"}}/>
+                                        {/* </a> */}
                                 </div>
                                 <div className="content">
                                     <span className="icon flaticon-kidney"></span>
-                                    <h4><a href="/chuyen-khoa/khoa-noi-tong-hop-3">Khoa hồi sức - Intensive care</a></h4>
+                                    <h1>Khoa hồi sức - Intensive care</h1>
 
-                                    <Text className="text"></Text>
+                                    <Text className="text">
+                                    Trang thiết bị tiên tiến, chăm sóc tối ưu, phục hồi nhanh chóng.
+                                    </Text>
                                     <span className="icon-right flaticon-kidney"></span>
                                 </div>
                             </div>
                             <div className="box">
                                 <div className="image">
-                                    <a href="/chuyen-khoa/khoa-lien-chuyen-khoa-4"><img src={LienChuyenKhoa} alt="Khoa Li&#xEA;n Chuy&#xEA;n Khoa" style={{width: "100%", height: "100%", objectFit: "contain"}}/></a>
+                                    {/* <a href="/chuyen-khoa/khoa-lien-chuyen-khoa-4"> */}
+                                        <img src={LienChuyenKhoa} alt="" style={{width: "100%", height: "100%", objectFit: "contain"}}/>
+                                        {/* </a> */}
                                 </div>
                                 <div className="content">
                                     <span className="icon flaticon-eye"></span>
-                                    <h4><a href="/chuyen-khoa/khoa-lien-chuyen-khoa-4">Khoa xương khớp - Musculoskeletal</a></h4>
+                                    <h1>Khoa xương khớp - Musculoskeletal</h1>
 
-                                    <Text className="text">Khoa Li&#xEA;n Chuy&#xEA;n Khoa t&#x1EA1;i b&#x1EC7;nh vi&#x1EC7;n</Text>
+                                    <Text className="text">
+                                    Chuyên nghiệp, tư vấn và điều trị đa dạng vấn đề, sự linh hoạt hàng ngày.
+                                    </Text>
                                     <span className="icon-right flaticon-eye"></span>
                                 </div>
                             </div>
                             <div className="box">
                                 <div className="image">
-                                    <a href="/chuyen-khoa/khoa-kham-benh-5"><img src={KhoaKhamBenh} alt="Khoa Kh&#xE1;m B&#x1EC7;nh" style={{width: "100%", height: "100%", objectFit: "contain"}}/></a>
+                                    <img src={KhoaKhamBenh} alt="" style={{width: "100%", height: "100%", objectFit: "contain"}}/>
                                 </div>
                                 <div className="content">
                                     <span className="icon"></span>
-                                    <h4><a href="/chuyen-khoa/khoa-kham-benh-5">Khoa tai mũi họng - Otorhinolaryngology</a></h4>
+                                    <h1>Khoa tai mũi họng - Otorhinolaryngology</h1>
 
-                                    <Text className="text">Khoa Kh&#xE1;m b&#x1EC7;nh B&#x1EC7;nh vi&#x1EC7;n Tri&#x1EC1;u An</Text>
+                                    <Text className="text">
+                                    Trang thiết bị hiện đại, phẫu thuật chất lượng, thoải mái và khả năng giao tiếp tốt.
+                                    </Text>
                                     <span className="icon-right"></span>
                                 </div>
                             </div>
                             <div className="box">
                                 <div className="image">
-                                    <a href="/chuyen-khoa/khoa-hoi-suc-cap-cuu-6"><img src={CapCuu} alt="Khoa H&#x1ED3;i S&#x1EE9;c C&#x1EA5;p C&#x1EE9;u" style={{width: "100%", height: "100%", objectFit: "contain"}}/></a>
+                                    <img src={CapCuu} alt="" style={{width: "100%", height: "100%", objectFit: "contain"}}/>
                                 </div>
                                 <div className="content">
                                     <span className="icon"></span>
-                                    <h4><a href="/chuyen-khoa/khoa-hoi-suc-cap-cuu-6">Khoa nhi - Pediatrics</a></h4>
+                                    <h1>Khoa nhi - Pediatrics</h1>
 
-                                    <Text className="text">Nhanh ch&#xF3;ng &#x2013; K&#x1ECB;p th&#x1EDD;i &#x2013; Hi&#x1EC7;u qu&#x1EA3;</Text>
+                                    <Text className="text">
+                                    Tình yêu thương, y tế toàn diện, sự an tâm cho gia đình mỗi trẻ.
+                                    </Text>
                                     <span className="icon-right"></span>
                                 </div>
                             </div>
@@ -324,4 +347,4 @@ function KhoaPage() {
 }
 
 
-export default KhoaPage;
+export default Specialist;
