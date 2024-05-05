@@ -48,7 +48,7 @@ const MedicineComponent = (props) => {
               <li>
                 <div style={{display: 'flex', justifyContent: 'space-between'}}>
                   <p>Hạn sử dụng</p>
-                  <p style={{color: 'black', fontWeight: 'bold'}}>
+                  <p style={{color: 'black'}}>
                   {moment(selled).format('DD/MM/YYYY')}</p>
                 </div>
               </li>

@@ -6,7 +6,7 @@ import {
     SearchOutlined,
 } from "@ant-design/icons";
 import React, { useRef } from "react";
-import { WrapperHeader, WrapperUploadFile, WrapperInput, WrapperLabel } from "./style";
+import { WrapperHeader, WrapperUploadFile,WrapperInput, WrapperLabel} from "./style";
 import TableComponent from "../TableComponent/TableComponent";
 import { useState } from "react";
 import InputComponent from "../InputComponent/InputComponent";
@@ -164,8 +164,8 @@ const AdminMedicine = () => {
         const res = await MedicineService.getDetailsMedicine(rowSelected);
         if (res?.data) {
             let selled = res?.data?.selled;
-
-            // // If selled is a string, convert it to a moment object
+    
+             // // If selled is a string, convert it to a moment object
             // if (typeof selled === 'string') {
             //     selled = moment(selled, 'DD-MM-YYYY');
             // }
@@ -326,13 +326,13 @@ const AdminMedicine = () => {
     // Bảng và thông tin hiển thị
     const columns = [
         {
-            title: "Name",
+            title: "Tên thuốc",
             dataIndex: "name",
             sorter: (a, b) => a.name.length - b.name.length,
             ...getColumnSearchProps("name"),
         },
         {
-            title: "Price",
+            title: "Giá",
             dataIndex: "price",
             sorter: (a, b) => a.price - b.price,
             filters: [
@@ -353,19 +353,19 @@ const AdminMedicine = () => {
             },
         },
         {
-            title: "Type",
+            title: "Loại",
             dataIndex: "type",
         },
         {
-            title: "Description",
+            title: "Mô tả",
             dataIndex: "description",
         },
         {
-            title: 'Expiry',
+            title: 'Hạn sử dụng',
             dataIndex: 'selled',
-            // sorter: (a, b) => moment(a.selled).unix() - moment(b.selled).unix(),
+           // sorter: (a, b) => moment(a.selled).unix() - moment(b.selled).unix(),
             render: (selled) => moment(selled).format('DD-MM-YYYY')
-        },
+        }, 
         {
             title: "Action",
             dataIndex: "action",
@@ -450,7 +450,7 @@ const AdminMedicine = () => {
 
     const handleOnchangeDetails = (e) => {
         let value = e.target.value;
-
+    
         // // If the value is a moment object, convert it to a string
         // if (moment.isMoment(value)) {
         //     value = value.format('DD-MM-YYYY');
@@ -503,15 +503,16 @@ const AdminMedicine = () => {
 
     const handleDateChange = (date) => {
         // Format the date to 'DD-MM-YYYY' format and update stateItem
-        // const formattedDate = date.format('DD-MM-YYYY');
-        setStateMedicine({ ...stateMedicine, selled: date });
+       // const formattedDate = date.format('DD-MM-YYYY');
+       setStateMedicine({ ...stateMedicine, selled: date });
     };
+    
 
-
-    const handleDateChangeDetails = (date, dateString) => {
+    const handleDateChangeDetails = (date) => {
         // Update stateItemDetails with the selected date
         setStateMedicineDetails({ ...stateMedicineDetails, selled: date });
-    };
+    };    
+    
 
     return (
         <div>
@@ -592,7 +593,7 @@ const AdminMedicine = () => {
                         </Form.Item>
                         {stateMedicine.type === "add_type" && (
                             <Form.Item
-                                label="Thêm Loại"
+                                label="Thêm loại"
                                 name="newType"
                                 rules={[{ required: true, message: "Please input your type!" }]}
                             >
@@ -604,7 +605,7 @@ const AdminMedicine = () => {
                             </Form.Item>
                         )}
                         <Form.Item
-                            label="Số lượng tồn kho"
+                            label="Số hàng tồn"
                             name="countInStock"
                             rules={[
                                 { required: true, message: "Please input your count inStock!" },
@@ -645,13 +646,21 @@ const AdminMedicine = () => {
                                 name="description"
                             />
                         </Form.Item>
-                        {/* <Form.Item
-                            label="Hết hạn"
-                            name="selled"
-                            rules={[{ required: true, message: 'Please input your date' }]}
+                        <Form.Item
+                        label="Hạn sử dụng"
+                        name="selled"
+                        rules={[
+                            { required: true, message: "Please input your date!" },
+                        ]}
                         >
-                            <DatePicker onChange={handleDateChange} />
-                        </Form.Item> */}
+                           <WrapperInput>
+                            <DatePicker
+                                //defaultValue={moment(stateItemDetails.importDate)}
+                                format={dateFormatList}
+                                onChange={handleDateChange}
+                            />
+                        </WrapperInput>
+                        </Form.Item>
                         <Form.Item
                             label="Hình ảnh"
                             name="image"
@@ -700,14 +709,6 @@ const AdminMedicine = () => {
                         autoComplete="on"
                         form={form}
                     >
-                        <WrapperInput>
-                            <WrapperLabel>Ngày hết hạn</WrapperLabel>
-                            <DatePicker
-                                //defaultValue={moment(stateItemDetails.importDate)}
-                                format={dateFormatList}
-                                onChange={handleDateChangeDetails}
-                            />
-                        </WrapperInput>
                         <Form.Item
                             label="Tên thuốc"
                             name="name"
@@ -772,13 +773,21 @@ const AdminMedicine = () => {
                                 name="description"
                             />
                         </Form.Item>
-                        {/* <Form.Item
-                            label="Expiry"
-                            name="selled"
-                            rules={[{ required: true, message: 'Please input your expiry!' }]}
+                        <Form.Item
+                        label="Hạn sử dụng"
+                        name="selled"
+                        rules={[
+                            { required: true, message: "Please input your date!" },
+                        ]}
                         >
-                            <DatePicker onChange={handleDateChangeDetails} />
-                        </Form.Item> */}
+                           <WrapperInput>
+                            <DatePicker
+                                //defaultValue={moment(stateItemDetails.importDate)}
+                                format={dateFormatList}
+                                onChange={handleDateChangeDetails}
+                            />
+                        </WrapperInput>
+                        </Form.Item>
                         <Form.Item
                             label="Hình ảnh"
                             name="image"

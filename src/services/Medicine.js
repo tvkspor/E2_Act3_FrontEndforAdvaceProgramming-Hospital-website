@@ -13,7 +13,7 @@ export const getAllMedicine = async (search, limit) => {
 
 export const getMedicineType = async (type, page, limit) => {
     if (type) {
-        const res = await axios.get(`${process.env.REACT_APP_API_URL}/medicine/get-all-type`)
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/medicine/get-all?filter=type&filter=${type}&limit=${limit}&page=${page}`)
         return res.data
     }
 }
@@ -59,3 +59,6 @@ export const getAllTypeMedicine = async () => {
     const res = await axios.get(`${process.env.REACT_APP_API_URL}/medicine/get-all-type`)
     return res.data
 }
+
+
+  

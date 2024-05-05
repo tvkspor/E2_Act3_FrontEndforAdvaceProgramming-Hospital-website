@@ -13,7 +13,6 @@ export const medicineSlide = createSlice({
     },
   },
 })
-
 // Action creators are generated for each case reducer function
 export const { searchMedicine } = medicineSlide.actions
 
