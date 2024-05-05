@@ -142,7 +142,7 @@ const OrderPage = () => {
       message.error("Vui lòng chọn sản phẩm");
     } else if (order?.orderItemsSlected?.length >= 2) {
       message.error("Vui lòng chọn một sản phẩm");
-    } else if (!user?.phone || !user.address || !user.name || !user.city) {
+    } else if (!user.name || !user.BHXH || !user.CCCD) {
       setIsOpenModalUpdateInfo(true);
     } else {
       navigate("/payment");
@@ -189,11 +189,11 @@ const OrderPage = () => {
     });
   };
   return (
-    <div style={{ background: "#f5f5fa", with: "100%", height: "100%" }}>
+    <div style={{ background: "#f5f5fa", with: "100%", height: "100vh" }}>
       <div style={{ height: "100%", width: "1270px", margin: "0 auto" }}>
         <div style={{ display: "flex", justifyContent: "center" }}>
           <WrapperLeft>
-            <h1>Thông tin đặt dịch vụ</h1>
+            <h4>Thông tin đặt dịch vụ</h4>
             <WrapperStyleHeader>
               <span style={{ display: "inline-block", width: "390px" }}>
                 <span> Tất cả: {order?.orderItems?.length} sản phẩm</span>
@@ -283,7 +283,7 @@ const OrderPage = () => {
             </WrapperListOrder>
           </WrapperLeft>
           <WrapperRight>
-            <div style={{ width: "100%"}}>
+            <div style={{ width: "100%" }}>
               <WrapperInfo>
                 <div>
                   <span>Thông tin bổ sung (CCCD, BHXH): </span>
@@ -367,7 +367,6 @@ const OrderPage = () => {
                 width: "320px",
                 border: "none",
                 borderRadius: "4px",
-                
               }}
               textbutton={"Mua hàng"}
               styleTextButton={{
@@ -380,7 +379,7 @@ const OrderPage = () => {
         </div>
       </div>
       <ModalComponent
-        title="Cập nhật thông tin giao hàng"
+        title="Cập nhật thông tin người dùng"
         open={isOpenModalUpdateInfo}
         onCancel={handleCancleUpdate}
         onOk={handleUpdateInforUser}
