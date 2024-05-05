@@ -1,4 +1,4 @@
-import { Button, Form, Select, Space, DatePicker } from "antd";
+import { Button, Form, Select, Space } from "antd";
 import {
   PlusOutlined,
   DeleteOutlined,
@@ -6,7 +6,7 @@ import {
   SearchOutlined,
 } from "@ant-design/icons";
 import React, { useRef } from "react";
-import { WrapperHeader, WrapperUploadFile, WrapperLabel, WrapperInput } from "./style";
+import { WrapperHeader, WrapperUploadFile } from "./style";
 import TableComponent from "../TableComponent/TableComponent";
 import { useState } from "react";
 import InputComponent from "../InputComponent/InputComponent";
@@ -23,7 +23,6 @@ import ModalComponent from "../ModalComponent/ModalComponent";
 import moment from "moment";
 
 const AdminDoctor = () => {
-  const dateFormatList = ["DD/MM/YYYY", "DD/MM/YY"];
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [rowSelected, setRowSelected] = useState("");
   const [isOpenDrawer, setIsOpenDrawer] = useState(false);
@@ -95,6 +94,20 @@ const AdminDoctor = () => {
     isSuccess: isSuccessDelectedMany,
     isError: isErrorDeletedMany,
   } = mutationDeletedMany;
+
+  const renderOptions2 = () => {
+    const defaultOptions = [
+      "cardiology",
+      "intensive care",
+      "musculoskeletal",
+      "nerve surgery",
+      "pediatrics",
+    ];
+    return defaultOptions.map((option) => ({
+      value: option,
+      label: option,
+    }));
+  };
 
   useEffect(() => {
     if (isSuccess && data?.status === "OK") {
@@ -348,7 +361,7 @@ const AdminDoctor = () => {
       phone: "",
       address: "",
       avatar: "",
-      dateofbirth: new Date("2024-04-14"),
+      dateofbirth: "",
       sex: "",
       department: "",
     });
@@ -376,7 +389,7 @@ const AdminDoctor = () => {
       phone: "",
       address: "",
       avatar: "",
-      dateofbirth: new Date("2024-04-14"),
+      dateofbirth: "",
       sex: "",
       department: "",
     });
@@ -391,7 +404,7 @@ const AdminDoctor = () => {
       avatar: stateDoctor.avatar,
       dateofbirth: stateDoctor.dateofbirth,
       sex: stateDoctor.sex,
-      department: stateDoctor.depar,
+      department: stateDoctor.department,
     };
     mutation.mutate(params, {
       onSettled: () => {
@@ -451,11 +464,6 @@ const AdminDoctor = () => {
       ...stateDoctor,
       department: value,
     });
-  };
-
-  const handleDateChangeDetails = (date) => {
-    // Update stateItemDetails with the selected date
-    setStateDoctorDetails({ ...stateDoctorDetails, dateofbirth: date });
   };
 
   return (
@@ -541,10 +549,11 @@ const AdminDoctor = () => {
                 { required: true, message: "Please input your department!" },
               ]}
             >
-              <InputComponent
-                value={stateDoctor.department}
-                onChange={handleOnchange}
+              <Select
                 name="department"
+                value={stateDoctor.department}
+                onChange={handleChangeSelect}
+                options={renderOptions2()}
               />
             </Form.Item>
             <Form.Item
@@ -637,14 +646,6 @@ const AdminDoctor = () => {
             autoComplete="on"
             form={form}
           >
-            <WrapperInput>
-              <WrapperLabel>Ngày sinh</WrapperLabel>
-              <DatePicker
-                //defaultValue={moment(stateItemDetails.importDate)}
-                format={dateFormatList}
-                onChange={handleDateChangeDetails}
-              />
-            </WrapperInput>
             <Form.Item
               label="Name"
               name="name"
@@ -693,7 +694,7 @@ const AdminDoctor = () => {
                 name="address"
               />
             </Form.Item>
-            {/* <Form.Item
+            <Form.Item
               label="Dateofbirth"
               name="dateofbirth"
               rules={[
@@ -705,8 +706,7 @@ const AdminDoctor = () => {
                 onChange={handleOnchangeDetails}
                 name="dateofbirth"
               />
-            </Form.Item> */}
-
+            </Form.Item>
             <Form.Item
               label="Sex"
               name="sex"
