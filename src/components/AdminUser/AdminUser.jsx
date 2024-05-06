@@ -122,6 +122,7 @@ const AdminUser = () => {
   const userss = queryClient.getQueryData(["users"]);
   const users = userss.data.filter((user) => !user.isAdmin);
   const isFetchingUser = useIsFetching(["users"]);
+  const a = users?.length;
   const renderAction = () => {
     return (
       <div>
@@ -357,6 +358,7 @@ const AdminUser = () => {
   return (
     <div>
       <WrapperHeader>Quản lý người dùng</WrapperHeader>
+      <div>Tổng số bệnh nhân đang điều trị:{a} </div>
       <div style={{ marginTop: "20px" }}>
         <TableComponent
           handleDelteMany={handleDelteManyUsers}
