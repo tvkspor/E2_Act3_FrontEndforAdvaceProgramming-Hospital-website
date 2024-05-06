@@ -187,6 +187,7 @@ const AdminDoctor = () => {
     queryKey: ["doctors"],
     queryFn: getAllDoctors,
   });
+  const a = queryDoctor?.data?.data?.length;
   const TypeDoctor = useQuery({
     queryKey: ["type-doctor"],
     queryFn: fetchAllTypeDoctor,
@@ -561,6 +562,7 @@ const AdminDoctor = () => {
     <div>
       {/*Hiển thị phần quản lí sản phẩm */}
       <WrapperHeader>Quản lý bác sĩ</WrapperHeader>
+      <div>Tổng số bác sĩ có trong bệnh viện: {a}</div>
 
       {/* Nút bấm */}
       <div style={{
