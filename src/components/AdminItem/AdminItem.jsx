@@ -6,7 +6,7 @@ import {
     SearchOutlined,
 } from "@ant-design/icons";
 import React, { useRef } from "react";
-import { WrapperHeader, WrapperUploadFile, WrapperInput, WrapperLabel } from "./style";
+import { WrapperHeader, WrapperUploadFile, WrapperInput, WrapperLabel, WrapperTitle } from "./style";
 import TableComponent from "../TableComponent/TableComponent";
 import { useState } from "react";
 import InputComponent from "../InputComponent/InputComponent";
@@ -22,6 +22,32 @@ import { useSelector } from "react-redux";
 import ModalComponent from "../ModalComponent/ModalComponent";
 import moment from 'moment';
 import { DatePicker } from 'antd';
+import styled from 'styled-components';
+
+const StyledButton = styled(Button)`
+    height: 60px;
+    width: 60px;
+    border-radius: 6px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    background: ;
+    transition: all 0.3s; /* Thêm hiệu ứng transition */
+
+    &:hover {
+        background-color: #d9eed3; /* Màu nền khi hover */
+        color: black;
+    }
+`;
+
+const ButtonText = styled.span`
+    margin-top: 5px;
+`;
 
 const AdminItem = () => {
     const dateFormatList = ["DD/MM/YYYY", "DD/MM/YY"];
@@ -491,18 +517,20 @@ const AdminItem = () => {
             <WrapperHeader>Quản lý sản phẩm</WrapperHeader>
 
             {/* Nút bấm */}
-            <div style={{ marginTop: "10px" }}>
-                <Button
-                    style={{
-                        height: "60px",
-                        width: "60px",
-                        borderRadius: "6px",
-                        borderStyle: "dashed",
-                    }}
+            <div style={{
+                marginTop: "10px",
+                display: "flex", // Sử dụng flex container
+                justifyContent: "left", // Căn lề sang phải
+
+            }}>
+                <StyledButton
                     onClick={() => setIsModalOpen(true)}
                 >
-                    <PlusOutlined style={{ fontSize: "30px" }} />
-                </Button>
+                    <PlusOutlined style={{
+                        fontSize: "30px",
+                    }} />
+                    {/* <ButtonText>Thêm bác sĩ</ButtonText> */}
+                </StyledButton>
             </div>
 
             {/* Bảng hiển thị sản phẩm */}
@@ -525,7 +553,7 @@ const AdminItem = () => {
             {/* Bảng để nhập sản phẩm */}
             <ModalComponent
                 forceRender
-                title="Tạo sản phẩm"
+                title={<WrapperTitle>Thêm sản phẩm</WrapperTitle>}
                 open={isModalOpen}
                 onCancel={handleCancel}
                 footer={null}

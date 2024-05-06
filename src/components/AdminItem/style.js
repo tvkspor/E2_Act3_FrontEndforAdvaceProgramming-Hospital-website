@@ -50,3 +50,15 @@ export const WrapperInput = styled.div`
   align-items: cemter;
   gap: 20px;
 `;
+
+export const WrapperTitle = styled.h1`
+    text-align: center;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    text-shadow: var(--text-shadow);
+    text-transform: uppercase;
+    color: var(--green); /* Màu chữ xám đậm */
+    font-size: 4rem;
+    letter-spacing: .4rem;
+    // background-color:  #d9eed3; /* Màu nền xanh lá cây nhạt */
+`;

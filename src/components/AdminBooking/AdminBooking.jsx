@@ -202,8 +202,8 @@ const AdminBooking = () => {
         {
             title: "Ngày hẹn",
             dataIndex: "date",
-            sorter: (a, b) => moment(a.date).unix() - moment(b.date).unix(),
-            render: (date) => moment(date).format('DD-MM-YYYY')
+            sorter: (a, b) => moment(a.date,'DD-MM-YYYY').unix() - moment(b.date,'DD-MM-YYYY').unix(),
+            render: (date) => moment(date,'DD-MM-YYYY').format('DD-MM-YYYY')
         },
         {
             title: "Tên bệnh nhân",
