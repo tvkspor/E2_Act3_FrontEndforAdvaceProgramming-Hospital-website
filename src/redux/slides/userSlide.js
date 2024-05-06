@@ -15,6 +15,8 @@ const initialState = {
   sex: "",
   eventData: [],
   dateofbirth: "",
+  BHXH: "",
+  CCCD: "",
 };
 
 export const userSlide = createSlice({
