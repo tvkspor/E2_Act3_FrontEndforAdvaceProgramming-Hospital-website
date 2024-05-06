@@ -204,7 +204,7 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
                   style={{ fontSize: "30px", color: "#fff" }}
                 />
               </Badge>
-              <WrapperTextHeaderSmall>Giỏ hàng</WrapperTextHeaderSmall>
+              <WrapperTextHeaderSmall>Thanh toán</WrapperTextHeaderSmall>
             </div>
           )}
         </Col>

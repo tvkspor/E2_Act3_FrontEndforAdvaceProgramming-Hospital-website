@@ -33,7 +33,7 @@ const DoctorPage = () => {
     const searchDoctor = useSelector((state) => state?.doctor?.search);
     const searchDebounce = useDebounce(searchDoctor, 500);
     const [loading, setLoading] = useState(false);
-    const [limit, setLimit] = useState(4);
+    const [limit, setLimit] = useState(12);
     const [typeDoctors, setTypeDoctors] = useState([]);
     const [selectedDepartment, setSelectedDepartment] = useState("");
     
@@ -151,7 +151,7 @@ const DoctorPage = () => {
                             e.currentTarget.style.color = 'green';
                         }}
                     >
-                        Load More
+                        xem thêm
                     </button>
                 </div>
             </div>

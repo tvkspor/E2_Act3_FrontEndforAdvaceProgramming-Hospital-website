@@ -21,7 +21,7 @@ const DoctorComponent = ()=> {
               textbutton="Tìm kiếm"
               placeholder="Nhập từ khóa muốn tìm kiếm"
               onChange={onSearch}
-              backgroundcolorbutton="#3a97f4"
+              backgroundcolorbutton="#16A085"
         />
     )
 }

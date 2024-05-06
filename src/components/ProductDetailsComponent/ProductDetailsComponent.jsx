@@ -82,7 +82,7 @@ const ProductDetailsComponent = ({ idProduct }) => {
 
   useEffect(() => {
     if (order.isSucessOrder) {
-      message.success("Đã thêm vào giỏ hàng");
+      message.success("Đã thêm vào Thanh toán");
     }
     return () => {
       dispatch(resetOrder());

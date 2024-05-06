@@ -163,7 +163,7 @@ const Order = () => {
           e.currentTarget.style.color = 'green';
         }}
         >
-          Load More
+          xem thêm
         </button>
       </div>
     </section>
