@@ -83,12 +83,6 @@ const PaymentPage = () => {
     return Number(priceMemo) - Number(priceDiscountMemo);
   }, [priceMemo, priceDiscountMemo]);
 
-  const mutationAddOrder = useMutationHooks((data) => {
-    const { token, ...rests } = data;
-    const res = OrderService.createOrder({ ...rests }, token);
-    return res;
-  });
-
   const handleAddOrder = () => {
     if (
       user?.access_token &&
@@ -101,7 +95,6 @@ const PaymentPage = () => {
       user?.BHXH &&
       user?.CCCD
     ) {
-      // eslint-disable-next-line no-unused-expressions
       mutationAddOrder.mutate({
         token: user?.access_token,
         orderItems: order?.orderItemsSlected,
@@ -116,6 +109,15 @@ const PaymentPage = () => {
         BHXH: user?.BHXH,
         CCCD: user?.CCCD,
       });
+    } else {
+      if (
+        user?.access_token &&
+        order?.orderItemsSlected &&
+        user?.name &&
+        user?.address &&
+        user?.phone
+      )
+        console.log("hello");
     }
   };
 
@@ -125,7 +127,11 @@ const PaymentPage = () => {
     return res;
   });
 
-  
+  const mutationAddOrder = useMutationHooks((data) => {
+    const { token, ...rests } = data;
+    const res = OrderService.createOrder({ ...rests }, token);
+    return res;
+  });
 
   const { isLoading, data } = mutationUpdate;
   const {
@@ -180,7 +186,6 @@ const PaymentPage = () => {
       );
     }
   };
-
 
   const handleOnchangeDetails = (e) => {
     setStateUserDetails({
