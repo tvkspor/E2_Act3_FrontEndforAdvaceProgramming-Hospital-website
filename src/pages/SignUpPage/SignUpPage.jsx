@@ -25,6 +25,10 @@ const SignUpPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [name, setName] = useState("");
+  const [CCCD, setCCCD] = useState("");
+
+
 
   const handleOnchangeEmail = (value) => {
     setEmail(value);
@@ -57,13 +61,19 @@ const SignUpPage = () => {
   const handleOnchangeConfirmPassword = (value) => {
     setConfirmPassword(value);
   };
+  const handleOnchangeName = (value) => {
+    setName(value);
+  };
+  const handleOnchangeCCCD = (value) => {
+    setCCCD(value);
+  };
 
   const handleNavigateSignIn = () => {
     navigate("/sign-in");
   };
 
   const handleSignUp = () => {
-    mutation.mutate({ email, password, confirmPassword });
+    mutation.mutate({ email, password, confirmPassword, name, CCCD });
   };
 
   return (
@@ -98,9 +108,21 @@ const SignUpPage = () => {
           </p>
           <InputForm
             style={{ marginBottom: "20px" }}
+            placeholder="Nhập họ tên của bạn"
+            value={name}
+            onChange={handleOnchangeName}
+          />
+          <InputForm
+            style={{ marginBottom: "20px" }}
             placeholder="Nhập email của bạn"
             value={email}
             onChange={handleOnchangeEmail}
+          />
+          <InputForm
+            style={{ marginBottom: "20px" }}
+            placeholder="Nhập CCCD của bạn"
+            value={CCCD}
+            onChange={handleOnchangeCCCD}
           />
           <div style={{ position: "relative", marginBottom: "20px" }}>
             <InputForm

@@ -20,7 +20,7 @@ const MedicineSearchComponent = (props) => {
       textbutton="Tìm kiếm"
       placeholder="Nhập từ khóa"
       onChange={onSearch}
-      backgroundcolorbutton="#3a97f4"
+      backgroundcolorbutton="#16A085"
     />
     </div>
   );

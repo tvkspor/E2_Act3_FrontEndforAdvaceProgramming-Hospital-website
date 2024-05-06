@@ -172,10 +172,10 @@ const Navbar = () => {
           Đặt khám
         </WrapperPopup>
       )}
+      {/* {(user?.isAdmin || user?.isDoctor) && 
+      <WrapperPopup onClick={() => handleClickNavigate("medicalequipment")}>Xem thiết bị</WrapperPopup>}
       {(user?.isAdmin || user?.isDoctor) && 
-      <WrapperPopup onClick={() => handleClickNavigate("medicalequipment")}>Thiết bị</WrapperPopup>}
-      {(user?.isAdmin || user?.isDoctor) && 
-      <WrapperPopup onClick={() => handleClickNavigate("medicine")}>Thuốc</WrapperPopup>}
+      <WrapperPopup onClick={() => handleClickNavigate("medicine")}>Xem thuốc</WrapperPopup>} */}
 
       <WrapperPopup onClick={() => handleClickNavigate()}>
         Đăng xuất
@@ -189,7 +189,9 @@ const Navbar = () => {
         <Layout.Header className="nav-header">
           <div
             className="logo"
-            style={{ cursor: "pointer", fontWeight: "bold", fontSize: "16px" }}
+            style={{ cursor: "pointer", fontWeight: "bold", fontSize: "16px",
+              marginRight: "25%"
+             }}
             onClick={() => handleClickNavigate("/")}
           >
             <img
@@ -278,8 +280,8 @@ const Navbar = () => {
                   {user?.access_token && !user?.isDoctor && !user?.isAdmin && <Menu.Item key="booking" onClick={() => handleClickNavigate("booking")}>Đặt khám</Menu.Item>}
                   {user?.isDoctor && <Menu.Item key="scheduler" onClick={() => handleClickNavigate("doctorpage")}>Lịch trình làm việc</Menu.Item>}
                   {user?.isAdmin && <Menu.Item key="manage" onClick={() => handleClickNavigate("admin")}>Quản lí hệ thống</Menu.Item>}
-                  {(user?.isAdmin || user?.isDoctor) && <Menu.Item key="medicalequipment" onClick={() => handleClickNavigate("medicalequipment")}>Thiết bị</Menu.Item>}
-                  {(user?.isAdmin || user?.isDoctor) && <Menu.Item key="medicine" onClick={() => handleClickNavigate("medicine")}>Thuốc</Menu.Item>}
+                  {(user?.isAdmin || user?.isDoctor) && <Menu.Item key="medicalequipment" onClick={() => handleClickNavigate("medicalequipment")}>Xem thiết bị</Menu.Item>}
+                  {(user?.isAdmin || user?.isDoctor) && <Menu.Item key="medicine" onClick={() => handleClickNavigate("medicine")}>Xem thuốc</Menu.Item>}
                   {user?.access_token && <Menu.Item key="logout" onClick={() => handleClickNavigate()}>Đăng xuất</Menu.Item>}
 
                   {!isHiddenCart &&
@@ -317,6 +319,9 @@ const Navbar = () => {
               >
                 Chuyên gia
               </Menu.Item>
+              {(user.isDoctor || user.isAdmin) && <Menu.Item key="medicalequipment" onClick={() => navigate("/medicalequipment")}>Xem thuốc </Menu.Item>}
+              {(user.isDoctor || user.isAdmin) && <Menu.Item key="medicine" onClick={() => navigate("/medicine")}>Xem thiết bị </Menu.Item>}
+
               {/* <Menu.Item key="news">Tin tức</Menu.Item> */}
               {/* {!isHiddenCart &&<Menu.Item
                 key="book"

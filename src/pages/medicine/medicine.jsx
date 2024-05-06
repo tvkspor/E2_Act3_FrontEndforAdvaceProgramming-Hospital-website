@@ -35,7 +35,7 @@ function MedicalEquipment() {
   const searchDebounce = useDebounce(searchMedicine, 500);
   const [loading, setLoading] = useState(false);
 
-  const [limit, setLimit] = useState(4);
+  const [limit, setLimit] = useState(8);
   const [typeProducts, setTypeProducts] = useState([]);
 
   const fetchMedicineAll = async (context) => {
@@ -135,8 +135,7 @@ function MedicalEquipment() {
   return (
     <section className="blogs" id="blogs">
       <h1 className="heading">
-        {" "}
-        DỤNG CỤ <span>Y TẾ</span>{" "}
+        THUỐC
       </h1>
       <MedicineSearchComponent />
       <div className="sort-container" style={sortContainerStyle}>

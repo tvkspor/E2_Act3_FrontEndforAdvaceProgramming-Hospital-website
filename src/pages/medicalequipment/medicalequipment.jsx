@@ -15,7 +15,7 @@ function MedicalEquipment() {
   const searchItem = useSelector((state) => state?.item?.search);
   const searchDebounce = useDebounce(searchItem, 500);
   const [loading, setLoading] = useState(true);
-  const [limit, setLimit] = useState(3);
+  const [limit, setLimit] = useState(9);
   const [typeProducts, setTypeProducts] = useState([]);
 
   const [sortOrder, setSortOrder] = useState('asc'); // 'asc' for ascending, 'desc' for descending
