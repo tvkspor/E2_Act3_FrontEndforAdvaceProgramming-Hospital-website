@@ -181,6 +181,7 @@ const AdminProduct = () => {
     queryKey: ["products"],
     queryFn: getAllProducts,
   });
+  const a = queryProduct?.data?.data?.length;
   const typeProduct = useQuery({
     queryKey: ["type-product"],
     queryFn: fetchAllTypeProduct,
@@ -528,7 +529,7 @@ const AdminProduct = () => {
     <div>
       {/*Hiển thị phần quản lí sản phẩm */}
       <WrapperHeader>Quản lý liệu trình</WrapperHeader>
-
+      <div>Tổng số liệu trình đang có: {a}</div>
       {/* Nút bấm */}
       <div style={{
         marginTop: "10px",
