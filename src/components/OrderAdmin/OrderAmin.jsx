@@ -62,6 +62,12 @@ const OrderAdmin = () => {
     return res;
   });
 
+  const mutationDeletedMany = useMutationHooks((data) => {
+    const { token, ...ids } = data;
+    const res = OrderService.deleteManyOrder(ids, token);
+    return res;
+  });
+
   const { data, isLoading, isSuccess, isError } = mutation;
   const {
     data: dataUpdated,
@@ -297,6 +303,17 @@ const OrderAdmin = () => {
       [e.target.name]: e.target.value,
     });
   };
+
+  const handleDelteManyOrders = (ids) => {
+    mutationDeletedMany.mutate(
+      { ids: ids, token: user?.access_token },
+      {
+        onSettled: () => {
+          queryOrder.refetch();
+        },
+      }
+    );
+  };
   const onUpdateOrder = () => {
     mutationUpdate.mutate(
       { id: rowSelected, ...stateOrderDetails },
@@ -434,6 +451,7 @@ const OrderAdmin = () => {
       </div> */}
       <div style={{ marginTop: "20px" }}>
         <TableComponent
+          handleDelteMany={handleDelteManyOrders}
           columns={columns}
           isLoading={isLoadingOrders}
           data={dataTable}
