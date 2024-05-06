@@ -83,6 +83,12 @@ const PaymentPage = () => {
     return Number(priceMemo) - Number(priceDiscountMemo);
   }, [priceMemo, priceDiscountMemo]);
 
+  const mutationAddOrder = useMutationHooks((data) => {
+    const { token, ...rests } = data;
+    const res = OrderService.createOrder({ ...rests }, token);
+    return res;
+  });
+
   const handleAddOrder = () => {
     if (
       user?.access_token &&
@@ -119,11 +125,7 @@ const PaymentPage = () => {
     return res;
   });
 
-  const mutationAddOrder = useMutationHooks((data) => {
-    const { token, ...rests } = data;
-    const res = OrderService.createOrder({ ...rests }, token);
-    return res;
-  });
+  
 
   const { isLoading, data } = mutationUpdate;
   const {
@@ -178,6 +180,7 @@ const PaymentPage = () => {
       );
     }
   };
+
 
   const handleOnchangeDetails = (e) => {
     setStateUserDetails({
