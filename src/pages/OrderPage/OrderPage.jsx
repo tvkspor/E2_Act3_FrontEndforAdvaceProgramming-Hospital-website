@@ -142,7 +142,7 @@ const OrderPage = () => {
       message.error("Vui lòng chọn sản phẩm");
     } else if (order?.orderItemsSlected?.length >= 2) {
       message.error("Vui lòng chọn một sản phẩm");
-    } else if (!user?.phone || !user.address || !user.name || !user.city) {
+    } else if (!user.name || !user.BHXH || !user.CCCD) {
       setIsOpenModalUpdateInfo(true);
     } else {
       navigate("/payment");
