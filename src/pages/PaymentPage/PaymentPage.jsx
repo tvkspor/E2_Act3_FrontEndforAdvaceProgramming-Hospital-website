@@ -90,7 +90,6 @@ const PaymentPage = () => {
       user?.name &&
       user?.address &&
       user?.phone &&
-      user?.city &&
       priceMemo &&
       user?.id &&
       user?.BHXH &&
@@ -103,7 +102,6 @@ const PaymentPage = () => {
         fullName: user?.name,
         address: user?.address,
         phone: user?.phone,
-        city: user?.city,
         paymentMethod: payment,
         itemsPrice: priceMemo,
         totalPrice: totalPriceMemo,
@@ -167,13 +165,13 @@ const PaymentPage = () => {
   };
 
   const handleUpdateInforUser = () => {
-    const { name, address, city, phone } = stateUserDetails;
-    if (name && address && city && phone) {
+    const { name, BHXH, CCCD } = stateUserDetails;
+    if (name && BHXH && CCCD) {
       mutationUpdate.mutate(
         { id: user?.id, token: user?.access_token, ...stateUserDetails },
         {
           onSuccess: () => {
-            dispatch(updateUser({ name, address, city, phone }));
+            dispatch(updateUser({ name, BHXH, CCCD }));
             setIsOpenModalUpdateInfo(false);
           },
         }
@@ -325,7 +323,7 @@ const PaymentPage = () => {
           </div>
         </div>
         <ModalComponent
-          title="Cập nhật thông tin giao hàng"
+          title="Cập nhật thông tin người dùng"
           open={isOpenModalUpdateInfo}
           onCancel={handleCancleUpdate}
           onOk={handleUpdateInforUser}
