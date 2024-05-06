@@ -332,7 +332,9 @@ const MyMedicalRecordPage = () => {
         <div style={{ 
           margin: "0 auto", width: "70%",
           borderRadius: "4px",
-          boxShadow: "0 5px 15px rgba(0, 0, 0, 0.35)", }}>
+          boxShadow: "0 5px 15px rgba(0, 0, 0, 0.35)", 
+          marginBottom: "50px",
+          }}>
 
         <TableUserComponent
           columns={columns2}

@@ -26,7 +26,7 @@ const Order = () => {
   const searchProduct = useSelector((state) => state?.product?.search);
   const searchDebounce = useDebounce(searchProduct, 500);
   const [loading, setLoading] = useState(false);
-  const [limit, setLimit] = useState(3);
+  const [limit, setLimit] = useState(9);
   const [typeProducts, setTypeProducts] = useState([]);
 
   const fetchProductAll = async (context) => {

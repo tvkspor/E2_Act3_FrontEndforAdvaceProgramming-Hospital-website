@@ -39,6 +39,7 @@ const ProfilePage = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [CCCD, setCccd] = useState("");
   const [address, setAddress] = useState("");
   const [avatar, setAvatar] = useState("");
   const [sex, setSex] = useState("");
@@ -58,6 +59,7 @@ const ProfilePage = () => {
     setEmail(user?.email);
     setName(user?.name);
     setPhone(user?.phone);
+    setCccd(user?.CCCD);
     setAddress(user?.address);
     setAvatar(user?.avatar);
     setSex(user?.sex);
@@ -86,6 +88,9 @@ const ProfilePage = () => {
   const handleOnchangePhone = (value) => {
     setPhone(value);
   };
+  const handleOnchangeCccd = (value) => {
+    setCccd(value);
+  }
   const handleOnchangeAddress = (value) => {
     setAddress(value);
   };
@@ -110,6 +115,7 @@ const ProfilePage = () => {
       email,
       name,
       phone,
+      CCCD,
       address,
       avatar,
       access_token: user?.access_token,
@@ -125,7 +131,7 @@ const ProfilePage = () => {
           <span>THÔNG TIN</span> NGƯỜI DÙNG{" "}
         </h1>
       <Loading isLoading={isLoading}>
-        <WrapperContentProfile style={{boxShadow: "0 5px 15px rgba(0, 0, 0, 0.35)"}}>
+        <WrapperContentProfile style={{boxShadow: "0 5px 15px rgba(0, 0, 0, 0.35)", marginBottom: "50px"}}>
           <WrapperInput>
             <WrapperLabel htmlFor="name">Họ và tên</WrapperLabel>
             <InputForm
@@ -227,6 +233,56 @@ const ProfilePage = () => {
             ></ButtonComponent>
           </WrapperInput>
           <WrapperInput>
+            <WrapperLabel htmlFor="cccd">Căn cước</WrapperLabel>
+            <InputForm
+              style={{ width: "300px" }}
+              id="email"
+              value={CCCD}
+              onChange={handleOnchangeCccd}
+            />
+            <ButtonComponent
+              onClick={handleUpdate}
+              size={40}
+              styleButton={{
+                height: "30px",
+                width: "fit-content",
+                borderRadius: "4px",
+                padding: "2px 6px 6px",
+              }}
+              textbutton={"Cập nhật"}
+              styleTextButton={{
+                color: "rgb(26, 148, 255)",
+                fontSize: "15px",
+                fontWeight: "700",
+              }}
+            ></ButtonComponent>
+          </WrapperInput>
+          <WrapperInput>
+            <WrapperLabel htmlFor="address">Địa chỉ</WrapperLabel>
+            <InputForm
+              style={{ width: "300px" }}
+              id="address"
+              value={address}
+              onChange={handleOnchangeAddress}
+            />
+            <ButtonComponent
+              onClick={handleUpdate}
+              size={40}
+              styleButton={{
+                height: "30px",
+                width: "fit-content",
+                borderRadius: "4px",
+                padding: "2px 6px 6px",
+              }}
+              textbutton={"Cập nhật"}
+              styleTextButton={{
+                color: "rgb(26, 148, 255)",
+                fontSize: "15px",
+                fontWeight: "700",
+              }}
+            ></ButtonComponent>
+          </WrapperInput>
+          <WrapperInput>
             <WrapperLabel htmlFor="dateofbirth">Ngày sinh</WrapperLabel>
             {/* <InputForm
               style={{ width: "300px" }}
@@ -260,7 +316,7 @@ const ProfilePage = () => {
             ></ButtonComponent>
           </WrapperInput>
           <WrapperInput>
-            <WrapperLabel htmlFor="avatar">Avatar</WrapperLabel>
+            <WrapperLabel htmlFor="avatar">Ảnh đại diện</WrapperLabel>
             <WrapperUploadFile onChange={handleOnchangeAvatar} maxCount={1}>
               <Button icon={<UploadOutlined />}>Select File</Button>
             </WrapperUploadFile>
@@ -294,31 +350,7 @@ const ProfilePage = () => {
               }}
             ></ButtonComponent>
           </WrapperInput>
-          <WrapperInput>
-            <WrapperLabel htmlFor="address">Address</WrapperLabel>
-            <InputForm
-              style={{ width: "300px" }}
-              id="address"
-              value={address}
-              onChange={handleOnchangeAddress}
-            />
-            <ButtonComponent
-              onClick={handleUpdate}
-              size={40}
-              styleButton={{
-                height: "30px",
-                width: "fit-content",
-                borderRadius: "4px",
-                padding: "2px 6px 6px",
-              }}
-              textbutton={"Cập nhật"}
-              styleTextButton={{
-                color: "rgb(26, 148, 255)",
-                fontSize: "15px",
-                fontWeight: "700",
-              }}
-            ></ButtonComponent>
-          </WrapperInput>
+          
         </WrapperContentProfile>
       </Loading>
     </div>
