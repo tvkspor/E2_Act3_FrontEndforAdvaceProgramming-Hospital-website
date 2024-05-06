@@ -109,16 +109,7 @@ const PaymentPage = () => {
         BHXH: user?.BHXH,
         CCCD: user?.CCCD,
       });
-    } else {
-      if (
-        user?.access_token &&
-        order?.orderItemsSlected &&
-        user?.name &&
-        user?.address &&
-        user?.phone
-      )
-        console.log("hello");
-    }
+    } 
   };
 
   const mutationUpdate = useMutationHooks((data) => {
