@@ -519,7 +519,7 @@ const AdminMedicine = () => {
     return (
         <div>
             {/*Hiển thị phần quản lí sản phẩm */}
-            <WrapperHeader>Quản lý sản phẩm</WrapperHeader>
+            <WrapperHeader>Quản lý thuốc</WrapperHeader>
 
             {/* Nút bấm */}
             <div style={{ marginTop: "10px" }}>

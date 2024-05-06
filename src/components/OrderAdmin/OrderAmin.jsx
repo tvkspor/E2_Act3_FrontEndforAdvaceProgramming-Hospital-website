@@ -251,7 +251,17 @@ const OrderAdmin = () => {
     {
       title: "Được phê duyệt",
       dataIndex: "isChecked",
-      ...getColumnSearchProps("isChecked"),
+      filters: [
+        {
+          text: "TRUE",
+          value: "TRUE",
+        },
+        {
+          text: "FALSE",
+          value: "FALSE",
+        },
+      ],
+      onFilter: (value, record) => record.isChecked.indexOf(value) === 0,
     },
     {
       title: "Bác sĩ được phân công",

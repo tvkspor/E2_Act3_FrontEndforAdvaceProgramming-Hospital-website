@@ -361,7 +361,7 @@ const AdminUser = () => {
         <TableComponent
           handleDelteMany={handleDelteManyUsers}
           columns={columns}
-          isLoading={isFetchingUser}
+          // isLoading={isFetchingUser}
           data={dataTable}
           onRow={(record, rowIndex) => {
             return {
