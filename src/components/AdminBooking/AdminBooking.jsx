@@ -158,6 +158,7 @@ const AdminBooking = () => {
         queryKey: ["bookings"],
         queryFn: getAllBooking,
     });
+    const a = queryBooking?.data?.data?.length;
     const { isLoading: isLoadingBookings, data: bookings } = queryBooking;
 
     useEffect(() => {
@@ -411,6 +412,7 @@ const AdminBooking = () => {
         <div>
             {/*Hiển thị phần quản lí sản phẩm */}
             <WrapperHeader>Quản lý đặt khám</WrapperHeader>
+            <div>Tổng số đơn đặt khám đã nhận: {a}</div>
 
             {/* Nút bấm */}
             {/* <div style={{ marginTop: "10px" }}>
