@@ -80,7 +80,7 @@ function BookingPage() {
           />
           <div className="box12">
           <div id="birth-day" onChange={handleOnchangeBirth} className="box1">
-            Ngày sinh <br/>
+            Ngày sinh <label/>
             <input id="birth-day-date" type="date" value={birth} required/>
           </div>
           
@@ -129,7 +129,7 @@ function BookingPage() {
           />
           <div className="box12">
           <div id="birth-day" onChange={handleOnchangeDate} className="box1">
-            Ngày khám <br/>
+            Ngày khám <label/>
             <input id="date-date" type="date" value={date}required/>
           </div>
           <select
