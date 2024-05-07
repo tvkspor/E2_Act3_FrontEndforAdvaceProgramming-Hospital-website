@@ -6,7 +6,13 @@ import {
   SearchOutlined,
 } from "@ant-design/icons";
 import React, { useRef } from "react";
-import { WrapperHeader, WrapperUploadFile, WrapperLabel, WrapperInput, WrapperTitle } from "./style";
+import {
+  WrapperHeader,
+  WrapperUploadFile,
+  WrapperLabel,
+  WrapperInput,
+  WrapperTitle,
+} from "./style";
 import TableComponent from "../TableComponent/TableComponent";
 import { useState } from "react";
 import InputComponent from "../InputComponent/InputComponent";
@@ -20,32 +26,33 @@ import { useQuery } from "@tanstack/react-query";
 import DrawerComponent from "../DrawerComponent/DrawerComponent";
 import { useSelector } from "react-redux";
 import ModalComponent from "../ModalComponent/ModalComponent";
+import * as UserService from "../../services/UserService";
 import moment from "moment";
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const StyledButton = styled(Button)`
-    height: 60px;
-    width: 60px;
-    border-radius: 6px;
-    border-style: solid;
-    border-width: 1px;
-    border-color: black;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    background: ;
-    transition: all 0.3s; /* Thêm hiệu ứng transition */
+  height: 60px;
+  width: 60px;
+  border-radius: 6px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  background: ;
+  transition: all 0.3s; /* Thêm hiệu ứng transition */
 
-    &:hover {
-        background-color: #d9eed3; /* Màu nền khi hover */
-        color: black;
-    }
+  &:hover {
+    background-color: #d9eed3; /* Màu nền khi hover */
+    color: black;
+  }
 `;
 
 const ButtonText = styled.span`
-    margin-top: 5px;
+  margin-top: 5px;
 `;
 
 const AdminDoctor = () => {
@@ -53,6 +60,7 @@ const AdminDoctor = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [rowSelected, setRowSelected] = useState("");
   const [isOpenDrawer, setIsOpenDrawer] = useState(false);
+  const [isOpenDrawer2, setIsOpenDrawer2] = useState(false);
   const [isLoadingUpdate, setIsLoadingUpdate] = useState(false);
   const [isModalOpenDelete, setIsModalOpenDelete] = useState(false);
   const user = useSelector((state) => state?.user);
@@ -68,6 +76,13 @@ const AdminDoctor = () => {
   });
   const [stateDoctor, setStateDoctor] = useState(inittial());
   const [stateDoctorDetails, setStateDoctorDetails] = useState(inittial());
+  const inittial2 = () => ({
+    date: 0,
+    month: 0,
+    year: 0,
+    content: "",
+  });
+  const [stateEventData, setStateEventData] = useState(inittial2());
 
   const [form] = Form.useForm();
 
@@ -130,7 +145,6 @@ const AdminDoctor = () => {
       "nerve surgery",
       "pediatrics",
       "otorhinology",
-
     ];
     return defaultOptions.map((option) => ({
       value: option,
@@ -182,6 +196,57 @@ const AdminDoctor = () => {
     const res = await DoctorService.getAllTypeDoctor();
     return res;
   };
+
+  const handleEvent = () => {
+    setIsOpenDrawer2(true);
+  };
+
+  const mutationUpdateE = useMutationHooks((data) => {
+    const { id, ...rests } = data;
+    const res = UserService.updateEventData2(id, { ...rests });
+    return res;
+  });
+
+  const {
+    data: dataE,
+    isLoading: isLoadingE,
+    isSuccess: isSuccessE,
+    isError: isErrorE,
+  } = mutationUpdateE;
+
+  const handleOnchangeDetails2 = (e) => {
+    setStateEventData({
+      ...stateEventData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const onUpdateEventData = () => {
+    console.log("alo");
+    mutationUpdateE.mutate({
+      id: rowSelected,
+      ...stateEventData,
+    });
+  };
+
+  const handleCloseDrawer2 = () => {
+    setIsOpenDrawer2(false);
+    setStateEventData({
+      date: 0,
+      month: 0,
+      year: 0,
+      content: "",
+    });
+    form.resetFields();
+  };
+  useEffect(() => {
+    if (isSuccessE && dataE?.status === "OK") {
+      message.success();
+      handleCloseDrawer2();
+    } else if (isErrorE) {
+      message.error();
+    }
+  }, [isSuccessE]);
 
   const queryDoctor = useQuery({
     queryKey: ["doctors"],
@@ -251,6 +316,17 @@ const AdminDoctor = () => {
         <EditOutlined
           style={{ color: "orange", fontSize: "30px", cursor: "pointer" }}
           onClick={handleDetailsDoctor}
+        />
+      </div>
+    );
+  };
+
+  const renderAction2 = () => {
+    return (
+      <div>
+        <PlusOutlined
+          style={{ color: "green", fontSize: "30px", cursor: "pointer" }}
+          onClick={handleEvent}
         />
       </div>
     );
@@ -398,7 +474,8 @@ const AdminDoctor = () => {
     {
       title: "Ngày sinh",
       dataIndex: "dateofbirth",
-      sorter: (a, b) => moment(a.dateofbirth).unix() - moment(b.dateofbirth).unix(),
+      sorter: (a, b) =>
+        moment(a.dateofbirth).unix() - moment(b.dateofbirth).unix(),
       render: (dateofbirth) => moment(dateofbirth).format("DD-MM-YYYY"),
     },
     {
@@ -420,6 +497,11 @@ const AdminDoctor = () => {
       title: "Chỉnh sửa",
       dataIndex: "action",
       render: renderAction,
+    },
+    {
+      title: "Đặt lịch làm việc",
+      dataIndex: "action2",
+      render: renderAction2,
     },
   ];
   const dataTable =
@@ -565,18 +647,19 @@ const AdminDoctor = () => {
       <div>Tổng số bác sĩ có trong bệnh viện: {a}</div>
 
       {/* Nút bấm */}
-      <div style={{
-        marginTop: "10px",
-        display: "flex", // Sử dụng flex container
-        justifyContent: "left", // Căn lề sang phải
-
-      }}>
-        <StyledButton
-          onClick={() => setIsModalOpen(true)}
-        >
-          <PlusOutlined style={{
-            fontSize: "30px",
-          }} />
+      <div
+        style={{
+          marginTop: "10px",
+          display: "flex", // Sử dụng flex container
+          justifyContent: "left", // Căn lề sang phải
+        }}
+      >
+        <StyledButton onClick={() => setIsModalOpen(true)}>
+          <PlusOutlined
+            style={{
+              fontSize: "30px",
+            }}
+          />
           {/* <ButtonText>Thêm bác sĩ</ButtonText> */}
         </StyledButton>
       </div>
@@ -598,7 +681,7 @@ const AdminDoctor = () => {
         />
       </div>
 
-      {/* Bảng để nhập sản phẩm */}
+      {/* Bảng để nhập bác sĩ */}
       <ModalComponent
         forceRender
         title={<WrapperTitle>Thêm bác sĩ</WrapperTitle>}
@@ -683,9 +766,7 @@ const AdminDoctor = () => {
             <Form.Item
               label="Ngày sinh"
               name="dateofbirth"
-              rules={[
-                { required: true, message: "Please input your date!" },
-              ]}
+              rules={[{ required: true, message: "Please input your date!" }]}
             >
               <WrapperInput>
                 <DatePicker
@@ -832,9 +913,7 @@ const AdminDoctor = () => {
             <Form.Item
               label="Ngày sinh"
               name="dateofbirth"
-              rules={[
-                { required: false, message: "Please input your date!" },
-              ]}
+              rules={[{ required: false, message: "Please input your date!" }]}
             >
               <WrapperInput>
                 <DatePicker
@@ -874,6 +953,75 @@ const AdminDoctor = () => {
             <Form.Item wrapperCol={{ offset: 20, span: 16 }}>
               <Button type="primary" htmlType="submit">
                 Apply
+              </Button>
+            </Form.Item>
+          </Form>
+        </Loading>
+      </DrawerComponent>
+
+      {/* Lịch làm việc */}
+      <DrawerComponent
+        title="Cập nhật lịch làm việc bác sĩ"
+        isOpen={isOpenDrawer2}
+        onClose={() => setIsOpenDrawer2(false)}
+        width="90%"
+      >
+        <Loading isLoading={isLoadingE}>
+          <Form
+            name="basic"
+            labelCol={{ span: 2 }}
+            wrapperCol={{ span: 22 }}
+            onFinish={onUpdateEventData}
+            autoComplete="on"
+            form={form}
+          >
+            <Form.Item
+              label="Ngày"
+              name="date"
+              rules={[{ required: true, message: "Please input day!" }]}
+            >
+              <InputComponent
+                value={stateEventData["date"]}
+                onChange={handleOnchangeDetails2}
+                name="date"
+              />
+            </Form.Item>
+            <Form.Item
+              label="Tháng"
+              name="month"
+              rules={[{ required: true, message: "Please input month!" }]}
+            >
+              <InputComponent
+                value={stateEventData["month"]}
+                onChange={handleOnchangeDetails2}
+                name="month"
+              />
+            </Form.Item>
+            <Form.Item
+              label="Năm"
+              name="year"
+              rules={[{ required: true, message: "Please input your name!" }]}
+            >
+              <InputComponent
+                value={stateEventData["year"]}
+                onChange={handleOnchangeDetails2}
+                name="year"
+              />
+            </Form.Item>
+            <Form.Item
+              label="Nội dung"
+              name="content"
+              rules={[{ required: true, message: "Please input your name!" }]}
+            >
+              <InputComponent
+                value={stateEventData["content"]}
+                onChange={handleOnchangeDetails2}
+                name="content"
+              />
+            </Form.Item>
+            <Form.Item wrapperCol={{ offset: 20, span: 16 }}>
+              <Button type="primary" htmlType="submit">
+                Cập nhật
               </Button>
             </Form.Item>
           </Form>

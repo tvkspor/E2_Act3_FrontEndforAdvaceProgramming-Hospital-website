@@ -9,6 +9,7 @@ const initialState = {
   itemsPrice: 0,
   totalPrice: 0,
   user: "",
+  userName: "",
 };
 
 export const orderSlide = createSlice({

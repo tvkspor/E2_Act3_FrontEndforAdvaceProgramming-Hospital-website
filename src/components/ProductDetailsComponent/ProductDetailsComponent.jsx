@@ -30,7 +30,6 @@ import CommentComponent from "../CommentComponent/CommentComponent";
 import { useMemo } from "react";
 import TableUserComponent from "../../components/TableUserComponent/TableUserComponent";
 
-
 const ProductDetailsComponent = ({ idProduct }) => {
   const [numProduct, setNumProduct] = useState(1);
   const user = useSelector((state) => state.user);
@@ -46,10 +45,9 @@ const ProductDetailsComponent = ({ idProduct }) => {
 
   var newID;
 
-
   const fetchGetDetailsProduct = async (context) => {
     const id = context?.queryKey && context?.queryKey[1];
-    newID =id;
+    newID = id;
     if (id) {
       const res = await ProductService.getDetailsProduct(id);
       return res.data;
@@ -146,13 +144,12 @@ const ProductDetailsComponent = ({ idProduct }) => {
     const res = await ProductService.getAllComment(newID);
     return res;
   };
-  
+
   const queryComment = useQuery({
     queryKey: "comment",
     queryFn: fetchGetComment,
   });
   const { isLoading: isLoadingComment, data: comment } = queryComment;
-
 
   const dataTable1 =
     comment?.data?.length &&
@@ -170,10 +167,10 @@ const ProductDetailsComponent = ({ idProduct }) => {
   return (
     <Loading isLoading={isLoading}>
       <h1 className="heading" style={{ marginTop: "30px" }}>
-              CHI TIẾT <span>DỊCH VỤ</span>{" "}
-            </h1>
+        CHI TIẾT <span>DỊCH VỤ</span>{" "}
+      </h1>
       <Row
-        gutter={[18,18]}
+        gutter={[18, 18]}
         style={{
           padding: "16px",
           background: "#fff",
@@ -181,7 +178,9 @@ const ProductDetailsComponent = ({ idProduct }) => {
           height: "100%",
         }}
       >
-        <Col sm={10} xs={20}
+        <Col
+          sm={10}
+          xs={20}
           span={10}
           style={{ borderRight: "1px solid #e5e5e5", paddingRight: "8px" }}
         >
@@ -192,10 +191,7 @@ const ProductDetailsComponent = ({ idProduct }) => {
           />
         </Col>
 
-        <Col sm={14} xs={9}
-          span={14} 
-          style={{ paddingLeft: "10px" }}
-        >
+        <Col sm={14} xs={9} span={14} style={{ paddingLeft: "10px" }}>
           <WrapperStyleNameProduct>
             {productDetails?.name}
           </WrapperStyleNameProduct>
@@ -216,7 +212,14 @@ const ProductDetailsComponent = ({ idProduct }) => {
             {/* <span>Giao đến </span>
             <span className="address">{user?.address}</span> -
             <span className="change-address">Đổi địa chỉ</span> */}
-            <span> {productDetails?.description}</span>
+            <div>
+              {productDetails?.description.split("\\").map((line, index) => (
+                <React.Fragment key={index}>
+                  {line}
+                  <br />
+                </React.Fragment>
+              ))}
+            </div>
           </WrapperAddressProduct>
 
           <div style={{ display: "flex", aliggItems: "center", gap: "12px" }}>
@@ -254,10 +257,10 @@ const ProductDetailsComponent = ({ idProduct }) => {
         /> */}
       </Row>
       <TableUserComponent
-          columns={columns1}
-          isLoading={isLoadingComment}
-          data={dataTable1}
-        />
+        columns={columns1}
+        isLoading={isLoadingComment}
+        data={dataTable1}
+      />
     </Loading>
   );
 };

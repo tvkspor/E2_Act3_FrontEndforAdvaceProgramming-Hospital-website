@@ -156,6 +156,8 @@ const OrderAdmin = () => {
     queryFn: getAllOrderUnchecked,
   });
 
+  const a = queryOrder?.data?.data?.length;
+
   const { isLoading: isLoadingOrders, data: orders } = queryOrder;
 
   const getColumnSearchProps = (dataIndex) => ({
@@ -288,9 +290,6 @@ const OrderAdmin = () => {
         ...order,
         key: order._id,
         orderItems: order?.orderItems,
-        userName: order?.shippingAddress?.fullName,
-        phone: order?.shippingAddress?.phone,
-        address: order?.shippingAddress?.address,
         paymentMethod: orderContant.payment[order?.paymentMethod],
         isChecked: order?.isChecked ? "TRUE" : "FALSE",
         totalPrice: convertPrice(order?.totalPrice),
@@ -446,6 +445,7 @@ const OrderAdmin = () => {
   return (
     <div>
       <WrapperHeader>Quản lý đơn khám</WrapperHeader>
+      <div>Tổng số liệu trình chưa được phê duyệt là: {a}</div>
       {/* <div style={{ height: 200, width: 200 }}>
         <PieChartComponent data={orders?.data} />
       </div> */}

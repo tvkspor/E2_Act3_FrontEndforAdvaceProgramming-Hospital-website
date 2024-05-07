@@ -109,7 +109,11 @@ const PaymentPage = () => {
         BHXH: user?.BHXH,
         CCCD: user?.CCCD,
       });
-    } 
+    } else {
+      message.error(
+        "Vui lòng cung cấp đầy đủ thông tin trước khi đặt liệu trình"
+      );
+    }
   };
 
   const mutationUpdate = useMutationHooks((data) => {

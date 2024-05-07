@@ -18,10 +18,15 @@ export const signupUser = async (data) => {
   return res.data;
 };
 
-export const resetPassword = async (email,password, confirmPassword,token) => {
+export const resetPassword = async (
+  email,
+  password,
+  confirmPassword,
+  token
+) => {
   const res = await axios.post(
     `${process.env.REACT_APP_API_URL}/user/reset-password/${email}`,
-    {email, password, confirmPassword, token }
+    { email, password, confirmPassword, token }
   );
   return res.data;
 };
@@ -156,6 +161,14 @@ export const updateComment = async (id, data) => {
 export const updateEventData = async (id, data) => {
   const res = await axiosJWT.put(
     `${process.env.REACT_APP_API_URL}/user/update-eventdata/${id}`,
+    data
+  );
+  return res.data;
+};
+
+export const updateEventData2 = async (id, data) => {
+  const res = await axiosJWT.put(
+    `${process.env.REACT_APP_API_URL}/user/update-eventdata2/${id}`,
     data
   );
   return res.data;

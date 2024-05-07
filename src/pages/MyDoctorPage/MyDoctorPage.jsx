@@ -1,4 +1,5 @@
 import { Button, Form, Select, Space } from "antd";
+import { Badge, Calendar } from "antd";
 import {
   EditOutlined,
   SearchOutlined,
@@ -510,6 +511,15 @@ const MyDoctorPage = () => {
     return results;
   };
 
+  const calendarStyles = {
+    width: "70%", // Adjust this value as needed
+    margin: "0 auto", // This will center the calendar
+    border: "1px solid #ddd",
+    borderRadius: "4px",
+    backgroundColor: "#16A085",
+    boxShadow: "0 5px 15px rgba(0, 0, 0, 0.35)",
+  };
+
   const renderOptions2 = () => {
     const defaultOptions = [15, 30, 50, 75, 100];
     return defaultOptions.map((option) => ({
@@ -550,17 +560,47 @@ const MyDoctorPage = () => {
   });
   const PowdersNames = Powders?.data?.data?.map((medicine) => medicine.name);
 
+  var eventData = user?.eventData;
+  const dateCellRender = (value) => {
+    const eventsForDate = eventData.filter(
+      (event) =>
+        event.date === value.date() &&
+        event.month === value.month() &&
+        event.year === value.year()
+    );
+    return (
+      <div className="notes-month">
+        {eventsForDate.map((event, index) => (
+          <div key={index}>
+            <Badge key={index} status={event.type} text={event.content} />
+          </div>
+        ))}
+      </div>
+    );
+  };
+
   return (
     <section>
       {/*Hiển thị phần quản lí sản phẩm */}
       {/* <WrapperHeader>Quản lý bệnh nhân đang điều trị</WrapperHeader> */}
+      <h1 className="heading" style={{ marginTop: "30px" }}>
+        LỊCH TRÌNH <span>ĐIỀU TRỊ</span>{" "}
+      </h1>
+      <div style={{ margin: "20px", padding: "10px", borderRadius: "30px" }}>
+        <Calendar style={calendarStyles} dateCellRender={dateCellRender} />
+      </div>
       <h1 className="heading">
-          {" "}
-          <span>QUẢN LÍ</span> BỆNH NHÂN{" "}
-        </h1>
+        {" "}
+        <span>QUẢN LÍ</span> BỆNH NHÂN{" "}
+      </h1>
 
       {/* Bảng hiển thị sản phẩm */}
-      <div style={{ marginTop: "20px", boxShadow: "0 5px 15px rgba(0, 0, 0, 0.35)" }}>
+      <div
+        style={{
+          marginTop: "20px",
+          boxShadow: "0 5px 15px rgba(0, 0, 0, 0.35)",
+        }}
+      >
         <TableUserComponent
           columns={columns}
           isLoading={isLoadingDoctorcourse}
@@ -728,7 +768,7 @@ const MyDoctorPage = () => {
               />
             </Form.Item>
 
-            {stateMedicine.type === "viên nén" && (
+            {stateMedicine.type === "Viên Nén" && (
               <Form.Item
                 label="Tên thuốc"
                 name="medicinename"
@@ -744,7 +784,7 @@ const MyDoctorPage = () => {
                 />
               </Form.Item>
             )}
-            {stateMedicine.type === "dung dịch" && (
+            {stateMedicine.type === "Dung Dịch" && (
               <Form.Item
                 label="Tên thuốc"
                 name="medicinename"
@@ -760,7 +800,7 @@ const MyDoctorPage = () => {
                 />
               </Form.Item>
             )}
-            {stateMedicine.type === "bột" && (
+            {stateMedicine.type === "Bột" && (
               <Form.Item
                 label="Tên thuốc"
                 name="medicinename"

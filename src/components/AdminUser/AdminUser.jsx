@@ -120,7 +120,7 @@ const AdminUser = () => {
 
   const queryClient = useQueryClient();
   const userss = queryClient.getQueryData(["users"]);
-  const users = userss.data.filter((user) => !user.isAdmin);
+  const users = userss.data.filter((user) => !user.isAdmin && !user.isDoctor);
   const isFetchingUser = useIsFetching(["users"]);
   const a = users?.length;
   const renderAction = () => {
@@ -245,7 +245,7 @@ const AdminUser = () => {
       },
       ...getColumnSearchProps("name"),
     },
-    
+
     {
       title: "Gói điều trị",
       dataIndex: "treatmentcourse",
@@ -253,7 +253,7 @@ const AdminUser = () => {
         <ul>
           {treatmentcourse.map((item, index) => (
             <li key={index}>
-              Gói: {item.nametreatment}, Tiến độ: {item.progress}
+              Gói: {item.name}, Tiến độ: {item.progress}
             </li>
           ))}
         </ul>
