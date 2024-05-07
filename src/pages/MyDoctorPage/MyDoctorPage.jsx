@@ -584,7 +584,7 @@ const MyDoctorPage = () => {
       {/*Hiển thị phần quản lí sản phẩm */}
       {/* <WrapperHeader>Quản lý bệnh nhân đang điều trị</WrapperHeader> */}
       <h1 className="heading" style={{ marginTop: "30px" }}>
-        LỊCH TRÌNH <span>ĐIỀU TRỊ</span>{" "}
+        LỊCH TRÌNH <span>LÀM VIỆC</span>{" "}
       </h1>
       <div style={{ margin: "20px", padding: "10px", borderRadius: "30px" }}>
         <Calendar style={calendarStyles} dateCellRender={dateCellRender} />
