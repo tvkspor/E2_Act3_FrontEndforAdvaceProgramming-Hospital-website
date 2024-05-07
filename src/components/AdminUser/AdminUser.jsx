@@ -245,7 +245,11 @@ const AdminUser = () => {
       },
       ...getColumnSearchProps("name"),
     },
-
+    {
+      title: "CCCD",
+      dataIndex: "CCCD",
+      ...getColumnSearchProps("CCCD"),
+    },
     {
       title: "Gói điều trị",
       dataIndex: "treatmentcourse",
