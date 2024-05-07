@@ -63,6 +63,9 @@ const ForgottenPassWordPage = () => {
           <WrapperButton onClick={handleResetPass}>
             Gửi Email
           </WrapperButton>
+          <p style={{paddingTop:"20px", color:"blueviolet"}}>
+            Lưu ý: Link nhận được chỉ có hiệu lực trong vòng 3 phút
+          </p>
           <div
             style={{fontSize: "14", marginTop: "20px", color: "#ea4a4a"}}
           >
