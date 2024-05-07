@@ -203,6 +203,17 @@ const MyMedicalRecordPage = () => {
       ...getColumnSearchProps("progress"),
     },
     {
+      title: "Tên thuốc ngoài chương trình",
+      dataIndex: "Medicine",
+      render: (Medicine) => (
+        <ul>
+          {Medicine.map((item, index) => (
+            <li key={index}>{item.medicinename}</li>
+          ))}
+        </ul>
+      ),
+    },
+    {
       title: "Tổng tiền(bao gồm thuốc ngoài chương trình)",
       dataIndex: "totalprice",
       ...getColumnSearchProps("totalprice"),
@@ -218,6 +229,11 @@ const MyMedicalRecordPage = () => {
       title: "Ngày",
       dataIndex: "day",
       ...getColumnSearchProps("day"),
+    },
+    {
+      title: "Tháng",
+      dataIndex: "month",
+      ...getColumnSearchProps("month"),
     },
     {
       title: "Tình trạng sức khỏe",

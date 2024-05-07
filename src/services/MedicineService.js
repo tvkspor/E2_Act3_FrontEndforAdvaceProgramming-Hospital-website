@@ -15,6 +15,13 @@ export const getAllTabletsname = async () => {
   return res.data;
 };
 
+export const getAllGelsname = async () => {
+  const res = await axios.get(
+    `${process.env.REACT_APP_API_URL}/medicine/getallgelsname`
+  );
+  return res.data;
+};
+
 export const getAllPowdersname = async () => {
   const res = await axios.get(
     `${process.env.REACT_APP_API_URL}/medicine/getallpowdersname`

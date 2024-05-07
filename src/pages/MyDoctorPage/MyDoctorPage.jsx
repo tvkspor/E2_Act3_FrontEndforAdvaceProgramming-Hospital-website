@@ -38,6 +38,7 @@ const MyDoctorPage = () => {
   const searchInput = useRef(null);
   const inittial = () => ({
     day: "",
+    month: "",
     doctorname: "",
     information_daily: "",
   });
@@ -68,6 +69,7 @@ const MyDoctorPage = () => {
 
   const mutationUpdate = useMutationHooks((data) => {
     const { id, ...rests } = data;
+    console.log("hi");
     const res = UserService.updatetreatmentHistory(id, { ...rests });
     return res;
   });
@@ -381,6 +383,7 @@ const MyDoctorPage = () => {
     setIsOpenDrawer(false);
     setStateHistory({
       day: "",
+      month: "",
       doctorname: "",
       information_daily: "",
     });
@@ -560,6 +563,16 @@ const MyDoctorPage = () => {
   });
   const PowdersNames = Powders?.data?.data?.map((medicine) => medicine.name);
 
+  const fetchAllGel = async () => {
+    const res = await MedicineService.getAllGelsname();
+    return res;
+  };
+  const Gels = useQuery({
+    queryKey: ["gels"],
+    queryFn: fetchAllGel,
+  });
+  const GelsNames = Gels?.data?.data?.map((medicine) => medicine.name);
+
   var eventData = user?.eventData;
   const dateCellRender = (value) => {
     const eventsForDate = eventData.filter(
@@ -639,6 +652,17 @@ const MyDoctorPage = () => {
                 value={stateHistory["day"]}
                 onChange={handleOnchangeDetails}
                 name="day"
+              />
+            </Form.Item>
+            <Form.Item
+              label="Tháng"
+              name="month"
+              rules={[{ required: true, message: "Please input month!" }]}
+            >
+              <InputComponent
+                value={stateHistory["month"]}
+                onChange={handleOnchangeDetails}
+                name="month"
               />
             </Form.Item>
             <Form.Item
@@ -781,6 +805,22 @@ const MyDoctorPage = () => {
                   value={stateMedicine.medicinename}
                   onChange={handleChangeMedicineName}
                   options={renderOptions(TabletsNames)}
+                />
+              </Form.Item>
+            )}
+            {stateMedicine.type === "Gel" && (
+              <Form.Item
+                label="Tên thuốc"
+                name="medicinename"
+                rules={[
+                  { required: true, message: "Please choose Medicinename!" },
+                ]}
+              >
+                <Select
+                  name="medicinename"
+                  value={stateMedicine.medicinename}
+                  onChange={handleChangeMedicineName}
+                  options={renderOptions(GelsNames)}
                 />
               </Form.Item>
             )}
