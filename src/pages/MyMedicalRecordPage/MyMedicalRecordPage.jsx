@@ -26,6 +26,7 @@ const MyMedicalRecordPage = () => {
   //Form behavior
   const [form] = Form.useForm();
   const inittial = () => ({
+    userName: user?.name,
     comment: "",
   });
   const [stateComment, setStateComment] = useState(inittial());
@@ -262,7 +263,7 @@ const MyMedicalRecordPage = () => {
 
   return (
     <section>
-      <h1 className="heading" style={{marginTop: "30px"}}>
+      <h1 className="heading" style={{ marginTop: "30px" }}>
         LỊCH TRÌNH <span>ĐIỀU TRỊ</span>{" "}
       </h1>
       <div style={{ margin: "20px", padding: "10px", borderRadius: "30px" }}>
@@ -303,15 +304,18 @@ const MyMedicalRecordPage = () => {
           </Form>
         </Loading>
       </DrawerComponent>
-      <h1 className="heading" style={{marginTop: "30px"}}>
+      <h1 className="heading" style={{ marginTop: "30px" }}>
+        GÓI <span>CHỮA BỆNH</span>{" "}
+      </h1>
 
-          GÓI <span>CHỮA BỆNH</span>{" "}
-        </h1>
-
-      <div style={{ 
-          margin: "0 auto", width: "70%",
+      <div
+        style={{
+          margin: "0 auto",
+          width: "70%",
           borderRadius: "4px",
-          boxShadow: "0 5px 15px rgba(0, 0, 0, 0.35)", }}>
+          boxShadow: "0 5px 15px rgba(0, 0, 0, 0.35)",
+        }}
+      >
         <TableUserComponent
           columns={columns1}
           isLoading={isLoadingTreatment}
@@ -325,17 +329,18 @@ const MyMedicalRecordPage = () => {
           }}
         />
       </div>
-      <h1 className="heading" style={{marginTop: "30px"}}>
-
-          TIẾN TRÌNH <span>KHÁM BỆNH</span>{" "}
-        </h1>
-        <div style={{ 
-          margin: "0 auto", width: "70%",
+      <h1 className="heading" style={{ marginTop: "30px" }}>
+        TIẾN TRÌNH <span>KHÁM BỆNH</span>{" "}
+      </h1>
+      <div
+        style={{
+          margin: "0 auto",
+          width: "70%",
           borderRadius: "4px",
-          boxShadow: "0 5px 15px rgba(0, 0, 0, 0.35)", 
+          boxShadow: "0 5px 15px rgba(0, 0, 0, 0.35)",
           marginBottom: "50px",
-          }}>
-
+        }}
+      >
         <TableUserComponent
           columns={columns2}
           isLoading={isLoadingTreatmenthistory}
@@ -347,19 +352,19 @@ const MyMedicalRecordPage = () => {
 };
 
 const calendarStyles = {
-  width: '70%', // Adjust this value as needed
-  margin: '0 auto', // This will center the calendar
-  border: '1px solid #ddd',
-  borderRadius: '4px',
-  backgroundColor: '#16A085',
+  width: "70%", // Adjust this value as needed
+  margin: "0 auto", // This will center the calendar
+  border: "1px solid #ddd",
+  borderRadius: "4px",
+  backgroundColor: "#16A085",
   boxShadow: "0 5px 15px rgba(0, 0, 0, 0.35)",
 };
 
 const headerStyles = {
-  color: '#000',
-  fontSize: '20px', // Increase this value to make the text bigger
-  marginBottom: '10px',
-  textAlign: 'center', // This will center the text
+  color: "#000",
+  fontSize: "20px", // Increase this value to make the text bigger
+  marginBottom: "10px",
+  textAlign: "center", // This will center the text
 };
 
 export default MyMedicalRecordPage;

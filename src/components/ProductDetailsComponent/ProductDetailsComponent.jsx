@@ -159,6 +159,10 @@ const ProductDetailsComponent = ({ idProduct }) => {
 
   const columns1 = [
     {
+      title: "Người nhận xét",
+      dataIndex: "userName",
+    },
+    {
       title: "Tên nhận xét",
       dataIndex: "comment",
     },
