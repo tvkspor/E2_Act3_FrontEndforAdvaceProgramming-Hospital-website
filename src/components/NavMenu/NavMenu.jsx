@@ -190,7 +190,7 @@ const Navbar = () => {
           <div
             className="logo"
             style={{ cursor: "pointer", fontWeight: "bold", fontSize: "16px",
-              marginRight: "25%"
+              marginRight: "20%"
              }}
             onClick={() => handleClickNavigate("/")}
           >
@@ -296,7 +296,7 @@ const Navbar = () => {
                         style={{ fontSize: "30px", color: "#444" }}
                       />
                     </Badge>
-                    <WrapperTextSmall>Giỏ hàng</WrapperTextSmall>
+                    <WrapperTextSmall>Thanh toán</WrapperTextSmall>
                   </div>
                   </MenuItem>}
                 </Menu>
@@ -319,8 +319,8 @@ const Navbar = () => {
               >
                 Chuyên gia
               </Menu.Item>
-              {(user.isDoctor || user.isAdmin) && <Menu.Item key="medicalequipment" onClick={() => navigate("/medicalequipment")}>Xem thuốc </Menu.Item>}
-              {(user.isDoctor || user.isAdmin) && <Menu.Item key="medicine" onClick={() => navigate("/medicine")}>Xem thiết bị </Menu.Item>}
+              {(user.isDoctor || user.isAdmin) && <Menu.Item key="medicalequipment" onClick={() => navigate("/medicalequipment")}>Xem thiết bị </Menu.Item>}
+              {(user.isDoctor || user.isAdmin) && <Menu.Item key="medicine" onClick={() => navigate("/medicine")}>Xem thuốc </Menu.Item>}
 
               {/* <Menu.Item key="news">Tin tức</Menu.Item> */}
               {/* {!isHiddenCart &&<Menu.Item
@@ -398,7 +398,7 @@ const Navbar = () => {
                   style={{ fontSize: "30px", color: "#444" }}
                 />
               </Badge>
-              <WrapperTextSmall>Giỏ hàng</WrapperTextSmall>
+              <WrapperTextSmall>Thanh toán</WrapperTextSmall>
             </div>
           )}
                   </MenuItem>

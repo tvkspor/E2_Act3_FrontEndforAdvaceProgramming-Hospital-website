@@ -114,12 +114,11 @@ export const WrapperTextCenter = styled.div`
     display: block;
     unicode-bidi: isolate;
     text-align: center;
+    margin-top: 20px;
     
     
 `
 export const WrapperH1 = styled.h1`
-    margin-bottom: 25px;
-    padding-bottom: 15px;
     display: inline-block;
     position: relative;
     color: #16a085;
@@ -361,3 +360,17 @@ export const WrapperButtonMore = styled(ButtonComponent)`
     text-align: center;
     cursor: ${(props) => (props.disabled ? "not-allowed" : "pointers")};
 `;
+
+export const WrapperSearch = styled.div`
+margin-bottom: 20px;
+margin-left: 500px;
+margin-right:500px;
+`;
+
+export const sortContainerStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    padding: '10px',
+    borderRadius: '5px',
+    margin: '20px 0',
+  };

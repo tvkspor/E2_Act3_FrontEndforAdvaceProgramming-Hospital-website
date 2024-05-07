@@ -145,7 +145,7 @@ const CardComponent = (props) => {
 
             <a className="btn" onClick={() => handleDetailsProduct(id)}>
               {" "}
-              learn more <span className="fas fa-chevron-right"><FontAwesomeIcon icon={faChevronRight}/></span>
+              xem thêm <span className="fas fa-chevron-right"><FontAwesomeIcon icon={faChevronRight}/></span>
 
               </a>
               </div>

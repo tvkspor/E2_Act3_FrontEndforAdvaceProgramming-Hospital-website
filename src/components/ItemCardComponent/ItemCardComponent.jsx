@@ -86,7 +86,7 @@ const ItemCardComponent = (props) => {
           </ul>
           <button onClick={handleDetailsClick} className="btn">
             {" "}
-            Learn more <span className="fas fa-chevron-right"><FontAwesomeIcon icon={faChevronRight} /></span>
+            xem thêm <span className="fas fa-chevron-right"><FontAwesomeIcon icon={faChevronRight} /></span>
           </button>
           {/* Modal */}
           {isModalOpen && (

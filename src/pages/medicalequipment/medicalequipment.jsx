@@ -158,7 +158,7 @@ function MedicalEquipment() {
             e.currentTarget.style.color = 'green';
           }}
         >
-          Load More
+          xem thêm
         </button>
       </div>
     </section>
