@@ -60,7 +60,7 @@ function Home() {
           <img src={introhome} alt="" />
         </div>
         <div className="content">
-          <h3>stay safe, stay healthy</h3>
+          <h3 style={{color: "#16a085"}}>STAY SAFE, STAY HEALTHY</h3>
           {/* <p>Everything is Daijoubu</p> */}
           {/* <a href="#" className="btn">
             {" "}
