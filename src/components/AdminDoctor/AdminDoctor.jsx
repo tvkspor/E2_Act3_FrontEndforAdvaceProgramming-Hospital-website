@@ -784,7 +784,7 @@ const AdminDoctor = () => {
               ]}
             >
               <WrapperUploadFile onChange={handleOnchangeAvatar} maxCount={1}>
-                <Button>Select File</Button>
+                <Button>Chọn File</Button>
                 {stateDoctor?.avatar && (
                   <img
                     src={stateDoctor?.avatar}
@@ -802,7 +802,7 @@ const AdminDoctor = () => {
             </Form.Item>
             <Form.Item wrapperCol={{ offset: 20, span: 16 }}>
               <Button type="primary" htmlType="submit">
-                Submit
+                Gửi
               </Button>
             </Form.Item>
           </Form>
@@ -934,7 +934,7 @@ const AdminDoctor = () => {
                 onChange={handleOnchangeAvatarDetails}
                 maxCount={1}
               >
-                <Button>Select File</Button>
+                <Button>Chọn File</Button>
                 {stateDoctorDetails?.avatar && (
                   <img
                     src={stateDoctorDetails?.avatar}
@@ -952,7 +952,7 @@ const AdminDoctor = () => {
             </Form.Item>
             <Form.Item wrapperCol={{ offset: 20, span: 16 }}>
               <Button type="primary" htmlType="submit">
-                Apply
+                Thay đổi
               </Button>
             </Form.Item>
           </Form>

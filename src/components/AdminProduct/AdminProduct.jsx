@@ -696,7 +696,7 @@ const AdminProduct = () => {
               ]}
             >
               <WrapperUploadFile onChange={handleOnchangeAvatar} maxCount={1}>
-                <Button>Select File</Button>
+                <Button>Chọn File</Button>
                 {stateProduct?.image && (
                   <img
                     src={stateProduct?.image}
@@ -714,7 +714,7 @@ const AdminProduct = () => {
             </Form.Item>
             <Form.Item wrapperCol={{ offset: 20, span: 16 }}>
               <Button type="primary" htmlType="submit">
-                Submit
+                Gửi
               </Button>
             </Form.Item>
           </Form>
@@ -840,7 +840,7 @@ const AdminProduct = () => {
                 onChange={handleOnchangeAvatarDetails}
                 maxCount={1}
               >
-                <Button>Select File</Button>
+                <Button>Chọn File</Button>
                 {stateProductDetails?.image && (
                   <img
                     src={stateProductDetails?.image}
@@ -858,7 +858,7 @@ const AdminProduct = () => {
             </Form.Item>
             <Form.Item wrapperCol={{ offset: 20, span: 16 }}>
               <Button type="primary" htmlType="submit">
-                Apply
+                Thay đổi
               </Button>
             </Form.Item>
           </Form>

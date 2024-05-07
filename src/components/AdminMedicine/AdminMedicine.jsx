@@ -699,7 +699,7 @@ const AdminMedicine = () => {
                             ]}
                         >
                             <WrapperUploadFile onChange={handleOnchangeAvatar} maxCount={1}>
-                                <Button>Select File</Button>
+                                <Button>Chọn File</Button>
                                 {stateMedicine?.image && (
                                     <img
                                         src={stateMedicine?.image}
@@ -717,7 +717,7 @@ const AdminMedicine = () => {
                         </Form.Item>
                         <Form.Item wrapperCol={{ offset: 20, span: 16 }}>
                             <Button type="primary" htmlType="submit">
-                                Submit
+                                Gửi
                             </Button>
                         </Form.Item>
                     </Form>
@@ -829,7 +829,7 @@ const AdminMedicine = () => {
                                 onChange={handleOnchangeAvatarDetails}
                                 maxCount={1}
                             >
-                                <Button>Select File</Button>
+                                <Button>Chọn File</Button>
                                 {stateMedicineDetails?.image && (
                                     <img
                                         src={stateMedicineDetails?.image}
@@ -847,7 +847,7 @@ const AdminMedicine = () => {
                         </Form.Item>
                         <Form.Item wrapperCol={{ offset: 20, span: 16 }}>
                             <Button type="primary" htmlType="submit">
-                                Apply
+                                Thay đổi
                             </Button>
                         </Form.Item>
                     </Form>

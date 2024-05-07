@@ -394,7 +394,7 @@ const AdminUser = () => {
             form={form}
           >
             <Form.Item
-              label="Name"
+              label="Tên"
               name="name"
               rules={[{ required: true, message: "Please input your name!" }]}
             >
@@ -417,7 +417,7 @@ const AdminUser = () => {
               />
             </Form.Item>
             <Form.Item
-              label="Phone"
+              label="Điện thoại"
               name="phone"
               rules={[{ required: true, message: "Please input your  phone!" }]}
             >
@@ -429,7 +429,7 @@ const AdminUser = () => {
             </Form.Item>
 
             <Form.Item
-              label="Adress"
+              label="Địa chỉ"
               name="address"
               rules={[
                 { required: true, message: "Please input your  address!" },
@@ -443,7 +443,7 @@ const AdminUser = () => {
             </Form.Item>
 
             <Form.Item
-              label="Avatar"
+              label="Ảnh"
               name="avatar"
               rules={[{ required: true, message: "Please input your image!" }]}
             >
@@ -451,7 +451,7 @@ const AdminUser = () => {
                 onChange={handleOnchangeAvatarDetails}
                 maxCount={1}
               >
-                <Button>Select File</Button>
+                <Button>Chọn File</Button>
                 {stateUserDetails?.avatar && (
                   <img
                     src={stateUserDetails?.avatar}
@@ -469,7 +469,7 @@ const AdminUser = () => {
             </Form.Item>
             <Form.Item wrapperCol={{ offset: 20, span: 16 }}>
               <Button type="primary" htmlType="submit">
-                Apply
+                Thay đổi
               </Button>
             </Form.Item>
           </Form>
