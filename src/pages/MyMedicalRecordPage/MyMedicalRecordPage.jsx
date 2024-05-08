@@ -207,9 +207,11 @@ const MyMedicalRecordPage = () => {
       dataIndex: "Medicine",
       render: (Medicine) => (
         <ul>
-          {Medicine.map((item, index) => (
-            <li key={index}>{item.medicinename}</li>
-          ))}
+          {Array.isArray(Medicine) &&
+            Medicine.length > 0 &&
+            Medicine.map((item, index) => (
+              <li key={index}>{item.medicinename}</li>
+            ))}
         </ul>
       ),
     },
