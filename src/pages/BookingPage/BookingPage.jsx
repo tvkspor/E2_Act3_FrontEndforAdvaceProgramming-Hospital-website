@@ -81,7 +81,7 @@ function BookingPage() {
           <div className="box12">
           <div id="birth-day" onChange={handleOnchangeBirth} className="box1">
             Ngày sinh <br/>
-            <input id="birth-day-date" type="date" value={birth} required/>
+            <input id="birth-day-date" type="date" value={birth} required format={DD/MM/YYYY}/>
           </div>
           
           <select
