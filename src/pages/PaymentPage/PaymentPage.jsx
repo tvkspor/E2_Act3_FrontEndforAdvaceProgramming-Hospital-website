@@ -143,7 +143,7 @@ const PaymentPage = () => {
         arrayOrdered.push(element.product);
       });
       dispatch(removeAllOrderProduct({ listChecked: arrayOrdered }));
-      message.success("Đặt hàng thành công");
+      message.success("Đặt dịch vụ thành công");
       // navigate("/orderSuccess", {
       //   state: {
       //     payment,
@@ -314,7 +314,7 @@ const PaymentPage = () => {
                   border: "none",
                   borderRadius: "4px",
                 }}
-                textbutton={"Đặt hàng"}
+                textbutton={"Đặt dịch vụ"}
                 styleTextButton={{
                   color: "#fff",
                   fontSize: "15px",
